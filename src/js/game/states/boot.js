@@ -20,8 +20,8 @@ function addStats(game) {
   stats.setMode(0);
 
   stats.domElement.style.position = 'absolute';
-  stats.domElement.style.right = '0px';
-  stats.domElement.style.top = '0px';
+  stats.domElement.style.right = 'auto';
+  stats.domElement.style.top = 'auto';
 
   document.body.appendChild(stats.domElement);
 

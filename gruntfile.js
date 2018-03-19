@@ -106,7 +106,7 @@ module.exports = function (grunt) {
 
     open: {
       server: {
-        path: 'http://localhost:<%= project.port %>'
+        path: 'http://localhost/idle/idleville/build'
       }
     },
 
@@ -118,7 +118,7 @@ module.exports = function (grunt) {
         length: 5
       },
       files: {
-        src: ['./build/js/app.min.*', './build/index.html']
+        src: ['./build/js/app.min.*', './build/index.php']
       }
     },
 
@@ -131,7 +131,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'build/index.html': ['src/templates/index.jade']
+          'build/index.php': ['src/templates/index.jade']
         }
       }
     },
@@ -158,7 +158,10 @@ module.exports = function (grunt) {
 
     copy: {
       images: {
-        files: [ { expand: true, cwd: 'src/images/', src: ['**'], dest: 'build/images/' } ]
+        files: [ { expand: true, cwd: 'src/images/', src: ['**'], dest: 'build/images/' } ],
+      },
+      fonts: {
+        files: [ { expand: true, cwd: 'src/fonts/', src: ['**'], dest: 'build/fonts/' } ]
       },
       audio: {
         files: [ { expand: true, cwd: 'src/audio/', src: ['**'], dest: 'build/audio/' } ]

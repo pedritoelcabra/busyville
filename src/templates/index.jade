@@ -11,14 +11,18 @@ html
 
     title=properties.title
 
+    <?php function getDirectoryAsArray($dir){ $dir = __DIR__.$dir; $ignored = array('.', '..', '.svn', '.htaccess'); $files = array(); foreach (scandir($dir) as $file) {if (!in_array($file, $ignored) && !is_dir($dir.$file)){ $files[] = $file; }} return $files; }?>
+    <?php echo "<script>var bodyFiles = ["; $arr = getDirectoryAsArray('/images/lpc/body'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var pantFiles = ["; $arr = getDirectoryAsArray('/images/lpc/pant'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var shirtFiles = ["; $arr = getDirectoryAsArray('/images/lpc/shirt'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var hairFiles = ["; $arr = getDirectoryAsArray('/images/lpc/hair'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var houseFiles = ["; $arr = getDirectoryAsArray('/images/lpc/buildings/houses'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var decorFiles = ["; $arr = getDirectoryAsArray('/images/lpc/buildings/decor'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+
     script(src="js/phaser.js")
     script(src="js/app.min.js")
 
-    include analytics.jade
 
   body
     #game
 
-    if (!productionBuild)
-      script.
-        document.write('<script src="//' + window.location.hostname + ':#{properties.liveReloadPort}/livereload.js"><\/script>');
