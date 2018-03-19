@@ -106,7 +106,7 @@ module.exports = function (grunt) {
 
     open: {
       server: {
-        path: 'http://localhost/idle/idleville/build'
+        path: 'http://localhost/busyville/build'
       }
     },
 

@@ -7,7 +7,7 @@ game.create = function () {
 
 game.update = function () {
   if(this.game.input.activePointer.justPressed()) {
-    this.game.state.start('idleville');
+    this.game.state.start('busyville');
   }
-}
+};
 module.exports = game;

@@ -5,7 +5,8 @@ var states = {
   boot: require('./states/boot.js'),
   preloader: require('./states/preloader.js'),
   game: require('./states/game.js'),
-  idleville: require('./states/idleville.js')
+  idleville: require('./states/idleville.js'),
+  busyville: require('./states/busyville.js')
 };
 
 var game = new Phaser.Game("100%", "100%", Phaser.AUTO, 'game');
