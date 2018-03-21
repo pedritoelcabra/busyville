@@ -5,6 +5,7 @@ var House = require('../prefabs/buildings/house');
 var Castle = require('../prefabs/buildings/castle');
 var WatchTower = require('../prefabs/buildings/watchtower');
 var Decor = require('../prefabs/buildings/decor');
+var Townhall = require('../prefabs/buildings/townhall');
 var Randomizer = require('../classes/randomizer');
 
 var BuildingManager = function (game) {
@@ -21,7 +22,8 @@ var BuildingManager = function (game) {
         'Castle' : new Castle(this.game, 0, 0),
         'WatchTower' : new WatchTower(this.game, 0, 0),
         'Decor' : new Decor(this.game, 0, 0),
-    }
+        'Townhall' : new Townhall(this.game, 0, 0),
+    };
 
     this.amountOfHousing = 0;
 
@@ -35,6 +37,7 @@ BuildingManager.prototype.addBuildingByName = function(x, y, name) {
         Math.floor(x / this.game.worldTileSize) * this.game.worldTileSize,
         Math.floor(y / this.game.worldTileSize) * this.game.worldTileSize);
     this.addBuilding(building);
+    return building;
 };
 
 BuildingManager.prototype.addBuilding = function(building) {
@@ -44,7 +47,7 @@ BuildingManager.prototype.addBuilding = function(building) {
     building.init();
     this.game.constructions.push(building);
     this.game.add.existing(building);
-    this.game.units.add(building);
+    this.game.buildings.add(building);
     this.currentConstruction = building;
     if(this.amounts[building.firstName]){
         this.amounts[building.firstName]++;

@@ -86,6 +86,10 @@ Building.prototype.isFinished = function() {
     return this.constructionProgress >= this.constructionCost;
 };
 
+Building.prototype.completeConstruction = function() {
+    this.addConstructionProgress(this.constructionCost - this.constructionProgress);
+};
+
 Building.prototype.addConstructionProgress = function(value) {
     if(!this.isFinished() && value){
         this.constructionProgress += this.constructionSpeed * value;
