@@ -24,9 +24,6 @@ busyville.create = function () {
     this.game.camera.x = this.game.world.centerX - this.game.width / 2;
     this.game.camera.y = this.game.world.centerY - this.game.height / 2;
 
-
-    this.cursors = this.game.input.keyboard.createCursorKeys();
-
     this.game.menus = [];
 
     this.game.buildingManager = new BuildingManager(this.game);
@@ -34,6 +31,9 @@ busyville.create = function () {
     this.game.collisionMap = new CollisionMap(this.game);
 
     this.game.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
+
+    this.game.buildingManager.addBuildingByName(this.game.world.centerX, this.game.world.centerY, "Townhall")
+        .completeConstruction();
 
     this.game.camera.follow(this.game.player);
 
@@ -52,26 +52,15 @@ busyville.drawSinglePixelOnMask = function (x, y) {
 };
 
 busyville.update = function () {
-    this.game.player.movingUp = this.cursors.up.isDown;
-    this.game.player.movingDown = this.cursors.down.isDown;
-    this.game.player.movingLeft = this.cursors.left.isDown;
-    this.game.player.movingRight = this.cursors.right.isDown;
+    this.game.player.movingUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP)
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.Z);
+    this.game.player.movingDown = this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.S);
+    this.game.player.movingLeft = this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.Q);
+    this.game.player.movingRight = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.D);
     return;
-
-    this.updateCameraPosition();
-    if (this.buildingTimer > this.game.buildingInterval) {
-        if (this.game.buildingManager.currentConstruction.isFinished()) {
-            this.game.buildingManager.placeRandomBuilding();
-            this.buildingTimer = 0;
-        }
-        if (this.pawns.length < this.game.startingPawns + Math.sqrt(this.game.buildingManager.amountOfHousing)) {
-            this.addPawn();
-        }
-        if (this.animals.length < this.game.startingAnimals + Math.sqrt(this.game.buildingManager.amountOfHousing)) {
-            this.addAnimal();
-        }
-    }
-    this.buildingTimer++;
 };
 
 busyville.deleteMenus = function () {

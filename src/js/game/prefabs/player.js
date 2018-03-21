@@ -36,6 +36,9 @@ var Player = function (game, x, y) {
     this.equipment.replaceComponent("shirt", Randomizer.arrayRand(shirtFiles));
     this.equipment.replaceComponent("hair", Randomizer.arrayRand(hairFiles));
 
+    this.tileSize = this.game.worldTileSize;
+    this.halfTile = this.game.worldTileSize / 2;
+
     if(this.game.collisionDebug){
 
         var graphics = this.game.add.graphics(0,0);
@@ -108,11 +111,26 @@ Player.prototype.update = function() {
         this.isMoving = true;
     }
 
+    if (this.isMoving && this.movingUp
+        && this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y - 1)) {
+        this.isMoving = false;
+    }
+    if (this.isMoving && this.movingDown
+        && this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y + this.tileSize + 1)) {
+        this.isMoving = false;
+    }
+    if (this.isMoving && this.movingRight
+        && this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y  + this.halfTile)) {
+        this.isMoving = false;
+    }
+    if (this.isMoving && this.movingLeft
+        && this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.halfTile)) {
+        this.isMoving = false;
+    }
+
     if (!oldMoving !== this.isMoving || oldFacing !== this.isFacing) {
         this.setAnimation();
     }
-
-    console.log(this.body);
 
     if (!this.isMoving) {
         this.body.velocity.setTo(0);
