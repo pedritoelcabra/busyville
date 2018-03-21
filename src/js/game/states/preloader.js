@@ -43,11 +43,11 @@ preloader.preload = function () {
     }
 
     this.game.stage.disableVisibilityChange = false;
-    this.game.collisionDebug = false;
+    this.game.collisionDebug = (typeof getVars.collision !== 'undefined');
 
     this.game.startingPawns = 5;
     this.game.startingAnimals = 2;
-    this.game.worldSize = 5;
+    this.game.worldSize = (typeof getVars.size !== 'undefined' ? getVars.size : 5);
 
     this.game.buildingInterval = 200;
     this.game.spaceAroundBuildings = 0;
