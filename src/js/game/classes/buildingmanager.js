@@ -17,11 +17,7 @@ var BuildingManager = function (game) {
     this.currentConstruction = null;
 
     this.availableBuildings = {
-        'CampFire' : new CampFire(this.game, 0, 0),
         'House' : new House(this.game, 0, 0),
-        'Castle' : new Castle(this.game, 0, 0),
-        'WatchTower' : new WatchTower(this.game, 0, 0),
-        'Decor' : new Decor(this.game, 0, 0),
         'Townhall' : new Townhall(this.game, 0, 0),
     };
 

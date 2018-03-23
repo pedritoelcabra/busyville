@@ -5,13 +5,11 @@ var Randomizer = require('../../classes/randomizer');
 
 var House = function (game, x, y) {
 
-    this.firstName = Randomizer.arrayRand(houseFiles);
+    this.firstName = Randomizer.arrayRand(['SmallBrownHouse', 'SmallHouse']);
     Building.call( this, game, x, y, this.firstName);
-
 
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
-
 };
 
 House.prototype = Object.create(Building.prototype);

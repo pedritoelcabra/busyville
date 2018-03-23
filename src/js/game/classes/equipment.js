@@ -20,8 +20,8 @@ var Equipment = function (owner) {
 Equipment.prototype.replaceComponent = function(slot, name){
     this.clearSlot(slot);
     var component = new Clothing(this.game, this.owner, name);
-    component.anchor.y = 0.7;
-    component.anchor.x = 0.35;
+    component.anchor.y = 0.5;
+    component.anchor.x = 0.25;
     this.game.add.existing(component);
     this.owner.addChild(component);
     this.slots[slot] = component;

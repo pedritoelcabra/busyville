@@ -4,6 +4,7 @@ var Randomizer = require('../classes/randomizer');
 var FarmAnimal = require('../prefabs/farmanimal');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
+var GameMenu = require('../prefabs/gamemenu');
 
 var busyville = {};
 
@@ -32,8 +33,11 @@ busyville.create = function () {
 
     this.game.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
 
-    this.game.buildingManager.addBuildingByName(this.game.world.centerX, this.game.world.centerY, "Townhall")
+    this.game.buildingManager
+        .addBuildingByName(this.game.world.centerX - 60, this.game.world.centerY - 180, "Townhall")
         .completeConstruction();
+
+    this.game.gamemenu = new GameMenu(this.game);
 
     this.game.camera.follow(this.game.player);
 

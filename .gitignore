@@ -10,6 +10,8 @@
 *.sublime-project
 *.sublime-workspace
 
+/.idea
+
 # Windows
 Thumbs.db
 

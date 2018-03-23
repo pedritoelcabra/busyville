@@ -65,70 +65,61 @@ Player.prototype = Object.create(Movable.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+    this.updateMovement();
+};
 
-    var oldMoving = this.isMoving;
-    var oldFacing = this.isFacing;
+Player.prototype.updateMovement = function() {
+    this.oldMoving = this.isMoving;
+    this.oldFacing = this.isFacing;
     this.isMoving = false;
 
-    if (this.movingUp && this.movingLeft) {
+    this.blockedLeft = this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.halfTile);
+    this.blockedRight = this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y  + this.halfTile);
+    this.blockedUp = this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y - 1);
+    this.blockedDown = this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y + this.tileSize + 1);
+
+    if (this.movingUp && this.movingLeft && !this.blockedLeft && !this.blockedUp) {
         this.isFacing = 3;
         this.body.velocity.setTo(-this.diagonalSpeed, -this.diagonalSpeed);
         this.isMoving = true;
     }
-    else if (this.movingUp && this.movingRight) {
+    else if (this.movingUp && this.movingRight && !this.blockedUp && !this.blockedRight) {
         this.isFacing = 0;
         this.body.velocity.setTo(this.diagonalSpeed, -this.diagonalSpeed);
         this.isMoving = true;
     }
-    else if (this.movingDown && this.movingRight) {
+    else if (this.movingDown && this.movingRight && !this.blockedDown && !this.blockedRight) {
         this.isFacing = 0;
         this.body.velocity.setTo(this.diagonalSpeed, this.diagonalSpeed);
         this.isMoving = true;
     }
-    else if (this.movingDown && this.movingLeft) {
+    else if (this.movingDown && this.movingLeft && !this.blockedLeft && !this.blockedDown) {
         this.isFacing = 3;
         this.body.velocity.setTo(-this.diagonalSpeed, this.diagonalSpeed);
         this.isMoving = true;
     }
-    else if (this.movingDown) {
+    else if (this.movingDown && !this.blockedDown) {
         this.isFacing = 1.5;
         this.body.velocity.setTo(0, this.moveSpeed);
         this.isMoving = true;
     }
-    else if (this.movingRight) {
+    else if (this.movingRight && !this.blockedRight) {
         this.isFacing = 0;
         this.body.velocity.setTo(this.moveSpeed, 0);
         this.isMoving = true;
     }
-    else if (this.movingLeft) {
+    else if (this.movingLeft && !this.blockedLeft) {
         this.isFacing = 3;
         this.body.velocity.setTo(-this.moveSpeed, 0);
         this.isMoving = true;
     }
-    else if (this.movingUp) {
+    else if (this.movingUp && !this.blockedUp) {
         this.isFacing = -1.5;
         this.body.velocity.setTo(0, -this.moveSpeed);
         this.isMoving = true;
     }
 
-    if (this.isMoving && this.movingUp
-        && this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y - 1)) {
-        this.isMoving = false;
-    }
-    if (this.isMoving && this.movingDown
-        && this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y + this.tileSize + 1)) {
-        this.isMoving = false;
-    }
-    if (this.isMoving && this.movingRight
-        && this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y  + this.halfTile)) {
-        this.isMoving = false;
-    }
-    if (this.isMoving && this.movingLeft
-        && this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.halfTile)) {
-        this.isMoving = false;
-    }
-
-    if (!oldMoving !== this.isMoving || oldFacing !== this.isFacing) {
+    if (!this.oldMoving !== this.isMoving || this.oldFacing !== this.isFacing) {
         this.setAnimation();
     }
 
