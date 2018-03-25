@@ -5,9 +5,19 @@ var Randomizer = require('../../classes/randomizer');
 
 var House = function (game, x, y) {
 
-    this.firstName = Randomizer.arrayRand(['SmallBrownHouse', 'SmallHouse']);
+    this.plotType = '4x5';
+
+    this.roadTiles = [
+        {'x' : 1, 'y' : 5},
+        {'x' : 2, 'y' : 5},
+        {'x' : 1, 'y' : 4},
+        {'x' : 2, 'y' : 4}
+    ];
+
+    this.firstName = Randomizer.arrayRand(['House', 'House1']);
     Building.call( this, game, x, y, this.firstName);
 
+    this.buildingType = 'House';
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
 };

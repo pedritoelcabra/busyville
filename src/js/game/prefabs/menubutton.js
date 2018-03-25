@@ -1,6 +1,8 @@
 'use strict';
 
-var MenuButton = function (type, game, x, y) {
+var MenuButton = function (type, game, parentMenu, x, y) {
+
+    this.parentMenu = parentMenu;
 
     this.buttonType = type;
     this.game = game;
@@ -19,8 +21,12 @@ MenuButton.prototype.constructor = MenuButton;
 MenuButton.prototype.update = function() {
 };
 
+MenuButton.prototype.getType = function() {
+    return this.buttonType;
+};
+
 MenuButton.prototype.clicked = function() {
-    this.game.gamemenu['button_' + this.buttonType]();
+    this.parentMenu['pressedButton'](this);
 };
 
 

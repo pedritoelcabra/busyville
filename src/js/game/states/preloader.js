@@ -21,12 +21,15 @@ preloader.preload = function () {
 
     this.game.farmAnimals = ['sheep', 'pig', 'cow', 'llama', 'chicken'];
 
-    var buttons = GameMenu.buttons();
+    var buttons = GameMenu.gameMenuButtons();
     for (var i = 0; i < buttons.length; i++) {
         this.load.image(buttons[i], 'images/buttons/' + buttons[i] + '.png');
     }
     for (var i = 0; i < this.game.farmAnimals.length; i++) {
         this.load.spritesheet(this.game.farmAnimals[i], 'images/animals/' + this.game.farmAnimals[i] + '.png', 94, 94);
+    }
+    for (var i = 0; i < plotFiles.length; i++) {
+        this.load.image(plotFiles[i], 'images/lpc/plots/' + plotFiles[i] + '.png');
     }
     for (var i = 0; i < houseFiles.length; i++) {
         this.load.image(houseFiles[i], 'images/lpc/buildings/houses/' + houseFiles[i] + '.png');

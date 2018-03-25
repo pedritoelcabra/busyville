@@ -7,15 +7,19 @@ var CollisionMap = function (game) {
     this.passableTiles = [0];
 
     this.collisionArea = [];
+    this.roadTiles = [];
     this.freeSpaceMap = [];
     for(var i = 0; i < this.game.worldTileHeight ; i++){
         var collisionColumn = new Array(this.game.worldTileWidth);
+        var roadColumn = new Array(this.game.worldTileWidth);
         var spaceColumn = new Array(this.game.worldTileWidth);
         for(var t = 0; t < this.game.worldTileWidth ; t++){
             collisionColumn[t] = 0;
+            roadColumn[t] = 0;
             spaceColumn[t] = {'x' : 0, 'y' : 0};
         }
         this.collisionArea.push(collisionColumn);
+        this.roadTiles.push(roadColumn);
         this.freeSpaceMap.push(spaceColumn);
     }
 
@@ -116,11 +120,16 @@ CollisionMap.prototype.spriteIsAtTile = function(x, y, sprite) {
     return (x == this.tileFromPixel(sprite.body.x) && y == this.tileFromPixel(sprite.body.y));
 };
 
-CollisionMap.prototype.collidesPixel = function(y, x) {
-    if(this.collisionArea[this.tileFromPixel(x)][this.tileFromPixel(y)] > 0){
-        return true;
-    }
-    return false;
+CollisionMap.prototype.collidesPixel = function(x, y) {
+    return this.collisionArea[this.tileFromPixel(y)][this.tileFromPixel(x)] > 0;
+};
+
+CollisionMap.prototype.isRoadTile = function(x, y) {
+    return this.roadTiles[x][y] > 0;
+};
+
+CollisionMap.prototype.setRoadTile = function(x, y) {
+    this.roadTiles[x][y] = 1;
 };
 
 CollisionMap.prototype.allowPassingAnyTile = function() {

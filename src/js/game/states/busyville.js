@@ -10,10 +10,11 @@ var busyville = {};
 
 busyville.create = function () {
 
-    this.game.bg = this.game.add.group();
-    this.game.buildings = this.game.add.group();
-    this.game.objects = this.game.add.group();
-    this.game.units = this.game.add.group();
+    this.game.canvas.oncontextmenu = function (e) {
+        e.preventDefault();
+    };
+
+    this.addGroups();
 
     this.bg = this.game.add.tileSprite(0, 0, this.game.worldWidth, this.game.worldHeight, 'bg');
     this.game.bg.add(this.bg);
@@ -38,11 +39,29 @@ busyville.create = function () {
         .completeConstruction();
 
     this.game.gamemenu = new GameMenu(this.game);
+    this.game.gamemenu.buildButtons();
 
     this.game.camera.follow(this.game.player);
 
+    this.game.input.mouse.capture = true;
+
     // this.setUpBuildings();
     // this.setUpPawns();
+};
+
+busyville.addGroups = function () {
+    this.game.bg = this.game.add.group();
+    this.game.world.bringToTop(this.game.bg);
+    this.game.plots = this.game.add.group();
+    this.game.world.bringToTop(this.game.plots);
+    this.game.roads = this.game.add.group();
+    this.game.world.bringToTop(this.game.roads);
+    this.game.buildings = this.game.add.group();
+    this.game.world.bringToTop(this.game.buildings);
+    this.game.objects = this.game.add.group();
+    this.game.world.bringToTop(this.game.objects);
+    this.game.units = this.game.add.group();
+    this.game.world.bringToTop(this.game.units);
 };
 
 busyville.drawSinglePixelOnMask = function (x, y) {
@@ -64,7 +83,8 @@ busyville.update = function () {
      || this.game.input.keyboard.isDown(Phaser.Keyboard.Q);
     this.game.player.movingRight = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
      || this.game.input.keyboard.isDown(Phaser.Keyboard.D);
-    return;
+
+    this.game.buildingManager.update();
 };
 
 busyville.deleteMenus = function () {

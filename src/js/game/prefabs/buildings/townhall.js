@@ -5,6 +5,15 @@ var Randomizer = require('../../classes/randomizer');
 
 var Townhall = function (game, x, y) {
 
+    this.plotType = '6x7';
+
+    this.roadTiles = [
+        {'x' : 3, 'y' : 7},
+        {'x' : 2, 'y' : 7},
+        {'x' : 3, 'y' : 6},
+        {'x' : 2, 'y' : 6}
+    ];
+
     this.firstName = 'Townhall';
     Building.call( this, game, x, y, this.firstName);
 

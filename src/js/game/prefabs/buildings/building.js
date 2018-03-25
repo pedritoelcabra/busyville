@@ -4,6 +4,7 @@ var InfoWindow = require('../../prefabs/infowindow');
 var Randomizer = require('../../classes/randomizer');
 
 var Building = function (game, x, y, type) {
+    this.buildingType = type;
     this.game = game;
     Phaser.Sprite.call( this, game, x, y, type);
     this.constructionCost = this.height;
@@ -20,6 +21,10 @@ Building.prototype.constructor = Building;
 Building.prototype.update = function() {
 };
 
+Building.prototype.getType = function() {
+    return this.buildingType;
+};
+
 Building.prototype.tileX = function() {
     return this.game.collisionMap.tileFromPixel(this.x);
 };
@@ -29,14 +34,30 @@ Building.prototype.tileY = function() {
 };
 
 Building.prototype.tileWidth = function() {
-    return this.game.collisionMap.tileFromPixel(this.width) + 1;
+    return this.game.collisionMap.tileFromPixel(this.width + 1);
 };
 
 Building.prototype.tileHeight = function() {
-    return this.game.collisionMap.tileFromPixel(this.height) + 1;
+    return this.game.collisionMap.tileFromPixel(this.height + 1);
 };
 
 Building.prototype.init = function() {
+
+    if (typeof this.plotType !== 'undefined') {
+        this.plot = new Phaser.Sprite(this.game, this.x, this.y, this.plotType);
+        this.game.add.existing(this.plot);
+        this.game.plots.add(this.plot);
+    }
+
+    if (typeof this.roadTiles !== 'undefined') {
+        for (var i = 0; i < this.roadTiles.length; i++) {
+            this.game.buildingManager.addRoadTile(
+                this.roadTiles[i].x + this.tileX(),
+                this.roadTiles[i].y + this.tileY()
+            );
+        }
+    }
+
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
     this.game.collisionMap.addCollisionObject(this);
@@ -124,6 +145,15 @@ Building.prototype.drawCollisionSquare = function(x,y) {
     graphics.lineStyle(2, 0xFF0000, 1);
     graphics.drawRect( this.game.collisionMap.pixelFromTile(x), this.game.collisionMap.pixelFromTile(y),
         this.game.worldTileSize, this.game.worldTileSize ) ;
+};
+
+Building.prototype.isBlocked = function() {
+    return !this.game.collisionMap.freeSpaceAtLocation(
+        this.game.collisionMap.tileFromPixel(this.x),
+        this.game.collisionMap.tileFromPixel(this.y),
+        this.tileWidth(),
+        this.tileHeight()
+    );
 };
 
 
