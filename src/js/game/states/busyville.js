@@ -76,11 +76,11 @@ busyville.drawSinglePixelOnMask = function (x, y) {
 
 busyville.update = function () {
     this.game.player.movingUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP)
-     || this.game.input.keyboard.isDown(Phaser.Keyboard.Z);
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.W);
     this.game.player.movingDown = this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
      || this.game.input.keyboard.isDown(Phaser.Keyboard.S);
     this.game.player.movingLeft = this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)
-     || this.game.input.keyboard.isDown(Phaser.Keyboard.Q);
+     || this.game.input.keyboard.isDown(Phaser.Keyboard.A);
     this.game.player.movingRight = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
      || this.game.input.keyboard.isDown(Phaser.Keyboard.D);
 
