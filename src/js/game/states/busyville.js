@@ -5,6 +5,7 @@ var FarmAnimal = require('../prefabs/farmanimal');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
 var GameMenu = require('../prefabs/gamemenu');
+var CursorManager = require('../prefabs/cursormanager');
 
 var busyville = {};
 
@@ -28,6 +29,9 @@ busyville.create = function () {
 
     this.game.menus = [];
 
+    this.game.cursorManager = new CursorManager(this.game);
+    this.game.cursorManager.update();
+
     this.game.buildingManager = new BuildingManager(this.game);
 
     this.game.collisionMap = new CollisionMap(this.game);
@@ -38,8 +42,8 @@ busyville.create = function () {
         .addBuildingByName(this.game.world.centerX - 60, this.game.world.centerY - 180, "Townhall")
         .completeConstruction();
 
-    this.game.gamemenu = new GameMenu(this.game);
-    this.game.gamemenu.buildButtons();
+    this.game.gameMenu = new GameMenu(this.game);
+    this.game.gameMenu.buildButtons();
 
     this.game.camera.follow(this.game.player);
 
@@ -75,6 +79,15 @@ busyville.drawSinglePixelOnMask = function (x, y) {
 };
 
 busyville.update = function () {
+
+    this.game.microTime = new Date().getTime();
+    this.game.secondTime = Math.round(this.game.microTime / 1000);
+
+    if (this.game.input.activePointer.rightButton.isDown) {
+        this.game.buildingManager.removeCursorBuilding();
+        this.game.gameMenu.disableDemolish();
+    }
+
     this.game.player.movingUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP)
      || this.game.input.keyboard.isDown(Phaser.Keyboard.W);
     this.game.player.movingDown = this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)

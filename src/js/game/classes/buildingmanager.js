@@ -15,6 +15,8 @@ var BuildingManager = function (game) {
 
     this.game.constructions = [];
 
+    this.queuedForDeletion = [];
+
     this.currentConstruction = null;
 
     this.availableBuildings = {
@@ -35,12 +37,17 @@ BuildingManager.prototype.update = function() {
 
     if (this.cursorBuilding !== false) {
         if (this.game.input.activePointer.rightButton.isDown) {
-            this.removeCursorBuilding();
         }
         else {
             this.updateCursorBuilding();
         }
     }
+
+    for (var i = 0; i < this.queuedForDeletion.length; i++) {
+        this.queuedForDeletion[i].preDestroy();
+        this.queuedForDeletion[i].destroy();
+    }
+    this.queuedForDeletion = [];
 };
 
 BuildingManager.prototype.updateCursorBuilding = function() {
@@ -136,7 +143,7 @@ BuildingManager.prototype.addRoadTile = function(x, y) {
     if (this.game.collisionMap.isRoadTile(x, y)) {
         return;
     }
-    var roadTile = new Phaser.Sprite(
+    var roadTile = new Phaser.Image(
         this.game,
         this.game.collisionMap.pixelFromTile(x),
         this.game.collisionMap.pixelFromTile(y),
@@ -145,6 +152,10 @@ BuildingManager.prototype.addRoadTile = function(x, y) {
     this.game.add.existing(roadTile);
     this.game.roads.add(roadTile);
     this.game.collisionMap.setRoadTile(x, y);
+};
+
+BuildingManager.prototype.queueForDeletion = function(building) {
+    this.queuedForDeletion.push(building);
 };
 
 ///////////////////////////////////////////

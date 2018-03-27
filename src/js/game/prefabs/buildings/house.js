@@ -25,9 +25,6 @@ var House = function (game, x, y) {
 House.prototype = Object.create(Building.prototype);
 House.prototype.constructor = House;
 
-House.prototype.update = function() {
-};
-
 Building.prototype.canBeBuilt = function() {
     return true;
 };

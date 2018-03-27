@@ -12,6 +12,8 @@ preloader.preload = function () {
     this.load.image('closebutton', 'images/closebutton.png');
     this.load.image('castle', 'images/lpc/buildings/castle.png');
     this.load.image('watchtower', 'images/lpc/buildings/watchtower.png');
+    this.load.image('pawnIconEmpty', 'images/lpc/misc/pawnIconEmpty.png');
+    this.load.image('pawnIconFull', 'images/lpc/misc/pawnIconFull.png');
 
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);
@@ -58,7 +60,6 @@ preloader.preload = function () {
     this.game.worldSize = (typeof getVars.size !== 'undefined' ? getVars.size : 5);
 
     this.game.buildingInterval = 200;
-    this.game.spaceAroundBuildings = 0;
     this.game.buildTickAmount = 200;
     this.game.scrollSpeed = 10;
     this.game.worldTileSize = 32;

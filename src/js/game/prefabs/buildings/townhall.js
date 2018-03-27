@@ -14,6 +14,8 @@ var Townhall = function (game, x, y) {
         {'x' : 2, 'y' : 6}
     ];
 
+    this.doorTile = {'x' : 3, 'y' : 7};
+
     this.firstName = 'Townhall';
     Building.call( this, game, x, y, this.firstName);
 
@@ -26,9 +28,6 @@ var Townhall = function (game, x, y) {
 
 Townhall.prototype = Object.create(Building.prototype);
 Townhall.prototype.constructor = Townhall;
-
-Townhall.prototype.update = function() {
-};
 
 Building.prototype.canBeBuilt = function() {
     return true;

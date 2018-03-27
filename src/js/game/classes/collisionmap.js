@@ -8,10 +8,12 @@ var CollisionMap = function (game) {
 
     this.collisionArea = [];
     this.roadTiles = [];
+    this.collisionSquares = [];
     this.freeSpaceMap = [];
     for(var i = 0; i < this.game.worldTileHeight ; i++){
         var collisionColumn = new Array(this.game.worldTileWidth);
         var roadColumn = new Array(this.game.worldTileWidth);
+        var squareColumn = new Array(this.game.worldTileWidth);
         var spaceColumn = new Array(this.game.worldTileWidth);
         for(var t = 0; t < this.game.worldTileWidth ; t++){
             collisionColumn[t] = 0;
@@ -20,6 +22,7 @@ var CollisionMap = function (game) {
         }
         this.collisionArea.push(collisionColumn);
         this.roadTiles.push(roadColumn);
+        this.collisionSquares.push(squareColumn);
         this.freeSpaceMap.push(spaceColumn);
     }
 
@@ -31,21 +34,28 @@ var CollisionMap = function (game) {
 CollisionMap.prototype.constructor = CollisionMap;
 
 CollisionMap.prototype.addCollisionObject = function(sprite) {
-    var offset = this.game.spaceAroundBuildings;
-    var startX = this.tileFromPixel(sprite.body.x) - offset;
-    var startY = this.tileFromPixel(sprite.body.y) - offset;
-    var sizeX = sprite.tileWidth() + offset * 2;
-    var sizeY = sprite.tileHeight() + offset * 2;
+    this.setSpriteCollision(sprite, 1);
+};
+
+CollisionMap.prototype.removeCollisionObject = function(sprite) {
+    this.setSpriteCollision(sprite, 0);
+};
+
+CollisionMap.prototype.setSpriteCollision = function(sprite, value) {
+    var startX = this.tileFromPixel(sprite.body.x);
+    var startY = this.tileFromPixel(sprite.body.y);
+    var sizeX = sprite.tileWidth();
+    var sizeY = sprite.tileHeight();
 
     for(var i = startY; i < startY + sizeY; i++){
         for(var t = startX; t < startX + sizeX; t++){
-            this.collisionArea[i][t] = 1;
+            this.collisionArea[i][t] = value;
             if(this.game.collisionDebug){
-                this.drawCollisionSquare(t,i);
+                this.drawCollisionSquare(t, i, value);
             }
         }
     }
-    this.game.easystar.setGrid(this.collisionArea);
+
     this.updateSpaceMap();
 };
 
@@ -88,11 +98,16 @@ CollisionMap.prototype.updateSpaceMap = function(pixel) {
     }
 };
 
-CollisionMap.prototype.drawCollisionSquare = function(x,y) {
+CollisionMap.prototype.drawCollisionSquare = function(x, y, value) {
+    if (!value) {
+        this.collisionSquares[y][x].destroy();
+        return;
+    }
     var graphics = this.game.add.graphics(0, 0);
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.drawRect( this.pixelFromTile(x), this.pixelFromTile(y),
         this.game.worldTileSize, this.game.worldTileSize ) ;
+    this.collisionSquares[y][x] = graphics;
 };
 
 CollisionMap.prototype.tileFromPixel = function(pixel) {

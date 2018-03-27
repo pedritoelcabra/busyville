@@ -26,7 +26,9 @@ MenuButton.prototype.getType = function() {
 };
 
 MenuButton.prototype.clicked = function() {
-    this.parentMenu['pressedButton'](this);
+    if (this.game.input.activePointer.leftButton.isDown) {
+        this.parentMenu['pressedButton'](this);
+    }
 };
 
 

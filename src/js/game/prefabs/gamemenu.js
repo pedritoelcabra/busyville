@@ -7,6 +7,8 @@ var GameMenu = function (game) {
 
     Menu.call( this, game);
 
+    this.game.demolishingBuildings = false;
+
     this.submenus = {};
 
     this.xoff = 20;
@@ -22,6 +24,10 @@ GameMenu.prototype.update = function() {
 };
 
 GameMenu.prototype.pressedButton = function(button) {
+    if (button.getType() === 'demolish') {
+        this.toggleDemolish();
+        return;
+    }
     if (typeof this.submenus[button.getType() + 'Menu'] === 'undefined') {
         this.buildSubMenu(button);
     }
@@ -47,10 +53,21 @@ GameMenu.prototype.getButtons = function() {
     return this.constructor.gameMenuButtons();
 };
 
+GameMenu.prototype.toggleDemolish = function() {
+    this.game.demolishingBuildings = !this.game.demolishingBuildings;
+    this.game.cursorManager.update();
+};
+
+GameMenu.prototype.disableDemolish = function() {
+    this.game.demolishingBuildings = false;
+    this.game.cursorManager.update();
+};
+
 GameMenu.gameMenuButtons = function() {
     return [
         'system',
-        'building'
+        'building',
+        'demolish'
     ];
 };
 
