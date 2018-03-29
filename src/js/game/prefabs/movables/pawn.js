@@ -25,10 +25,8 @@ var Pawn = function (game, x, y) {
     this.moveSpeed = this.baseSpeed;
 
     this.equipment = new Equipment(this);
-    this.equipment.replaceComponent("body", Randomizer.arrayRand(bodyFiles));
-    this.equipment.replaceComponent("pants", Randomizer.arrayRand(pantFiles));
-    this.equipment.replaceComponent("shirt", Randomizer.arrayRand(shirtFiles));
-    this.equipment.replaceComponent("hair", Randomizer.arrayRand(hairFiles));
+
+    this.equipInitialGear();
 
     if(this.game.collisionDebug){
 
@@ -54,6 +52,23 @@ var Pawn = function (game, x, y) {
 
 Pawn.prototype = Object.create(Movable.prototype);
 Pawn.prototype.constructor = Pawn;
+
+Pawn.prototype.getValidEquipment = function(type) {
+    switch (type) {
+        case 'body' : return bodyFiles;
+        case 'pants' : return pantFiles;
+        case 'shirt' : return shirtFiles;
+        case 'hair' : return hairFiles;
+    }
+    return [];
+};
+
+Pawn.prototype.equipInitialGear = function() {
+    this.equipment.replaceComponent("body", Randomizer.arrayRand(this.getValidEquipment('body')));
+    this.equipment.replaceComponent("pants", Randomizer.arrayRand(this.getValidEquipment('pants')));
+    this.equipment.replaceComponent("shirt", Randomizer.arrayRand(this.getValidEquipment('shirt')));
+    this.equipment.replaceComponent("hair", Randomizer.arrayRand(this.getValidEquipment('hair')));
+};
 
 Pawn.prototype.clicked = function() {
     var window = new InfoWindow(this.game, this);

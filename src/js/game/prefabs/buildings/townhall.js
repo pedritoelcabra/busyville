@@ -1,7 +1,7 @@
 'use strict';
 
 var Building = require('../../prefabs/buildings/building');
-var Pawn = require('../movables/pawn');
+var Worker = require('../movables/worker');
 
 var Townhall = function (game, x, y) {
 
@@ -35,7 +35,7 @@ Townhall.prototype.canBeBuilt = function() {
 };
 
 Townhall.prototype.createInhabitant = function () {
-    return new Pawn(this.game, this.getDoor().x, this.getDoor().y);
+    return new Worker(this.game, this.getDoor().x, this.getDoor().y);
 };
 
 Townhall.prototype.create = function(x,y) {

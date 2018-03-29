@@ -2,7 +2,7 @@
 
 var Building = require('../../prefabs/buildings/building');
 var Randomizer = require('../../classes/randomizer');
-var Pawn = require('../movables/pawn');
+var Worker = require('../movables/worker');
 
 var House = function (game, x, y) {
 
@@ -36,7 +36,7 @@ House.prototype.canBeBuilt = function() {
 };
 
 House.prototype.createInhabitant = function () {
-    return new Pawn(this.game, this.getDoor().x, this.getDoor().y);
+    return new Worker(this.game, this.getDoor().x, this.getDoor().y);
 };
 
 House.prototype.create = function(x,y) {
