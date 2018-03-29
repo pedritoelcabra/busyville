@@ -1,7 +1,7 @@
 
-var Pawn = require('../prefabs/pawn');
+var Pawn = require('../prefabs/movables/pawn');
 var Randomizer = require('../classes/randomizer');
-var FarmAnimal = require('../prefabs/farmanimal');
+var FarmAnimal = require('../prefabs/movables/farmanimal');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
 

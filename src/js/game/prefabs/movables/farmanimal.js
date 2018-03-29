@@ -1,9 +1,9 @@
 'use strict';
 
-var Movable = require('../prefabs/movable');
-var Randomizer = require('../classes/randomizer');
-var InfoWindow = require('../prefabs/infowindow');
-var AnimalBrain = require('../classes/animalbrain');
+var Movable = require('./movable');
+var Randomizer = require('../../classes/randomizer');
+var InfoWindow = require('../infowindow');
+var AnimalBrain = require('../../classes/animalbrain');
 
 var FarmAnimal = function (game, x, y, type) {
 

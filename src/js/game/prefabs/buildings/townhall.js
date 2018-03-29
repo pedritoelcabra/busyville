@@ -1,7 +1,7 @@
 'use strict';
 
 var Building = require('../../prefabs/buildings/building');
-var Randomizer = require('../../classes/randomizer');
+var Pawn = require('../movables/pawn');
 
 var Townhall = function (game, x, y) {
 
@@ -30,8 +30,12 @@ var Townhall = function (game, x, y) {
 Townhall.prototype = Object.create(Building.prototype);
 Townhall.prototype.constructor = Townhall;
 
-Building.prototype.canBeBuilt = function() {
+Townhall.prototype.canBeBuilt = function() {
     return true;
+};
+
+Townhall.prototype.createInhabitant = function () {
+    return new Pawn(this.game, this.getDoor().x, this.getDoor().y);
 };
 
 Townhall.prototype.create = function(x,y) {

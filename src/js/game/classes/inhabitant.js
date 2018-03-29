@@ -1,6 +1,6 @@
 'use strict';
 
-var Pawn = require('../prefabs/pawn');
+var Pawn = require('../prefabs/movables/pawn');
 
 var Inhabitant = function (building, x, y) {
 
@@ -72,8 +72,7 @@ Inhabitant.prototype.addProgress = function(){
 
 Inhabitant.prototype.onFinishInhabitant = function(){
     this.inhabitantProgress = 0;
-    var buildingDoor = this.building.getDoor();
-    this.movable = new Pawn(this.game, buildingDoor.x, buildingDoor.y);
+    this.movable = this.building.createInhabitant();
     this.game.add.existing(this.movable);
 };
 

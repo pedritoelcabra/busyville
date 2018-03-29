@@ -1,6 +1,6 @@
 'use strict';
 
-var CloseButton = require('../prefabs/closebutton');
+var CloseButton = require('./closebutton');
 
 var InfoWindow = function (game, pawn) {
 

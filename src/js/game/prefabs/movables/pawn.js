@@ -1,10 +1,10 @@
 'use strict';
 
-var Movable = require('../prefabs/movable');
-var Randomizer = require('../classes/randomizer');
-var InfoWindow = require('../prefabs/infowindow');
-var HumanBrain = require('../classes/humanbrain');
-var Equipment = require('../classes/equipment');
+var Movable = require('./movable');
+var Randomizer = require('../../classes/randomizer');
+var InfoWindow = require('../infowindow');
+var HumanBrain = require('../../classes/humanbrain');
+var Equipment = require('../../classes/equipment');
 
 var Pawn = function (game, x, y) {
 

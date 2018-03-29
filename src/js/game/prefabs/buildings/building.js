@@ -236,6 +236,10 @@ Building.prototype.getDoor = function () {
     }
 };
 
+Building.prototype.createInhabitant = function () {
+    throw "Called Building.createInhabitant, this should be overridden!";
+};
+
 Building.prototype.setupInhabitantIcons = function () {
     var dummyIcon = new Phaser.Image(
         this.game,
