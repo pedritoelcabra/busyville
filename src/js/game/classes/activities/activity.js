@@ -50,11 +50,20 @@ Activity.prototype.pathIsAvailable = function() {
     return false;
 };
 
+Activity.prototype.isValid = function() {
+    return true;
+};
+
 Activity.prototype.score = function() {
+    if (!this.isValid()) {
+        return -1;
+    }
     // preference is -10 to 10
     var pref = this.preference + 10;
     var random = Math.floor((Math.random() * 100));
-    return random * pref * this.baseweight;
+    var score = random * pref * this.baseweight;
+    console.log('scored ' + this.nameString + ': ' + score);
+    return score;
 };
 
 Activity.prototype.preferenceString = function(){

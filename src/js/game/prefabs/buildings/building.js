@@ -6,6 +6,7 @@ var Inhabitant = require('../../classes/inhabitant');
 
 var Building = function (game, x, y, type) {
 
+    this.doorTile = {'x' : 0, 'y' : 0};
     this.inhabitantSpeed = 10;
     this.currentInhabitant = null;
     this.currentSecond = null;
@@ -18,6 +19,7 @@ var Building = function (game, x, y, type) {
     this.game.physics.arcade.enable(this);
     this.adyacentTiles = [];
     this.inhabitants = [];
+    this.destroyed = false;
     this.maskProgress();
 };
 
@@ -48,11 +50,10 @@ Building.prototype.update = function() {
 };
 
 Building.prototype.preDestroy = function() {
-    this.game.collisionMap.removeCollisionObject(this);
+};
 
-    if (typeof this.plot !== 'undefined') {
-        this.plot.destroy();
-    }
+Building.prototype.isDestroyed = function() {
+    return this.destroyed;
 };
 
 Building.prototype.getType = function() {
@@ -104,7 +105,20 @@ Building.prototype.clicked = function() {
     }
 
     if (this.game.demolishingBuildings) {
-        this.game.buildingManager.queueForDeletion(this);
+
+        this.destroyed = true;
+
+        this.game.collisionMap.removeCollisionObject(this);
+
+        if (typeof this.plot !== 'undefined') {
+            this.plot.destroy();
+        }
+
+        if (typeof this.mask !== 'undefined') {
+            this.mask.destroy();
+        }
+        this.destroy();
+
         return;
     }
 
@@ -212,6 +226,13 @@ Building.prototype.updateInhabitants = function () {
     }
     if (!this.inhabitants.length) {
         this.setupInhabitantIcons();
+    }
+};
+
+Building.prototype.getDoor = function () {
+    return {
+        'x' : this.game.collisionMap.pixelFromTile(this.doorTile.x) + this.x + (this.game.worldTileSize / 2),
+        'y' : this.game.collisionMap.pixelFromTile(this.doorTile.y) + this.y + (this.game.worldTileSize / 2)
     }
 };
 

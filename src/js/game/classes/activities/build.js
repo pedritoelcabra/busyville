@@ -10,7 +10,7 @@ var Build = function (owner) {
     this.targetTile = false;
     this.isBuilding = false;
     this.noAvailableBuildings = false;
-    this.minimumPreference = -10;
+    this.minimumPreference = 0;
     Activity.call(this, owner);
 };
 
@@ -19,6 +19,10 @@ Build.prototype.constructor = Build;
 
 Build.prototype.executeActivity = function() {
     this.noAvailableBuildings = false;
+};
+
+Build.prototype.isValid = function() {
+    return !(this.owner.game.buildingManager.getUnfinishedBuilding() === null);
 };
 
 Build.prototype.executeEnd = function() {
@@ -31,6 +35,9 @@ Build.prototype.executeEnd = function() {
 };
 
 Build.prototype.onUpdate = function() {
+    if(this.targetBuilding && this.targetBuilding.isDestroyed()) {
+        this.targetBuilding = null;
+    }
     if(!this.targetBuilding){
         this.targetBuilding = this.owner.game.buildingManager.getUnfinishedBuilding();
         if(!this.targetBuilding){

@@ -23,10 +23,6 @@ CampFire.prototype.update = function() {
 };
 
 CampFire.prototype.canBeBuilt = function() {
-    if(this.game.buildingManager.amountOfBuildings(this.firstName)
-        >= this.game.buildingManager.amountOfBuildings("all") / 10){
-        return false;
-    }
     return true;
 };
 

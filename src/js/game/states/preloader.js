@@ -57,7 +57,7 @@ preloader.preload = function () {
 
     this.game.startingPawns = 5;
     this.game.startingAnimals = 2;
-    this.game.worldSize = (typeof getVars.size !== 'undefined' ? getVars.size : 5);
+    this.game.worldSize = (typeof getVars.size !== 'undefined' ? getVars.size : 3);
 
     this.game.buildingInterval = 200;
     this.game.buildTickAmount = 200;

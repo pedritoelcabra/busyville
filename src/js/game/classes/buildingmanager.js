@@ -15,20 +15,12 @@ var BuildingManager = function (game) {
 
     this.game.constructions = [];
 
-    this.queuedForDeletion = [];
-
-    this.currentConstruction = null;
-
     this.availableBuildings = {
         'House' : new House(this.game, 0, 0),
         'Townhall' : new Townhall(this.game, 0, 0),
     };
 
     this.cursorBuilding = false;
-
-    this.amountOfHousing = 0;
-
-    this.amounts = {"all" : 0};
 };
 
 BuildingManager.prototype.constructor = BuildingManager;
@@ -42,12 +34,6 @@ BuildingManager.prototype.update = function() {
             this.updateCursorBuilding();
         }
     }
-
-    for (var i = 0; i < this.queuedForDeletion.length; i++) {
-        this.queuedForDeletion[i].preDestroy();
-        this.queuedForDeletion[i].destroy();
-    }
-    this.queuedForDeletion = [];
 };
 
 BuildingManager.prototype.updateCursorBuilding = function() {
@@ -89,13 +75,6 @@ BuildingManager.prototype.addBuilding = function(building) {
     this.game.constructions.push(building);
     this.game.add.existing(building);
     this.game.buildings.add(building);
-    this.currentConstruction = building;
-    if(this.amounts[building.firstName]){
-        this.amounts[building.firstName]++;
-    }else{
-        this.amounts[building.firstName] = 1;
-    }
-    this.amounts["all"]++;
     return building;
 };
 
@@ -129,7 +108,6 @@ BuildingManager.prototype.plantCursorBuilding = function() {
     if (!this.game.input.activePointer.leftButton.isDown) {
         return;
     }
-    console.log(this.cursorBuilding.getType());
     this.addBuildingByName(this.cursorBuilding.x, this.cursorBuilding.y, this.cursorBuilding.getType());
 };
 
@@ -154,87 +132,14 @@ BuildingManager.prototype.addRoadTile = function(x, y) {
     this.game.collisionMap.setRoadTile(x, y);
 };
 
-BuildingManager.prototype.queueForDeletion = function(building) {
-    this.queuedForDeletion.push(building);
-};
-
-///////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-BuildingManager.prototype.placeRandomBuilding = function() {
-    var buildings = this.getAvailableBuildingNames();
-    var buildingName = Randomizer.arrayRand(buildings);
-    var building = this.availableBuildings[buildingName].create(0,0);
-    building = this.tryToFindSuitablePositionForBuilding(building);
-    this.addBuilding(building);
-};
-
-BuildingManager.prototype.tryToFindSuitablePositionForBuilding = function(building) {
-    var sizeX = building.tileWidth();
-    var sizeY = building.tileHeight();
-    var x, y;
-    var xDist, yDist;
-    var bestpos = null;
-    var bestScore = 999999;
-    var currentScore = 0;
-    for(var i = 0; i < this.game.buildingPositionIterations; i++){
-        x = Math.floor(Math.random() * (this.game.worldWidth  - building.width - this.game.worldTileSize*4))
-            + (this.game.worldTileSize*2);
-        y = Math.floor(Math.random() * (this.game.worldHeight - building.height - this.game.worldTileSize*4))
-            + (this.game.worldTileSize*2);
-        if(this.game.collisionMap.freeSpaceAtLocation(
-            this.game.collisionMap.tileFromPixel(x) - 2,
-            this.game.collisionMap.tileFromPixel(y) - 2,
-                sizeX + 4 , sizeY + 4)){
-
-            xDist = Math.abs(this.game.worldWidth / 2 - x);
-            yDist = Math.abs(this.game.worldHeight / 2 - y);
-            currentScore = Math.sqrt((xDist * xDist) + (yDist * yDist));
-            if(currentScore < bestScore){
-                bestScore = currentScore;
-                bestpos = { "x": x, "y": y};
-            }
-        }
-    }
-    if(!bestpos){
-        return bestpos;
-    }
-    building.body.x = bestpos.x;
-    building.body.y = bestpos.y;
-    building.x = bestpos.x;
-    building.y = bestpos.y;
-    return building;
-};
-
-BuildingManager.prototype.amountOfBuildings = function(type) {
-    return this.amounts[type];
-};
-
 BuildingManager.prototype.getUnfinishedBuilding = function() {
     for (var i = 0; i < this.game.constructions.length; i++) {
-        if(!this.game.constructions[i].isFinished()){
+        if(!this.game.constructions[i].isFinished() && !this.game.constructions[i].isDestroyed()){
             return this.game.constructions[i];
         }
     }
     return null;
 };
-
 
 
 module.exports = BuildingManager;

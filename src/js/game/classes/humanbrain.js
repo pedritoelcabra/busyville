@@ -14,10 +14,12 @@ var HumanBrain = function (owner) {
     ActivityBrain.call();
 
     this.activities = [
+        new Build(this.owner)
+    ];
+
+    this.idleActivities = [
         new Wander(this.owner),
-        new Idle(this.owner),
-        new Jog(this.owner),
-        new Build(this.owner),
+        new Idle(this.owner)
     ];
 };
 

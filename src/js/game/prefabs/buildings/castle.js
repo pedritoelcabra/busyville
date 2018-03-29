@@ -20,12 +20,6 @@ Castle.prototype.update = function() {
 };
 
 Castle.prototype.canBeBuilt = function() {
-    if(this.game.buildingManager.amountOfBuildings(this.firstName) > 0){
-        return false;
-    }
-    if(this.game.buildingManager.amountOfBuildings("all") < 50){
-        return false;
-    }
     return true;
 };
 

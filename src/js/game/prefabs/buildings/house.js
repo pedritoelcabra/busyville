@@ -17,6 +17,11 @@ var House = function (game, x, y) {
     this.firstName = Randomizer.arrayRand(['House', 'House1']);
     Building.call( this, game, x, y, this.firstName);
 
+    this.doorTile = {'x' : 1, 'y' : 5};
+
+    this.housing = 1;
+    this.inhabitantCost = 20;
+
     this.buildingType = 'House';
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);

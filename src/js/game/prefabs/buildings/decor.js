@@ -25,9 +25,6 @@ Decor.prototype.create = function(x,y) {
 };
 
 Decor.prototype.canBeBuilt = function() {
-    if(this.game.buildingManager.amountOfBuildings("all") < 10){
-        return false;
-    }
     return true;
 };
 

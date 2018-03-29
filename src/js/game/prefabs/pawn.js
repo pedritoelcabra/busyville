@@ -103,11 +103,11 @@ Pawn.prototype.setAnimation = function(){
             this.playAnimation('stillleft', 1, false);
         }
     }
-}
+};
 
 Pawn.prototype.playAnimation = function(animation, framerate, repeat){
     this.equipment.playAnimation(animation, framerate, repeat);
-}
+};
 
 module.exports = Pawn;
 
