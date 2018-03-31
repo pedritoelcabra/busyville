@@ -1,13 +1,9 @@
 'use strict';
 
-var CampFire = require('../prefabs/buildings/campfire');
 var House = require('../prefabs/buildings/house');
 var Road = require('../prefabs/buildings/road');
-var Castle = require('../prefabs/buildings/castle');
 var WatchTower = require('../prefabs/buildings/watchtower');
-var Decor = require('../prefabs/buildings/decor');
-var Townhall = require('../prefabs/buildings/townhall');
-var Randomizer = require('../classes/randomizer');
+var TownHall = require('../prefabs/buildings/townhall');
 
 var BuildingManager = function (game) {
 
@@ -17,7 +13,8 @@ var BuildingManager = function (game) {
 
     this.availableBuildings = {
         'House' : new House(this.game, 0, 0),
-        'Townhall' : new Townhall(this.game, 0, 0),
+        'Townhall' : new TownHall(this.game, 0, 0),
+        'WatchTower' : new WatchTower(this.game, 0, 0)
     };
 
     this.cursorBuilding = false;
@@ -64,6 +61,7 @@ BuildingManager.prototype.getAvailableBuildingNames = function() {
             }
         }
     }
+    console.log(available);
     return available;
 };
 

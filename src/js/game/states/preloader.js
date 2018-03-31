@@ -10,16 +10,12 @@ preloader.preload = function () {
     this.load.image('splash', 'images/splash.png');
     this.load.image('infowindow', 'images/infowindow.png');
     this.load.image('closebutton', 'images/closebutton.png');
-    this.load.image('castle', 'images/lpc/buildings/castle.png');
-    this.load.image('watchtower', 'images/lpc/buildings/watchtower.png');
     this.load.image('pawnIconEmpty', 'images/lpc/misc/pawnIconEmpty.png');
     this.load.image('pawnIconFull', 'images/lpc/misc/pawnIconFull.png');
 
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);
     this.load.spritesheet('campfire', 'images/lpc/buildings/campfire.png', 38, 74);
-
-    this.load.spritesheet('woodwand', 'images/lpc/weapons/woodwand_male.png', 64, 64);
 
     this.game.farmAnimals = ['sheep', 'pig', 'cow', 'llama', 'chicken'];
 
@@ -50,6 +46,9 @@ preloader.preload = function () {
     }
     for (var i = 0; i < hairFiles.length; i++) {
         this.load.spritesheet(hairFiles[i], 'images/lpc/hair/' + hairFiles[i] + '.png', 64, 64);
+    }
+    for (var i = 0; i < accessoryFiles.length; i++) {
+        this.load.spritesheet(accessoryFiles[i], 'images/lpc/accessories/' + accessoryFiles[i] + '.png', 64, 64);
     }
 
     this.game.stage.disableVisibilityChange = false;

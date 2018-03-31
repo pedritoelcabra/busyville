@@ -61,7 +61,7 @@ var Player = function (game, x, y) {
     this.game.units.add(this);
 };
 
-Player.prototype = Object.create(Movable.prototype);
+Player.prototype = Object.create(Pawn.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
@@ -176,11 +176,11 @@ Player.prototype.setAnimation = function(){
             this.playAnimation('stillleft', 1, false);
         }
     }
-}
+};
 
 Player.prototype.playAnimation = function(animation, framerate, repeat){
     this.equipment.playAnimation(animation, framerate, repeat);
-}
+};
 
 module.exports = Player;
 

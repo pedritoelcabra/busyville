@@ -184,7 +184,9 @@ Building.prototype.onFinishedConstruction = function() {
 
 Building.prototype.maskProgress = function() {
     if(this.isFinished()){
-        this.mask.destroy();
+        if(this.mask){
+            this.mask.destroy();
+        }
         return;
     }
     var mask = this.game.add.graphics(this.x, this.y);

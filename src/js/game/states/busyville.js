@@ -39,7 +39,7 @@ busyville.create = function () {
     this.game.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
 
     this.game.buildingManager
-        .addBuildingByName(this.game.world.centerX - 60, this.game.world.centerY - 180, "Townhall")
+        .addBuildingByName(this.game.world.centerX - 60, this.game.world.centerY - 180, "TownHall")
         .completeConstruction();
 
     this.game.gameMenu = new GameMenu(this.game);
