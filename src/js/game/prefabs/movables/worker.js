@@ -12,14 +12,18 @@ Worker.prototype.constructor = Worker;
 
 Worker.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'body' : return [
-            'dark',
-            'light',
-            'tanned'
-        ];
-        case 'pants' : return pantFiles;
-        case 'shirt' : return shirtFiles;
-        case 'hair' : return hairFiles;
+        case 'body':
+            return [
+                'dark',
+                'light',
+                'tanned'
+            ];
+        case 'pants':
+            return pantFiles;
+        case 'shirt':
+            return shirtFiles;
+        case 'hair':
+            return hairFiles;
     }
     return [];
 };
