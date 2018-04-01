@@ -1,9 +1,7 @@
 'use strict';
 
-var Idle = require('../classes/activities/idle');
-
-var ActivityBrain = function () {
-
+var ActivityBrain = function (owner) {
+    this.activities = [];
 };
 
 ActivityBrain.prototype.chooseActivity = function(baseActivity){

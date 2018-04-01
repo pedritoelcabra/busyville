@@ -1,3 +1,4 @@
+
 var Pawn = require('../prefabs/movables/pawn');
 var Player = require('../prefabs/movables/player');
 var Randomizer = require('../classes/randomizer');
@@ -15,7 +16,7 @@ busyville.create = function () {
         e.preventDefault();
     };
 
-    this.addGroups();
+    this.game.stateManager.addGroups();
 
     this.bg = this.game.add.tileSprite(0, 0, this.game.worldWidth, this.game.worldHeight, 'bg');
     this.game.bg.add(this.bg);
@@ -42,30 +43,13 @@ busyville.create = function () {
         .addBuildingByName(this.game.world.centerX - 60, this.game.world.centerY - 180, "TownHall")
         .completeConstruction();
 
+
     this.game.gameMenu = new GameMenu(this.game);
     this.game.gameMenu.buildButtons();
 
     this.game.camera.follow(this.game.player);
 
     this.game.input.mouse.capture = true;
-
-    // this.setUpBuildings();
-    // this.setUpPawns();
-};
-
-busyville.addGroups = function () {
-    this.game.bg = this.game.add.group();
-    this.game.world.bringToTop(this.game.bg);
-    this.game.plots = this.game.add.group();
-    this.game.world.bringToTop(this.game.plots);
-    this.game.roads = this.game.add.group();
-    this.game.world.bringToTop(this.game.roads);
-    this.game.buildings = this.game.add.group();
-    this.game.world.bringToTop(this.game.buildings);
-    this.game.objects = this.game.add.group();
-    this.game.world.bringToTop(this.game.objects);
-    this.game.units = this.game.add.group();
-    this.game.world.bringToTop(this.game.units);
 };
 
 busyville.drawSinglePixelOnMask = function (x, y) {

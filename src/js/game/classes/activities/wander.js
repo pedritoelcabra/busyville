@@ -12,29 +12,25 @@ var Wander = function (owner) {
 Wander.prototype = Object.create(Activity.prototype);
 Wander.prototype.constructor = Wander;
 
-Wander.prototype.executeActivity = function() {
+Wander.prototype.executeActivity = function () {
     this.owner.moveToRandomPosition();
 };
 
-Wander.prototype.executeEnd = function() {
+Wander.prototype.executeEnd = function () {
     this.owner.stopMovement();
 };
 
-Wander.prototype.onUpdate = function() {
-    if( this.pathIsAvailable() ){
+Wander.prototype.onUpdate = function () {
+    if (this.pathIsAvailable()) {
         this.owner.walkPath();
-        return;
     }
 };
 
-Wander.prototype.checkIfEnded = function() {
-    if(!this.pathIsAvailable()){
+Wander.prototype.checkIfEnded = function () {
+    if (!this.pathIsAvailable()) {
         return true;
     }
-    if(this.timeInAction > this.maxTimeInAction){
-        return true;
-    }
-    return false;
+    return this.timeInAction > this.maxTimeInAction;
 };
 
 module.exports = Wander;

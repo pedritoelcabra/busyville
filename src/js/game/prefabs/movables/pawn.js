@@ -3,12 +3,14 @@
 var Movable = require('./movable');
 var Randomizer = require('../../classes/randomizer');
 var InfoWindow = require('../infowindow');
-var HumanBrain = require('../../classes/humanbrain');
+var WorkerBrain = require('../../classes/workerbrain');
 var Equipment = require('../../classes/equipment');
 
 var Pawn = function (game, x, y) {
 
     Movable.call( this, game, x, y, 'pawn');
+
+    this.sex = Math.random() > 0.5;
 
     this.csBetweenAnimation = 12;
 
@@ -40,11 +42,10 @@ var Pawn = function (game, x, y) {
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
 
-    this.activityBrain = new HumanBrain(this);
-
-    this.sex = Math.random() > 0.5;
     this.firstName = this.sex ? Randomizer.firstMaleName() : Randomizer.firstFemaleName();
     this.lastName = Randomizer.lastName();
+
+    this.setBrain();
     this.setActivity(this.activityBrain.chooseActivity(true));
 
     this.game.units.add(this);
@@ -53,12 +54,31 @@ var Pawn = function (game, x, y) {
 Pawn.prototype = Object.create(Movable.prototype);
 Pawn.prototype.constructor = Pawn;
 
+Pawn.prototype.setBrain = function() {
+    this.activityBrain = new WorkerBrain(this);
+};
+
 Pawn.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'body' : return bodyFiles;
-        case 'pants' : return pantFiles;
-        case 'shirt' : return shirtFiles;
-        case 'hair' : return hairFiles;
+        case 'body':
+            return [
+                'dark2',
+                'dark',
+                'light',
+                'tanned2',
+                'tanned'
+            ];
+        case 'pants':
+            return pantFiles;
+        case 'shirt':
+            return [
+                'brown_longsleeve',
+                'maroon_longsleeve',
+                'teal_longsleeve',
+                'white_longsleeve'
+            ];
+        case 'hair':
+            return hairFiles;
     }
     return [];
 };
@@ -68,6 +88,9 @@ Pawn.prototype.equipInitialGear = function() {
     this.equipment.replaceComponent("pants", Randomizer.arrayRand(this.getValidEquipment('pants')));
     this.equipment.replaceComponent("shirt", Randomizer.arrayRand(this.getValidEquipment('shirt')));
     this.equipment.replaceComponent("hair", Randomizer.arrayRand(this.getValidEquipment('hair')));
+    this.equipment.replaceComponent("head", Randomizer.arrayRand(this.getValidEquipment('head')));
+    this.equipment.replaceComponent("feet", Randomizer.arrayRand(this.getValidEquipment('feet')));
+    this.equipment.replaceComponent("weapon", Randomizer.arrayRand(this.getValidEquipment('weapon')));
 };
 
 Pawn.prototype.clicked = function() {

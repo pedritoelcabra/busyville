@@ -44,10 +44,7 @@ Activity.prototype.update = function() {
 };
 
 Activity.prototype.pathIsAvailable = function() {
-    if( (this.owner.pendingPath && this.owner.pendingPath.length > 0) || this.owner.pathFinding){
-        return true;
-    }
-    return false;
+    return ((this.owner.pendingPath && this.owner.pendingPath.length > 0) || this.owner.pathFinding);
 };
 
 Activity.prototype.isValid = function() {
@@ -61,9 +58,7 @@ Activity.prototype.score = function() {
     // preference is -10 to 10
     var pref = this.preference + 10;
     var random = Math.floor((Math.random() * 100));
-    var score = random * pref * this.baseweight;
-    console.log('scored ' + this.nameString + ': ' + score);
-    return score;
+    return random * pref * this.baseweight;
 };
 
 Activity.prototype.preferenceString = function(){
@@ -80,6 +75,6 @@ Activity.prototype.preferenceString = function(){
         return "Dislikes " + this.nameString;
     }
     return "Detests " + this.nameString;
-}
+};
 
 module.exports = Activity;

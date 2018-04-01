@@ -12,8 +12,8 @@ var Idle = function (owner) {
 Idle.prototype = Object.create(Activity.prototype);
 Idle.prototype.constructor = Idle;
 
-Idle.prototype.checkIfEnded = function() {
-    if(this.timeInAction > this.maxTimeInAction){
+Idle.prototype.checkIfEnded = function () {
+    if (this.timeInAction > this.maxTimeInAction) {
         return true;
     }
     return false;

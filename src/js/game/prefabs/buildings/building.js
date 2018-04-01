@@ -250,13 +250,13 @@ Building.prototype.setupInhabitantIcons = function () {
         'pawnIconEmpty'
     );
     var iconWidth = dummyIcon.width;
-    var currentLeftX = this.width / 2;
+    var currentLeftX = this.width / 2 - iconWidth;
     var currentRightX = currentLeftX + iconWidth / 2;
     var currentY = dummyIcon.height + 5;
     for (var i = 0; i < this.housing; i++) {
         if (!i && this.housing % 2) {
-            currentLeftX -= iconWidth / 2;
-            currentRightX -= iconWidth / 2;
+            currentLeftX += (iconWidth / 2);
+            currentRightX += (iconWidth / 2);
         }
         var inhabitant = new Inhabitant(
             this,

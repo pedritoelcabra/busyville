@@ -36,6 +36,9 @@ Randomizer.lastName = function() {
 };
 
 Randomizer.arrayRand = function(array) {
+    if (!array.length) {
+        return 0;
+    }
     return array[Math.floor(Math.random() * array.length)];
 };
 

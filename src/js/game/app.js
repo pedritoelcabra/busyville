@@ -5,6 +5,7 @@ var states = {
     boot: require('./states/boot.js'),
     preloader: require('./states/preloader.js'),
     game: require('./states/game.js'),
+    charcreation: require('./states/charcreation.js'),
     busyville: require('./states/busyville.js')
 };
 

@@ -14,7 +14,7 @@ var Townhall = function (game, x, y) {
         {'x' : 2, 'y' : 6}
     ];
 
-    this.firstName = 'Townhall';
+    this.firstName = 'TownHall';
     Building.call( this, game, x, y, this.firstName);
 
     this.doorTile = {'x' : 2, 'y' : 7};

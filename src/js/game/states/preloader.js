@@ -1,6 +1,7 @@
 var preloader = {};
 
 var GameMenu = require('../prefabs/gamemenu');
+var StateManager = require('../states/statemanager');
 var easystarjs = require('easystarjs');
 
 preloader.preload = function () {
@@ -15,7 +16,6 @@ preloader.preload = function () {
 
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);
-    this.load.spritesheet('campfire', 'images/lpc/buildings/campfire.png', 38, 74);
 
     this.game.farmAnimals = ['sheep', 'pig', 'cow', 'llama', 'chicken'];
 
@@ -75,10 +75,10 @@ preloader.preload = function () {
         "Idling": 5,
         "Jogging": 1,
         "Building": 5,
-        "Eating": 5,
-    }
+        "Eating": 5
+    };
 
-
+    this.game.stateManager = new StateManager(this.game);
 };
 
 preloader.create = function () {

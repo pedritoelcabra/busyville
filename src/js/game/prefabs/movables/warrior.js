@@ -1,6 +1,7 @@
 'use strict';
 
 var Pawn = require('./pawn');
+var WarriorBrain = require('../../classes/warriorbrain');
 
 var Warrior = function (game, x, y) {
 
@@ -12,35 +13,22 @@ Warrior.prototype.constructor = Warrior;
 
 Warrior.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'body':
-            return [
-                'dark',
-                'light',
-                'tanned'
-            ];
-        case 'pants':
-            return pantFiles;
         case 'shirt':
-            if (this.sex) {
-                return ['leather_male'];
-            }
-            return ['leather_female'];
-        case 'hair':
-            return hairFiles;
+            return ['leather'];
         case 'weapon':
             return ['spear'];
         case 'head':
-            if (this.sex) {
-                return ['leather_cap_male'];
-            }
-            return ['leather_cap_female'];
+            return ['chainhat'];
         case 'feet':
-            if (this.sex) {
-                return ['black_shoes_male'];
-            }
-            return ['black_shoes_female'];
+            return ['black_shoes'];
+        case 'hair':
+            return [];
     }
-    return [];
+    return Pawn.prototype.getValidEquipment.call(this, type);
+};
+
+Warrior.prototype.setBrain = function() {
+    this.activityBrain = new WarriorBrain(this);
 };
 
 module.exports = Warrior;

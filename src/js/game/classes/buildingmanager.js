@@ -13,7 +13,7 @@ var BuildingManager = function (game) {
 
     this.availableBuildings = {
         'House' : new House(this.game, 0, 0),
-        'Townhall' : new TownHall(this.game, 0, 0),
+        'TownHall' : new TownHall(this.game, 0, 0),
         'WatchTower' : new WatchTower(this.game, 0, 0)
     };
 

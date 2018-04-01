@@ -10,24 +10,6 @@ var Worker = function (game, x, y) {
 Worker.prototype = Object.create(Pawn.prototype);
 Worker.prototype.constructor = Worker;
 
-Worker.prototype.getValidEquipment = function(type) {
-    switch (type) {
-        case 'body':
-            return [
-                'dark',
-                'light',
-                'tanned'
-            ];
-        case 'pants':
-            return pantFiles;
-        case 'shirt':
-            return shirtFiles;
-        case 'hair':
-            return hairFiles;
-    }
-    return [];
-};
-
 module.exports = Worker;
 
 

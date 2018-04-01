@@ -2,16 +2,15 @@
 
 var Idle = require('../classes/activities/idle');
 var Wander = require('../classes/activities/wander');
-var Jog = require('../classes/activities/jog');
 var Build = require('../classes/activities/build');
 
 var ActivityBrain = require('../classes/activitybrain');
 
-var HumanBrain = function (owner) {
+var WorkerBrain = function (owner) {
 
     this.owner = owner;
 
-    ActivityBrain.call();
+    ActivityBrain.call(this);
 
     this.activities = [
         new Build(this.owner)
@@ -23,9 +22,9 @@ var HumanBrain = function (owner) {
     ];
 };
 
-HumanBrain.prototype = Object.create(ActivityBrain.prototype);
-HumanBrain.prototype.constructor = HumanBrain;
+WorkerBrain.prototype = Object.create(ActivityBrain.prototype);
+WorkerBrain.prototype.constructor = WorkerBrain;
 
-module.exports = HumanBrain;
+module.exports = WorkerBrain;
 
 
