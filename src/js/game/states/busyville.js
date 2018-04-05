@@ -5,7 +5,7 @@ var Randomizer = require('../classes/randomizer');
 var FarmAnimal = require('../prefabs/movables/farmanimal');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
-var GameMenu = require('../prefabs/gamemenu');
+var GameMenu = require('../classes/menus/gamemenu');
 var CursorManager = require('../prefabs/cursormanager');
 
 var busyville = {};
@@ -69,8 +69,7 @@ busyville.update = function () {
     this.game.secondTime = Math.round(this.game.microTime / 1000);
 
     if (this.game.input.activePointer.rightButton.isDown) {
-        this.game.buildingManager.removeCursorBuilding();
-        this.game.gameMenu.disableDemolish();
+        this.game.gameMenu.rightButtonClicked();
     }
 
     this.game.player.movingUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP)

@@ -1,6 +1,6 @@
 
 var DummyCharacter = require('../prefabs/movables/dummycharacter');
-var MenuButton = require('../prefabs/menubutton');
+var MenuButton = require('../classes/menus/menubutton');
 
 var charcreation = {};
 

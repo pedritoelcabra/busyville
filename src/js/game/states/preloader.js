@@ -1,6 +1,6 @@
 var preloader = {};
 
-var GameMenu = require('../prefabs/gamemenu');
+var GameMenu = require('../classes/menus/gamemenu');
 var StateManager = require('../states/statemanager');
 var easystarjs = require('easystarjs');
 

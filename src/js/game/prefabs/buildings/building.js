@@ -1,6 +1,6 @@
 'use strict';
 
-var InfoWindow = require('../../prefabs/infowindow');
+var InfoWindow = require('../../classes/menus/infowindow');
 var Randomizer = require('../../classes/randomizer');
 var Inhabitant = require('../../classes/inhabitant');
 

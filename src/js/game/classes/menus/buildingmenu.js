@@ -1,6 +1,6 @@
 'use strict';
 
-var Menu = require('../prefabs/menu');
+var Menu = require('./menu');
 
 var BuildingMenu = function (game) {
 

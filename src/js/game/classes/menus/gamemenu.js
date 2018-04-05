@@ -1,7 +1,7 @@
 'use strict';
 
-var Menu = require('../prefabs/menu');
-var BuildingMenu = require('../prefabs/buildingmenu');
+var Menu = require('./menu');
+var BuildingMenu = require('./buildingmenu');
 
 var GameMenu = function (game) {
 
@@ -46,7 +46,20 @@ GameMenu.prototype.buildSubMenu = function(button) {
     newMenu.setY(this.yoff + this.buttonSeparation + this.buttonSeparation + button.height);
     newMenu.buildButtons();
     newMenu.hideMenu();
+
     this.submenus[button.getType() + 'Menu'] = newMenu;
+};
+
+GameMenu.prototype.rightButtonClicked = function() {
+    this.game.buildingManager.removeCursorBuilding();
+    this.hideAllMenus();
+    this.disableDemolish();
+};
+
+GameMenu.prototype.hideAllMenus = function() {
+    for (var key in this.submenus) {
+        this.submenus[key].hideMenu();
+    }
 };
 
 GameMenu.prototype.getButtons = function() {

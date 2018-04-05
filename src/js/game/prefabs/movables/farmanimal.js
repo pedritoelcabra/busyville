@@ -2,7 +2,7 @@
 
 var Movable = require('./movable');
 var Randomizer = require('../../classes/randomizer');
-var InfoWindow = require('../infowindow');
+var InfoWindow = require('../../classes/menus/infowindow');
 var AnimalBrain = require('../../classes/animalbrain');
 
 var FarmAnimal = function (game, x, y, type) {

@@ -61,7 +61,6 @@ BuildingManager.prototype.getAvailableBuildingNames = function() {
             }
         }
     }
-    console.log(available);
     return available;
 };
 
@@ -90,10 +89,11 @@ BuildingManager.prototype.setCursorBuilding = function(type) {
 
 BuildingManager.prototype.removeCursorBuilding = function() {
     if (!this.cursorBuilding) {
-        return;
+        return false;
     }
     this.cursorBuilding.destroy();
     this.cursorBuilding = false;
+    return true;
 };
 
 BuildingManager.prototype.plantCursorBuilding = function() {

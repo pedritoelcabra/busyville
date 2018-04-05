@@ -2,7 +2,7 @@
 
 var Movable = require('./movable');
 var Randomizer = require('../../classes/randomizer');
-var InfoWindow = require('../infowindow');
+var InfoWindow = require('../../classes/menus/infowindow');
 var WorkerBrain = require('../../classes/workerbrain');
 var Equipment = require('../../classes/equipment');
 
