@@ -12,8 +12,6 @@ CursorManager.prototype.setStandard = function () {
 };
 
 CursorManager.prototype.setDemolish = function () {
-
-    console.log('dem');
     this.game.canvas.style.cursor = "url('images/buttons/mouse_delete.png'), pointer";
 };
 
