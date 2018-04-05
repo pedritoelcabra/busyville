@@ -12,11 +12,11 @@ Item.prototype.getName = function() {
     return this.name;
 };
 
-Item.prototype.getSlot= function() {
+Item.prototype.getSlot = function() {
     return this.slot;
 };
 
-Item.prototype.getGraphic= function() {
+Item.prototype.getGraphic = function() {
     return this.graphic;
 };
 

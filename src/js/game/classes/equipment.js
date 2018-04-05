@@ -16,18 +16,58 @@ var Equipment = function (owner) {
         "weapon": null,
         "head": null,
         "feet": null
-    }
+    };
+
+    this.defaults = {
+        "body": null,
+        "pants": null,
+        "shirt": null,
+        "hair": null,
+        "accessory": null,
+        "weapon": null,
+        "head": null,
+        "feet": null
+    };
+
+    this.items = {
+        "body": null,
+        "pants": null,
+        "shirt": null,
+        "hair": null,
+        "accessory": null,
+        "weapon": null,
+        "head": null,
+        "feet": null
+    };
 };
 
 Equipment.prototype.replaceComponent = function (slot, name) {
+    if (typeof name === 'object') {
+        this.equipItem(name);
+        return;
+    }
+    if (typeof slot === 'object') {
+        this.equipItem(slot);
+        return;
+    }
+    this.equipSlot(slot, name);
+};
+
+
+Equipment.prototype.equipSlot = function (slot, name) {
 
     if (!name) {
         return;
     }
+
+    this.items[slot] = null;
+
     if (this.hasSlotEquipped(slot)) {
         this.slots[slot].replaceTexture(name);
         return;
     }
+    console.log(slot);
+    console.log(name);
 
     var component = new Clothing(this.game, this.owner, name);
     component.anchor.y = 0.5;
@@ -36,6 +76,37 @@ Equipment.prototype.replaceComponent = function (slot, name) {
     this.game.add.existing(component);
     this.owner.addChild(component);
     this.slots[slot] = component;
+};
+
+Equipment.prototype.equipItem = function (item) {
+
+    this.items[item.getSlot()] = item;
+
+    if (this.hasSlotEquipped(item.getSlot())) {
+        this.slots[item.getSlot()].replaceTexture(item.getGraphic());
+        return;
+    }
+
+    var component = new Clothing(this.game, this.owner, item.getGraphic());
+    component.anchor.y = 0.5;
+    component.anchor.x = 0.25;
+
+    this.game.add.existing(component);
+    this.owner.addChild(component);
+    this.slots[item.getSlot()] = component;
+};
+
+Equipment.prototype.saveDefaults = function () {
+    for (var key in this.slots) {
+        if (this.slots[key]) {
+            this.defaults[key] = this.slots[key];
+        }
+    }
+    for (var key in this.items) {
+        if (this.items[key]) {
+            this.defaults[key] = this.items[key];
+        }
+    }
 };
 
 Equipment.prototype.hasSlotEquipped = function (slot) {

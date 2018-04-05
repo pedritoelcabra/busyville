@@ -1,6 +1,7 @@
 'use strict';
 
 var Player = require('./player');
+var Pawn = require('./pawn');
 
 var DummyCharacter = function (game, x, y) {
 
@@ -15,6 +16,8 @@ DummyCharacter.prototype.update = function() {
 
 };
 
+DummyCharacter.prototype.getValidEquipment = function(type) {
+    return Pawn.prototype.getValidEquipment.call(this, type);
+};
+
 module.exports = DummyCharacter;
-
-

@@ -1,6 +1,7 @@
 'use strict';
 
 var Pawn = require('./pawn');
+var ItemFactory = require('../../classes/items/itemfactory');
 var ActivityBrain = require('../../classes/activitybrain');
 
 var Player = function (game, x, y) {
@@ -32,6 +33,14 @@ Player.prototype.setActivity = function() {
 
 Player.prototype.setBrain = function() {
     this.activityBrain = new ActivityBrain(this);
+};
+
+Player.prototype.getValidEquipment = function(type) {
+    switch (type) {
+        case 'weapon':
+            return [ItemFactory.getNew('Hammer')];
+    }
+    return Pawn.prototype.getValidEquipment.call(this, type);
 };
 
 Player.prototype.updateMovement = function() {
