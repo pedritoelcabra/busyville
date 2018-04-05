@@ -76,6 +76,17 @@ Inhabitant.prototype.onFinishInhabitant = function(){
     this.game.add.existing(this.movable);
 };
 
+Inhabitant.prototype.destroy = function(){
+    if (this.movable) {
+        this.movable.destroy();
+    }
+    this.emptyIcon.destroy();
+    if(this.fullIcon.mask){
+        this.fullIcon.mask.destroy();
+    }
+    this.fullIcon.destroy();
+};
+
 Inhabitant.prototype.constructor = Inhabitant;
 
 module.exports = Inhabitant;

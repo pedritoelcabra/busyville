@@ -117,6 +117,12 @@ Building.prototype.clicked = function() {
         if (typeof this.mask !== 'undefined') {
             this.mask.destroy();
         }
+
+        for (var i = 0; i < this.inhabitants.length; i++) {
+            this.inhabitants[i].destroy();
+        }
+        this.inhabitants = [];
+
         this.destroy();
 
         return;

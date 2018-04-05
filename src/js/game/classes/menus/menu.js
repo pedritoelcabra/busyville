@@ -46,8 +46,6 @@ Menu.prototype.getButtons = function() {
 };
 
 Menu.prototype.hideMenu = function() {
-    console.log('hiding');
-    console.log(this);
     for (var i = 0; i < this.buttons.length; i++) {
         this.buttons[i].visible = false;
     }
