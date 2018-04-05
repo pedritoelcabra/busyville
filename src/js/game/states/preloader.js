@@ -5,7 +5,6 @@ var StateManager = require('../states/statemanager');
 var easystarjs = require('easystarjs');
 
 preloader.preload = function () {
-    this.load.image('logo', 'images/phaser.png');
     this.load.image('bg', 'images/bg.png');
     this.load.image('bg2', 'images/bg2.png');
     this.load.image('splash', 'images/splash.png');
@@ -17,14 +16,8 @@ preloader.preload = function () {
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);
 
-    this.game.farmAnimals = ['sheep', 'pig', 'cow', 'llama', 'chicken'];
-
-    var buttons = GameMenu.gameMenuButtons();
-    for (var i = 0; i < buttons.length; i++) {
-        this.load.image(buttons[i], 'images/buttons/' + buttons[i] + '.png');
-    }
-    for (var i = 0; i < this.game.farmAnimals.length; i++) {
-        this.load.spritesheet(this.game.farmAnimals[i], 'images/animals/' + this.game.farmAnimals[i] + '.png', 94, 94);
+    for (var i = 0; i < buttonFiles.length; i++) {
+        this.load.image(buttonFiles[i], 'images/buttons/' + buttonFiles[i] + '.png');
     }
     for (var i = 0; i < plotFiles.length; i++) {
         this.load.image(plotFiles[i], 'images/lpc/plots/' + plotFiles[i] + '.png');

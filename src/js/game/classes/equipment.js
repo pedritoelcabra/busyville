@@ -21,8 +21,11 @@ var Equipment = function (owner) {
 
 Equipment.prototype.replaceComponent = function (slot, name) {
 
-    this.clearSlot(slot);
     if (!name) {
+        return;
+    }
+    if (this.hasSlotEquipped(slot)) {
+        this.slots[slot].replaceTexture(name);
         return;
     }
 
@@ -50,6 +53,33 @@ Equipment.prototype.playAnimation = function (animation, framerate, repeat) {
     for (var key in this.slots) {
         if (this.slots.hasOwnProperty(key) && this.slots[key]) {
             this.slots[key].animations.play(animation, framerate, repeat);
+        }
+    }
+};
+
+Equipment.prototype.stopAnimation = function () {
+    for (var key in this.slots) {
+        if (this.slots.hasOwnProperty(key) && this.slots[key]) {
+            this.slots[key].animations.stop(null, true);
+        }
+    }
+};
+
+Equipment.prototype.getEquipmentString = function () {
+    var stringObj = {};
+    for (var key in this.slots) {
+        if (this.slots.hasOwnProperty(key) && this.slots[key]) {
+            stringObj[key] = this.slots[key].clothingType;
+        }
+    }
+    return JSON.stringify(stringObj);
+};
+
+Equipment.prototype.loadEquipmentString = function (string) {
+    var stringObj = JSON.parse(string);
+    for (var key in stringObj) {
+        if (stringObj.hasOwnProperty(key) && stringObj[key]) {
+            this.replaceComponent(key, stringObj[key]);
         }
     }
 };

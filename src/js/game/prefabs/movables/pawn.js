@@ -93,6 +93,16 @@ Pawn.prototype.equipInitialGear = function() {
     this.equipment.replaceComponent("weapon", Randomizer.arrayRand(this.getValidEquipment('weapon')));
 };
 
+Pawn.prototype.getCurrentlyEquipped = function (slot) {
+    return this.equipment.hasSlotEquipped(slot).clothingType;
+};
+
+Pawn.prototype.equip = function (slot, name) {
+    this.equipment.replaceComponent(slot, name);
+    this.stopAnimation();
+    this.setAnimation();
+};
+
 Pawn.prototype.clicked = function() {
     var window = new InfoWindow(this.game, this);
     this.game.add.existing(window);
@@ -145,6 +155,18 @@ Pawn.prototype.setAnimation = function(){
 
 Pawn.prototype.playAnimation = function(animation, framerate, repeat){
     this.equipment.playAnimation(animation, framerate, repeat);
+};
+
+Pawn.prototype.stopAnimation = function(){
+    this.equipment.stopAnimation();
+};
+
+Pawn.prototype.getEquipmentString = function(){
+    return this.equipment.getEquipmentString();
+};
+
+Pawn.prototype.loadEquipmentString = function(string){
+    this.equipment.loadEquipmentString(string);
 };
 
 module.exports = Pawn;

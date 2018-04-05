@@ -4,7 +4,7 @@ var Clothing = function (game, pawn, type) {
 
     this.pawn = pawn;
     this.game = game;
-    this.type = type;
+    this.clothingType = type;
     Phaser.Sprite.call(this, game, 0, 0, type);
 
     this.rowLength = 13;
@@ -44,6 +44,11 @@ Clothing.prototype.addAnimation = function(name, row, length) {
         arr.push(offset + i);
     }
     this.animations.add(name, arr, this.framerate, this.repeat);
+};
+
+Clothing.prototype.replaceTexture = function(name) {
+    this.clothingType = name;
+    this.loadTexture(name, 0);
 };
 
 module.exports = Clothing;

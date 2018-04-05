@@ -1,13 +1,17 @@
 'use strict';
 
-var MenuButton = function (type, game, parentMenu, x, y) {
+var MenuButton = function (type, game, parentMenu, x, y, spriteName) {
 
+    if (typeof spriteName === 'undefined') {
+        spriteName = type;
+    }
+
+    this.spriteName = spriteName;
     this.parentMenu = parentMenu;
-
     this.buttonType = type;
     this.game = game;
 
-    Phaser.Sprite.call( this, game, x , y, type);
+    Phaser.Sprite.call( this, game, x , y, this.spriteName);
 
     this.fixedToCamera = true;
 

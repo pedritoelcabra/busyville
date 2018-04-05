@@ -94,7 +94,6 @@ Menu.prototype.buildButtons = function () {
     return this;
 };
 
-
 module.exports = Menu;
 
 

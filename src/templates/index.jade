@@ -20,6 +20,7 @@ html
     <?php echo "<script>var plotFiles = ["; $arr = getDirectoryAsArray('/images/lpc/plots'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
     <?php echo "<script>var decorFiles = ["; $arr = getDirectoryAsArray('/images/lpc/buildings/decor'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
     <?php echo "<script>var accessoryFiles = ["; $arr = getDirectoryAsArray('/images/lpc/accessories'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
+    <?php echo "<script>var buttonFiles = ["; $arr = getDirectoryAsArray('/images/buttons'); foreach($arr as $id => $file){ echo '"'.substr($file,0,strlen($file) - 4).'"'.($id + 1 < count($arr)?",":""); } echo "]; </script>"; ?>
     <?php echo "<script>var getVars = "; echo json_encode($_GET); echo "; </script>"; ?>
 
     script(src="js/phaser.js")
