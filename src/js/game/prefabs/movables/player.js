@@ -19,6 +19,8 @@ var Player = function (game, x, y) {
     this.moveSpeed = this.baseSpeed;
     this.diagonalSpeed = this.baseSpeed;
 
+    this.attackSpeed = 750;
+
     this.tileSize = this.game.worldTileSize;
     this.halfTile = this.game.worldTileSize / 2;
 };
@@ -29,6 +31,14 @@ Player.prototype.constructor = Player;
 Player.prototype.update = function() {
     this.checkClicks();
     this.updateMovement();
+
+    if (this.launchAttack === true) {
+        this.setAnimation();
+    }
+
+    if (this.isAttacking && (this.game.microTime - this.lastAttacked) >= this.attackSpeed) {
+        this.stopAttack();
+    }
 };
 
 Player.prototype.setActivity = function() {
@@ -46,26 +56,32 @@ Player.prototype.getValidEquipment = function(type) {
     return Pawn.prototype.getValidEquipment.call(this, type);
 };
 
-Player.prototype.executeAttack = function() {
-    console.log('attack!');
-    console.log(this.game.input.x);
-    console.log(this.game.input.y);
-};
-
 Player.prototype.leftButtonClicked = function() {
+    if (this.clicks) {
+        return;
+    }
+    if (this.game.microTime - this.lastAttacked < this.attackSpeed) {
+        return;
+    }
     this.clicks = 2;
 };
 
 Player.prototype.checkClicks = function() {
+
     if (this.clicks) {
         this.clicks--;
         if (!this.clicks && this.game.cursorManager.checkClickHasNotBeenHandled()) {
-            this.executeAttack();
+            this.startAttack();
         }
     }
 };
 
 Player.prototype.updateMovement = function() {
+
+    if (this.isAttacking) {
+        return;
+    }
+
     this.oldMoving = this.isMoving;
     this.oldFacing = this.isFacing;
     this.isMoving = false;

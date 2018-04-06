@@ -107,6 +107,27 @@ Equipment.prototype.saveDefaults = function () {
     }
 };
 
+Equipment.prototype.getWeaponFrameCount = function () {
+    if (this.items.weapon) {
+        return this.slots.weapon.getAnimationFrameCount(this.items.weapon.getAnimation());
+    }
+    return 0;
+};
+
+Equipment.prototype.getWeaponAnimation = function () {
+    if (this.items.weapon) {
+        return this.items.weapon.getAnimation();
+    }
+    return false;
+};
+
+Equipment.prototype.getWeaponSpeed = function () {
+    if (this.items.weapon) {
+        return this.items.weapon.getAttackSpeed();
+    }
+    return 1;
+};
+
 Equipment.prototype.hasSlotEquipped = function (slot) {
     return this.slots[slot];
 };

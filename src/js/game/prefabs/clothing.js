@@ -46,6 +46,14 @@ Clothing.prototype.addAnimation = function(name, row, length) {
     this.animations.add(name, arr, this.framerate, this.repeat);
 };
 
+Clothing.prototype.getAnimationFrameCount = function(name) {
+    switch (name) {
+        case 'slash': return 6;
+        case 'thrust': return 8;
+    }
+    return 0;
+};
+
 Clothing.prototype.replaceTexture = function(name) {
     this.clothingType = name;
     this.loadTexture(name, 0);

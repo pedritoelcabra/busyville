@@ -5,6 +5,7 @@ var Item = function () {
     this.slot = '';
     this.graphic = '';
     this.animation = '';
+    this.attackSpeed = 1;
 };
 
 Item.prototype.constructor = Item;
@@ -19,6 +20,14 @@ Item.prototype.getSlot = function() {
 
 Item.prototype.getGraphic = function() {
     return this.graphic;
+};
+
+Item.prototype.getAnimation = function() {
+    return this.animation;
+};
+
+Item.prototype.getAttackSpeed = function() {
+    return this.attackSpeed;
 };
 
 module.exports = Item;

@@ -31,8 +31,6 @@ CursorManager.prototype.updateLastHandledClick = function() {
 };
 
 CursorManager.prototype.checkClickHasNotBeenHandled = function() {
-    console.log(this.game.microTime);
-    console.log( this.lastHandledClick);
     return (this.game.microTime - this.lastHandledClick) > 200;
 };
 

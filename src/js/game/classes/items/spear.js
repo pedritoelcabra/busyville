@@ -8,7 +8,8 @@ var Spear = function () {
     this.name = 'Spear';
     this.slot = 'weapon';
     this.graphic = 'spear';
-    this.animation = 'slashing';
+    this.animation = 'thrust';
+    this.attackSpeed = 0.7;
 };
 
 Spear.prototype = Object.create(Item.prototype);
