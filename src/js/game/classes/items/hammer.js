@@ -8,6 +8,7 @@ var Hammer = function () {
     this.name = 'Hammer';
     this.slot = 'weapon';
     this.graphic = 'woodwand';
+    this.animation = 'slashing';
 };
 
 Hammer.prototype = Object.create(Item.prototype);

@@ -4,6 +4,7 @@ var Item = function () {
     this.name = '';
     this.slot = '';
     this.graphic = '';
+    this.animation = '';
 };
 
 Item.prototype.constructor = Item;

@@ -66,8 +66,6 @@ Equipment.prototype.equipSlot = function (slot, name) {
         this.slots[slot].replaceTexture(name);
         return;
     }
-    console.log(slot);
-    console.log(name);
 
     var component = new Clothing(this.game, this.owner, name);
     component.anchor.y = 0.5;
