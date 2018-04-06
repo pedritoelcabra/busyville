@@ -104,6 +104,8 @@ Pawn.prototype.equip = function (slot, name) {
 };
 
 Pawn.prototype.clicked = function() {
+
+    this.game.cursorManager.updateLastHandledClick();
     var window = new InfoWindow(this.game, this);
     this.game.add.existing(window);
     this.game.menus.push(window);

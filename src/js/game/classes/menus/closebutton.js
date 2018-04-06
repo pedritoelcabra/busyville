@@ -17,6 +17,7 @@ CloseButton.prototype.update = function() {
 };
 
 CloseButton.prototype.close = function() {
+    this.game.cursorManager.updateLastHandledClick();
     this.owner.close();
     this.destroy();
 };

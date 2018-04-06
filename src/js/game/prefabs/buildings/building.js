@@ -100,6 +100,8 @@ Building.prototype.init = function() {
 
 Building.prototype.clicked = function() {
 
+    this.game.cursorManager.updateLastHandledClick();
+
     if (!this.game.input.activePointer.leftButton.isDown) {
         return;
     }

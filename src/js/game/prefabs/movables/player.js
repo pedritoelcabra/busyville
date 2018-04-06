@@ -13,6 +13,8 @@ var Player = function (game, x, y) {
     this.movingLeft = false;
     this.movingRight = false;
 
+    this.clicks = 0;
+
     this.baseSpeed = 200;
     this.moveSpeed = this.baseSpeed;
     this.diagonalSpeed = this.baseSpeed;
@@ -25,6 +27,7 @@ Player.prototype = Object.create(Pawn.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+    this.checkClicks();
     this.updateMovement();
 };
 
@@ -41,6 +44,25 @@ Player.prototype.getValidEquipment = function(type) {
             return [ItemFactory.getNew('Hammer')];
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
+};
+
+Player.prototype.executeAttack = function() {
+    console.log('attack!');
+    console.log(this.game.input.x);
+    console.log(this.game.input.y);
+};
+
+Player.prototype.leftButtonClicked = function() {
+    this.clicks = 2;
+};
+
+Player.prototype.checkClicks = function() {
+    if (this.clicks) {
+        this.clicks--;
+        if (!this.clicks && this.game.cursorManager.checkClickHasNotBeenHandled()) {
+            this.executeAttack();
+        }
+    }
 };
 
 Player.prototype.updateMovement = function() {

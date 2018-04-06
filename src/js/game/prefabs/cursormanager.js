@@ -3,6 +3,7 @@
 var CursorManager = function (game) {
 
     this.game = game;
+    this.lastHandledClick = 0;
 };
 
 CursorManager.prototype.constructor = CursorManager;
@@ -23,6 +24,16 @@ CursorManager.prototype.update = function() {
     }
 
     this.setStandard();
+};
+
+CursorManager.prototype.updateLastHandledClick = function() {
+    this.lastHandledClick = this.game.microTime;
+};
+
+CursorManager.prototype.checkClickHasNotBeenHandled = function() {
+    console.log(this.game.microTime);
+    console.log( this.lastHandledClick);
+    return (this.game.microTime - this.lastHandledClick) > 200;
 };
 
 module.exports = CursorManager;

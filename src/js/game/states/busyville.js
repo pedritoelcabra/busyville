@@ -71,6 +71,9 @@ busyville.update = function () {
     if (this.game.input.activePointer.rightButton.isDown) {
         this.game.gameMenu.rightButtonClicked();
     }
+    if (this.game.input.activePointer.leftButton.isDown) {
+        this.game.player.leftButtonClicked();
+    }
 
     this.game.player.movingUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP)
      || this.game.input.keyboard.isDown(Phaser.Keyboard.W);
@@ -98,52 +101,8 @@ busyville.setUpInput = function () {
     space_key.onDown.add(this.pauseGame, this);
 };
 
-busyville.setUpPawns = function () {
-    this.pawns = [];
-    this.animals = [];
-    for (var i = 0; i < this.game.startingPawns; i++) {
-        this.addPawn();
-    }
-    for (var i = 0; i < this.game.startingAnimals; i++) {
-        this.addAnimal();
-    }
-};
-
-busyville.addAnimal = function () {
-    var spawn = this.randomTileToSpawn();
-    var animal = new FarmAnimal(this.game, this.game.collisionMap.pixelFromTile(spawn.x),
-        this.game.collisionMap.pixelFromTile(spawn.y), Randomizer.arrayRand(this.game.farmAnimals));
-    this.animals.push(animal);
-    this.game.add.existing(animal);
-};
-
-busyville.addPawn = function () {
-    var spawn = this.randomTileToSpawn();
-    var pawn = new Pawn(this.game, this.game.collisionMap.pixelFromTile(spawn.x),
-        this.game.collisionMap.pixelFromTile(spawn.y));
-    this.pawns.push(pawn);
-    this.game.add.existing(pawn);
-};
-
-busyville.randomTileToSpawn = function () {
-    return this.game.constructions[0].getRandomAdyacentTile();
-};
-
-busyville.setUpBuildings = function () {
-    this.buildingTimer = 0;
-    this.game.buildingManager.addBuildingByName(this.game.world.centerX, this.game.world.centerY, "CampFire");
-};
-
 busyville.pauseGame = function () {
-    // this.game.paused = !this.game.paused;
-};
-
-busyville.render = function () {
-    // Camera
-    //this.game.debug.cameraInfo(this.game.camera, 32, 32);
-};
-
-busyville.updateCameraPosition = function () {
+    this.game.paused = !this.game.paused;
 };
 
 module.exports = busyville;

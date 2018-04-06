@@ -30,6 +30,8 @@ MenuButton.prototype.getType = function() {
 };
 
 MenuButton.prototype.clicked = function() {
+
+    this.game.cursorManager.updateLastHandledClick();
     if (this.game.input.activePointer.leftButton.isDown) {
         this.parentMenu['pressedButton'](this);
     }
