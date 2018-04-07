@@ -149,6 +149,13 @@ Pawn.prototype.setAnimation = function(){
         if (this.equipment.getWeaponFrameCount()) {
             this.weaponAnimationSpeed = Math.ceil(this.equipment.getWeaponFrameCount() * (1000 / this.getAttackSpeed()));
         }
+        this.isFacing = Phaser.Math.angleBetween(
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y,
+            this.game.input.x,
+            this.game.input.y
+        );
+
     }
     if(this.isFacing > -0.78 && this.isFacing < 0.78){
         if(this.isMoving){
