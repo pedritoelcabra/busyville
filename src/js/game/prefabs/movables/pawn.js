@@ -5,6 +5,7 @@ var Randomizer = require('../../classes/randomizer');
 var InfoWindow = require('../../classes/menus/infowindow');
 var WorkerBrain = require('../../classes/workerbrain');
 var Equipment = require('../../classes/equipment');
+var Attack = require('../../classes/attack');
 
 var Pawn = function (game, x, y) {
 
@@ -128,6 +129,7 @@ Pawn.prototype.startAttack = function() {
     this.lastAttacked = this.game.microTime;
     this.isAttacking = true;
     this.launchAttack = true;
+    this.currentAttack = new Attack(this.game, this, this.getAttackSpeed() / 2);
 };
 
 Pawn.prototype.getAttackSpeed = function() {
@@ -137,13 +139,12 @@ Pawn.prototype.getAttackSpeed = function() {
 Pawn.prototype.setAnimation = function(){
     this.weaponAnimationSpeed = 6;
     if (this.launchAttack) {
-        console.log(this.equipment.getWeaponAnimation());
         this.launchAttack = false;
         this.isMoving = false;
-        if (this.equipment.getWeaponAnimation() == 'slash') {
+        if (this.equipment.getWeaponAnimation() === 'slash') {
             this.isSlashing = true;
         }
-        if (this.equipment.getWeaponAnimation() == 'thrust') {
+        if (this.equipment.getWeaponAnimation() === 'thrust') {
             this.isThrusting = true;
         }
         if (this.equipment.getWeaponFrameCount()) {
@@ -157,47 +158,29 @@ Pawn.prototype.setAnimation = function(){
         );
 
     }
-    if(this.isFacing > -0.78 && this.isFacing < 0.78){
-        if(this.isMoving){
-            this.playAnimation('right', this.moveSpeed / this.csBetweenAnimation, true);
-        }else if(this.isSlashing){
-            this.playAnimation('slashright', this.weaponAnimationSpeed, true);
-        }else if(this.isThrusting){
-            this.playAnimation('thrustright', this.weaponAnimationSpeed, true);
-        }else{
-            this.playAnimation('stillright',  1, false);
-        }
-    }else if(this.isFacing < -0.78 && this.isFacing > -2.35){
-        if(this.isMoving){
-            this.playAnimation('up',  this.moveSpeed / this.csBetweenAnimation, true);
-        }else if(this.isSlashing){
-            this.playAnimation('slashup', this.weaponAnimationSpeed, true);
-        }else if(this.isThrusting){
-            this.playAnimation('thrustup', this.weaponAnimationSpeed, true);
-        }else{
-            this.playAnimation('stillup', 1, false);
-        }
-    }else if(this.isFacing > 0.78 && this.isFacing < 2.35){
-        if(this.isMoving){
-            this.playAnimation('down',  this.moveSpeed / this.csBetweenAnimation, true);
-        }else if(this.isSlashing){
-            this.playAnimation('slashdown', this.weaponAnimationSpeed, true);
-        }else if(this.isThrusting){
-            this.playAnimation('thrustdown', this.weaponAnimationSpeed, true);
-        }else{
-            this.playAnimation('stilldown', 1, false);
-        }
-    }else{
-        if(this.isMoving){
-            this.playAnimation('left',  this.moveSpeed / this.csBetweenAnimation, true);
-        }else if(this.isSlashing){
-            this.playAnimation('slashleft', this.weaponAnimationSpeed, true);
-        }else if(this.isThrusting){
-            this.playAnimation('thrustleft', this.weaponAnimationSpeed, true);
-        }else{
-            this.playAnimation('stillleft', 1, false);
-        }
+
+    if (this.isMoving) {
+        this.playAnimation(this.facingDirection(), this.moveSpeed / this.csBetweenAnimation, true);
+    } else if (this.isSlashing) {
+        this.playAnimation('slash' + this.facingDirection(), this.weaponAnimationSpeed, true);
+    } else if (this.isThrusting) {
+        this.playAnimation('thrust' + this.facingDirection(), this.weaponAnimationSpeed, true);
+    } else {
+        this.playAnimation('still' + this.facingDirection(), 1, false);
     }
+};
+
+Pawn.prototype.facingDirection = function () {
+    if (this.isFacing > -2.35 && this.isFacing <= -0.78) {
+        return 'up';
+    }
+    if (this.isFacing > 0.78 && this.isFacing <= 2.35) {
+        return 'down';
+    }
+    if (this.isFacing > -0.78 && this.isFacing <= 0.78) {
+        return 'right';
+    }
+    return 'left';
 };
 
 Pawn.prototype.playAnimation = function(animation, framerate, repeat){

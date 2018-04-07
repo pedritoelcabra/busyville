@@ -57,6 +57,14 @@ Player.prototype.getValidEquipment = function(type) {
 };
 
 Player.prototype.leftButtonClicked = function() {
+    if (this.game.buildingManager.cursorBuilding) {
+        this.game.cursorManager.updateLastHandledClick();
+        return;
+    }
+    if (this.game.demolishingBuildings) {
+        this.game.cursorManager.updateLastHandledClick();
+        return;
+    }
     if (this.clicks) {
         return;
     }

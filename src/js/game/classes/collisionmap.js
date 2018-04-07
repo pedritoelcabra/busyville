@@ -18,7 +18,7 @@ var CollisionMap = function (game) {
         for(var t = 0; t < this.game.worldTileWidth ; t++){
             collisionColumn[t] = 0;
             roadColumn[t] = 0;
-            spaceColumn[t] = {'x' : 0, 'y' : 0};
+            spaceColumn[t] = {'x' : this.game.worldTileWidth, 'y' : this.game.worldTileHeight};
         }
         this.collisionArea.push(collisionColumn);
         this.roadTiles.push(roadColumn);
