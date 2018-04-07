@@ -128,6 +128,13 @@ Equipment.prototype.getWeaponSpeed = function () {
     return 1;
 };
 
+Equipment.prototype.getWeapon = function () {
+    if (this.items.weapon) {
+        return this.items.weapon;
+    }
+    return false;
+};
+
 Equipment.prototype.hasSlotEquipped = function (slot) {
     return this.slots[slot];
 };

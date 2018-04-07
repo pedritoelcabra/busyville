@@ -136,6 +136,10 @@ Pawn.prototype.getAttackSpeed = function() {
     return this.attackSpeed / this.equipment.getWeaponSpeed();
 };
 
+Pawn.prototype.getWeapon = function() {
+    return this.equipment.getWeapon();
+};
+
 Pawn.prototype.setAnimation = function(){
     this.weaponAnimationSpeed = 6;
     if (this.launchAttack) {

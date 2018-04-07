@@ -6,6 +6,8 @@ var Item = function () {
     this.graphic = '';
     this.animation = '';
     this.attackSpeed = 1;
+    this.attackBoxWidth = 1;
+    this.attackBoxReach = 2;
 };
 
 Item.prototype.constructor = Item;
@@ -28,6 +30,14 @@ Item.prototype.getAnimation = function() {
 
 Item.prototype.getAttackSpeed = function() {
     return this.attackSpeed;
+};
+
+Item.prototype.getAttackWidth = function() {
+    return this.attackBoxWidth;
+};
+
+Item.prototype.getAttackReach= function() {
+    return this.attackBoxLength;
 };
 
 module.exports = Item;

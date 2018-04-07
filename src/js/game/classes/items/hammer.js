@@ -10,6 +10,8 @@ var Hammer = function () {
     this.graphic = 'woodwand';
     this.animation = 'slash';
     this.attackSpeed = 1.3;
+    this.attackBoxWidth = 1;
+    this.attackBoxLength = 1;
 };
 
 Hammer.prototype = Object.create(Item.prototype);

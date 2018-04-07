@@ -192,7 +192,21 @@ CollisionMap.prototype.smoothenDiagonals = function(path) {
     return newPath;
 };
 
-
+CollisionMap.prototype.hitBoxesCollide = function(hba, hbb) {
+    if (hba.x > hbb.x + hbb.w) {
+        return false;
+    }
+    if (hba.y > hbb.y + hbb.h) {
+        return false;
+    }
+    if (hba.y + hba.h < hbb.y) {
+        return false;
+    }
+    if (hba.x + hba.w < hbb.x) {
+        return false;
+    }
+    return true;
+};
 
 
 

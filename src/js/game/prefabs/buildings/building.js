@@ -3,6 +3,7 @@
 var InfoWindow = require('../../classes/menus/infowindow');
 var Randomizer = require('../../classes/randomizer');
 var Inhabitant = require('../../classes/inhabitant');
+var HitBox = require('../../classes/hitbox');
 
 var Building = function (game, x, y, type) {
 
@@ -20,6 +21,7 @@ var Building = function (game, x, y, type) {
     this.adyacentTiles = [];
     this.inhabitants = [];
     this.destroyed = false;
+    this.hitBox = new HitBox(x, y, this.width, this.height);
     this.maskProgress();
 };
 

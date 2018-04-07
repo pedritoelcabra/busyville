@@ -139,6 +139,16 @@ BuildingManager.prototype.getUnfinishedBuilding = function() {
     return null;
 };
 
+BuildingManager.prototype.checkBuildingHitBoxCollision = function(hitbox) {
+    for (var i = 0; i < this.game.constructions.length; i++) {
+        if (!this.game.constructions[i].isDestroyed()
+            && this.game.collisionMap.hitBoxesCollide(hitbox, this.game.constructions[i].hitBox)) {
+            return this.game.constructions[i];
+        }
+    }
+    return false;
+};
+
 
 module.exports = BuildingManager;
 
