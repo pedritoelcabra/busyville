@@ -1,7 +1,9 @@
 
 v 0.1
-- [x] Buildings
 - [x] Pawns
+- [x] Buildings
+- [x] Automated pawn activities
+- [x] Pathfinding
 - [x] Player character
 - [x] Menus
 - [x] Workers & warriors
