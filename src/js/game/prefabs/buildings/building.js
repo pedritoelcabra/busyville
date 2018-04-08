@@ -20,6 +20,7 @@ var Building = function (game, x, y, type) {
     this.game.physics.arcade.enable(this);
     this.adyacentTiles = [];
     this.inhabitants = [];
+    this.faction = 0;
     this.destroyed = false;
     this.hitBox = new HitBox(x, y, this.width, this.height);
     this.maskProgress();
@@ -51,7 +52,12 @@ Building.prototype.update = function() {
     }
 };
 
-Building.prototype.preDestroy = function() {
+Building.prototype.setFaction = function(faction) {
+    this.faction = this.game.factionManager.getFaction(faction);
+};
+
+Building.prototype.getFaction = function() {
+    return this.faction;
 };
 
 Building.prototype.isDestroyed = function() {

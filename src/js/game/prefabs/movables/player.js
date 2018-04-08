@@ -28,6 +28,10 @@ var Player = function (game, x, y) {
 Player.prototype = Object.create(Pawn.prototype);
 Player.prototype.constructor = Player;
 
+Player.prototype.init = function() {
+    this.setFaction('player');
+};
+
 Player.prototype.update = function() {
     this.checkClicks();
     this.updateMovement();
@@ -39,6 +43,9 @@ Player.prototype.update = function() {
     if (this.isAttacking && (this.game.microTime - this.lastAttacked) >= this.attackSpeed) {
         this.stopAttack();
     }
+};
+
+Player.prototype.checkForEnemiesInRange = function () {
 };
 
 Player.prototype.setActivity = function() {

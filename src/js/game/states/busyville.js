@@ -1,10 +1,9 @@
 
-var Pawn = require('../prefabs/movables/pawn');
+var Orc = require('../prefabs/movables/enemies/orc');
 var Player = require('../prefabs/movables/player');
-var Randomizer = require('../classes/randomizer');
-var FarmAnimal = require('../prefabs/movables/farmanimal');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
+var FactionManager = require('../classes/factionmanager');
 var GameMenu = require('../classes/menus/gamemenu');
 var CursorManager = require('../prefabs/cursormanager');
 
@@ -34,11 +33,17 @@ busyville.create = function () {
     this.game.cursorManager.update();
 
     this.game.buildingManager = new BuildingManager(this.game);
+    this.game.factionManager = new FactionManager(this.game);
+
+    this.game.factionManager.setRelation('player', 'orc', -20, true);
 
     this.game.collisionMap = new CollisionMap(this.game);
 
     this.game.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
+    this.game.player.init();
     this.game.player.loadEquipmentString(this.game.playerStartEquipment);
+
+    this.game.orc = new Orc(this.game, this.game.world.centerX - 100, this.game.world.centerY);
 
     this.game.gameMenu = new GameMenu(this.game);
     this.game.gameMenu.buildButtons();

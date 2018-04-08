@@ -5,15 +5,25 @@ var Movable = function (game, x, y, sprite) {
     this.pendingPath = [];
     this.pathFinding = false;
     this.pathProgress = 0;
+    this.faction = 0;
 };
 
 Movable.prototype = Object.create(Phaser.Sprite.prototype);
 Movable.prototype.constructor = Movable;
 
 Movable.prototype.update = function () {
+    this.checkForEnemiesInRange();
     if (!this.activity.update()) {
         this.setActivity(this.activityBrain.chooseActivity());
     }
+};
+
+Movable.prototype.setFaction = function(faction) {
+    this.faction = this.game.factionManager.getFaction(faction);
+};
+
+Movable.prototype.getFaction = function() {
+    return this.faction;
 };
 
 Movable.prototype.stopMovement = function () {

@@ -19,6 +19,7 @@ var Pawn = function (game, x, y) {
     this.body.collideWorldBounds = false;
     this.body.allowRotation = false;
 
+    this.isDead = false;
     this.isMoving = false;
     this.isSlashing = false;
     this.isThrusting = false;
@@ -31,6 +32,10 @@ var Pawn = function (game, x, y) {
 
     // in ms
     this.attackSpeed = 1000;
+    this.checkForEnemyFrequency = 1000;
+
+    this.lastCheckedForEnemy = 0;
+    this.checkForEnemyRange = 200;
 
     this.equipment = new Equipment(this);
 
@@ -55,6 +60,9 @@ var Pawn = function (game, x, y) {
     this.setActivity(this.activityBrain.chooseActivity(true));
 
     this.game.units.add(this);
+    if (this.game.factionManager) {
+        this.game.factionManager.addUnit(this);
+    }
 };
 
 Pawn.prototype = Object.create(Movable.prototype);
@@ -103,10 +111,22 @@ Pawn.prototype.getCurrentlyEquipped = function (slot) {
     return this.equipment.hasSlotEquipped(slot).clothingType;
 };
 
+Pawn.prototype.checkForEnemiesInRange = function () {
+    if (this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
+        return;
+    }
+    this.lastCheckedForEnemy = this.game.microTime;
+    var closestEnemy = this.game.factionManager.getClosestEnemyForUnit(this);
+};
+
 Pawn.prototype.equip = function (slot, name) {
     this.equipment.replaceComponent(slot, name);
     this.stopAnimation();
     this.setAnimation();
+};
+
+Pawn.prototype.isAlive = function () {
+    return !this.isDead;
 };
 
 Pawn.prototype.clicked = function() {

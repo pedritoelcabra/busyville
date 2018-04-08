@@ -106,7 +106,12 @@ BuildingManager.prototype.plantCursorBuilding = function() {
     if (!this.game.input.activePointer.leftButton.isDown) {
         return;
     }
-    this.addBuildingByName(this.cursorBuilding.x, this.cursorBuilding.y, this.cursorBuilding.getType());
+    var newbuilding = this.addBuildingByName(
+        this.cursorBuilding.x,
+        this.cursorBuilding.y,
+        this.cursorBuilding.getType()
+    );
+    newbuilding.setFaction('player');
 };
 
 BuildingManager.prototype.addBuildingByName = function(x, y, name) {
