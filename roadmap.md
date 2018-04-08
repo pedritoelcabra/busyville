@@ -1,4 +1,4 @@
 
 
-- [] Buildings
-- [] Pawns
+- [ ] Buildings
+- [ ] Pawns
