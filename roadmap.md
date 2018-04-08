@@ -3,11 +3,13 @@ v 0.1
 - [x] Buildings
 - [x] Pawns
 - [x] Player character
-- [x] Melee weapons
-- [ ] Attacks
-- [x] Enemies
-- [x] Building structures
+- [x] Menus
 - [x] Workers & warriors
+- [x] Character creation screen
+- [x] Melee weapons
+- [x] Building structures
+- [x] Enemies
+- [ ] Attacks
 - [ ] Trees
 - [ ] Rocks
 - [ ] Water
