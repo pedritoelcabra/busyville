@@ -3,7 +3,10 @@
 var HitBox = require('./hitbox');
 
 var Attack = function (game, attacker, delay) {
+    this.originX = attacker.x;
+    this.originY = attacker.y;
     this.attacker = attacker;
+    this.target = null;
     this.game = game;
     this.timer = this.game.time.create(false);
     this.timer.add(parseInt(delay), this.executeAttack, this);
@@ -16,12 +19,50 @@ Attack.prototype.executeAttack = function(){
         return;
     }
     this.setUpAttackBox();
-    this.collidedBuilding = this.game.buildingManager.checkBuildingHitBoxCollision(this.attackBox);
-    if (!this.collidedBuilding) {
-        console.log('no building');
+
+    if (this.checkHitEnemyUnit()) {
         return;
     }
-    this.collidedBuilding.addConstructionProgress(1);
+
+    if (this.checkHitFriendlyUnit()) {
+        return;
+    }
+
+    if (this.checkHitEnemyBuilding()) {
+        return;
+    }
+
+    if (this.checkHitFriendlyBuilding()) {
+        return;
+    }
+
+    return;
+};
+
+Attack.prototype.checkHitFriendlyUnit = function() {
+    return false;
+};
+
+Attack.prototype.checkHitEnemyUnit = function() {
+    this.target = this.game.factionManager.checkUnitHitBoxCollision(this.attackBox, this.attacker);
+    if (!this.target) {
+        return false;
+    }
+    this.target.receiveAttack(this);
+    return true;
+};
+
+Attack.prototype.checkHitFriendlyBuilding = function() {
+    this.target = this.game.buildingManager.checkBuildingHitBoxCollision(this.attackBox);
+    if (!this.target) {
+        return false;
+    }
+    this.target.addConstructionProgress(1);
+    return true;
+};
+
+Attack.prototype.checkHitEnemyBuilding = function() {
+    return false;
 };
 
 Attack.prototype.setUpAttackBox = function () {

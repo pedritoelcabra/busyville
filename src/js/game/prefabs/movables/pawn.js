@@ -6,6 +6,7 @@ var InfoWindow = require('../../classes/menus/infowindow');
 var WorkerBrain = require('../../classes/workerbrain');
 var Equipment = require('../../classes/equipment');
 var Attack = require('../../classes/attack');
+var HitBox = require('../../classes/hitbox');
 
 var Pawn = function (game, x, y) {
 
@@ -26,6 +27,8 @@ var Pawn = function (game, x, y) {
     this.isAttacking = false;
     this.launchAttack = false;
     this.isFacing = 1.57;
+
+    this.hitBox = new HitBox(x, y, this.width, this.height);
 
     this.baseSpeed = 100;
     this.moveSpeed = this.baseSpeed;
@@ -70,6 +73,12 @@ Pawn.prototype.constructor = Pawn;
 
 Pawn.prototype.setBrain = function() {
     this.activityBrain = new WorkerBrain(this);
+};
+
+Pawn.prototype.getHitBox = function() {
+    this.hitBox.x = this.x;
+    this.hitBox.y = this.y;
+    return this.hitBox;
 };
 
 Pawn.prototype.getValidEquipment = function(type) {
@@ -221,6 +230,30 @@ Pawn.prototype.getEquipmentString = function(){
 
 Pawn.prototype.loadEquipmentString = function(string){
     this.equipment.loadEquipmentString(string);
+};
+
+Pawn.prototype.receiveAttack = function(attack){
+    this.knockBack(attack);
+};
+
+Pawn.prototype.knockBack = function(attack){
+    this.stopMovement();
+    var xDist = attack.originX - this.x;
+    var yDist = attack.originY - this.y;
+    var totalDist = xDist + yDist;
+    var factor = totalDist / this.game.worldTileSize;
+    if (factor === 0) {
+        return;
+    }
+    var xOff = xDist / factor;
+    var yOff = yDist / factor;
+    this.game.add.tween(this).to(
+        {
+            x: this.x + (xDist > 0 ? -xOff : xOff),
+            y: this.y + +(yDist > 0 ? -yOff : yOff)},
+        500,
+        Phaser.Easing.Back.Out, true
+    );
 };
 
 module.exports = Pawn;

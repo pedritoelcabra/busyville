@@ -2,6 +2,7 @@
 
 var ActivityBrain = function (owner) {
     this.activities = [];
+    this.idleActivities = [];
 };
 
 ActivityBrain.prototype.chooseActivity = function(baseActivity){
@@ -30,6 +31,12 @@ ActivityBrain.prototype.chooseActivity = function(baseActivity){
     }
     if (bestActivity >= 0) {
         return this.idleActivities[bestActivity];
+    }
+    if (this.activities.length) {
+        return this.activities[0];
+    }
+    if (this.idleActivities.length) {
+        return this.idleActivities[0];
     }
     return false;
 };

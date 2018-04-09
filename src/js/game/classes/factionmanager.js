@@ -99,4 +99,19 @@ FactionManager.prototype.getClosestEnemyForUnit = function(unit) {
     return this.closestUnit;
 };
 
+FactionManager.prototype.checkUnitHitBoxCollision = function(hitBox, excludedUnit) {
+    for (var i = 0; i < this.units.length; i++) {
+        if (!this.units[i].isAlive()) {
+            continue;
+        }
+        if (this.units[i] === excludedUnit) {
+            continue;
+        }
+        if (this.game.collisionMap.hitBoxesCollide(hitBox, this.units[i].getHitBox())) {
+            return this.units[i];
+        }
+    }
+    return false;
+};
+
 module.exports = FactionManager;

@@ -7,7 +7,8 @@ var Item = function () {
     this.animation = '';
     this.attackSpeed = 1;
     this.attackBoxWidth = 1;
-    this.attackBoxReach = 2;
+    this.attackBoxLength = 1;
+    this.knockBackPower = 1;
 };
 
 Item.prototype.constructor = Item;
@@ -38,6 +39,10 @@ Item.prototype.getAttackWidth = function() {
 
 Item.prototype.getAttackReach= function() {
     return this.attackBoxLength;
+};
+
+Item.prototype.getKnockBackPower= function() {
+    return this.knockBackPower;
 };
 
 module.exports = Item;
