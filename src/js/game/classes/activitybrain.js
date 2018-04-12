@@ -7,6 +7,9 @@ var ActivityBrain = function (owner) {
 
 ActivityBrain.prototype.chooseActivity = function(baseActivity){
     if(baseActivity){
+        if (!this.activities.length) {
+            return this.idleActivities[0];
+        }
         return this.activities[0];
     }
     var bestActivity = -1;

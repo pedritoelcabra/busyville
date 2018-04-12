@@ -6,8 +6,8 @@ var Item = function () {
     this.graphic = '';
     this.animation = '';
     this.attackSpeed = 1;
-    this.attackBoxWidth = 1;
-    this.attackBoxLength = 1;
+    this.attackAngle = 1;
+    this.attackReach = 1;
     this.knockBackPower = 1;
 };
 
@@ -33,16 +33,37 @@ Item.prototype.getAttackSpeed = function() {
     return this.attackSpeed;
 };
 
-Item.prototype.getAttackWidth = function() {
-    return this.attackBoxWidth;
+Item.prototype.getAngle = function() {
+    return this.attackAngle;
 };
 
-Item.prototype.getAttackReach= function() {
-    return this.attackBoxLength;
+Item.prototype.getReach = function() {
+    return this.attackReach;
 };
 
 Item.prototype.getKnockBackPower= function() {
     return this.knockBackPower;
+};
+
+Item.prototype.getAttackPoints= function(x, y, angle, reach) {
+
+    var angleA = angle - (this.attackAngle / 2);
+    var pointAX = x + ( reach * Math.cos(angleA));
+    var pointAY = y + ( reach * Math.sin(angleA));
+
+    var angleB = angle + (this.attackAngle / 2);
+    var pointBX = x + ( reach * Math.cos(angleB));
+    var pointBY = y + ( reach * Math.sin(angleB));
+
+    var midPointX = (x + pointAX + pointBX) / 3;
+    var midPointY = (y + pointAY + pointBY) / 3;
+
+    return [
+        new Phaser.Point(x, y),
+        new Phaser.Point(pointAX, pointAY),
+        new Phaser.Point(pointBX, pointBY),
+        new Phaser.Point(midPointX, midPointY)
+    ];
 };
 
 module.exports = Item;

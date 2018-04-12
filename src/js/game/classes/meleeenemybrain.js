@@ -2,6 +2,7 @@
 
 var Idle = require('../classes/activities/idle');
 var Wander = require('../classes/activities/wander');
+var Attack = require('../classes/activities/attack');
 
 var ActivityBrain = require('../classes/activitybrain');
 
@@ -12,8 +13,11 @@ var MeleeEnemyBrain = function (owner) {
     ActivityBrain.call(this);
 
     this.activities = [
-        new Wander(this.owner),
-        //new Idle(this.owner)
+        new Attack(this.owner)
+    ];
+
+    this.idleActivities = [
+        new Idle(this.owner)
     ];
 };
 

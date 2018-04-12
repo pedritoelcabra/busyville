@@ -2,7 +2,6 @@
 
 var Activity = function (owner) {
     this.owner = owner;
-    this.baseweight = owner.game.activityWeights[this.nameString];
     this.lastExecuted = Date.now();
     this.preference = Math.floor((Math.random() * 20) - 10);
     if(this.preference < this.minimumPreference){
@@ -58,7 +57,7 @@ Activity.prototype.score = function() {
     // preference is -10 to 10
     var pref = this.preference + 10;
     var random = Math.floor((Math.random() * 100));
-    return random * pref * this.baseweight;
+    return random * pref;
 };
 
 Activity.prototype.preferenceString = function(){

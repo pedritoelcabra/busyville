@@ -28,7 +28,7 @@ var Pawn = function (game, x, y) {
     this.launchAttack = false;
     this.isFacing = 1.57;
 
-    this.hitBox = new HitBox(x, y, this.width, this.height);
+    this.hitBox = new HitBox(x, y, this.game.worldTileSize, this.game.worldTileSize);
 
     this.baseSpeed = 100;
     this.moveSpeed = this.baseSpeed;
@@ -70,6 +70,16 @@ var Pawn = function (game, x, y) {
 
 Pawn.prototype = Object.create(Movable.prototype);
 Pawn.prototype.constructor = Pawn;
+
+Pawn.prototype.updateAttack = function() {
+    if (this.launchAttack === true) {
+        this.setAnimation();
+    }
+
+    if (this.isAttacking && (this.game.microTime - this.lastAttacked) >= this.attackSpeed) {
+        this.stopAttack();
+    }
+};
 
 Pawn.prototype.setBrain = function() {
     this.activityBrain = new WorkerBrain(this);
@@ -122,10 +132,10 @@ Pawn.prototype.getCurrentlyEquipped = function (slot) {
 
 Pawn.prototype.checkForEnemiesInRange = function () {
     if (this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
-        return;
+        return false;
     }
     this.lastCheckedForEnemy = this.game.microTime;
-    var closestEnemy = this.game.factionManager.getClosestEnemyForUnit(this);
+    return this.game.factionManager.getClosestEnemyForUnit(this);
 };
 
 Pawn.prototype.equip = function (slot, name) {
@@ -151,6 +161,7 @@ Pawn.prototype.stopAttack = function() {
     this.isThrusting = false;
     this.launchAttack = false;
     this.isAttacking = false;
+    this.setAnimation();
 };
 
 Pawn.prototype.startAttack = function() {
@@ -172,6 +183,7 @@ Pawn.prototype.getWeapon = function() {
 Pawn.prototype.setAnimation = function(){
     this.weaponAnimationSpeed = 6;
     if (this.launchAttack) {
+        console.log('launch attacking');
         this.launchAttack = false;
         this.isMoving = false;
         if (this.equipment.getWeaponAnimation() === 'slash') {
@@ -183,13 +195,7 @@ Pawn.prototype.setAnimation = function(){
         if (this.equipment.getWeaponFrameCount()) {
             this.weaponAnimationSpeed = Math.ceil(this.equipment.getWeaponFrameCount() * (1000 / this.getAttackSpeed()));
         }
-        this.isFacing = Phaser.Math.angleBetween(
-            this.x - this.game.camera.x,
-            this.y - this.game.camera.y,
-            this.game.input.x,
-            this.game.input.y
-        );
-
+        console.log(this.weaponAnimationSpeed);
     }
 
     if (this.isMoving) {
@@ -238,19 +244,16 @@ Pawn.prototype.receiveAttack = function(attack){
 
 Pawn.prototype.knockBack = function(attack){
     this.stopMovement();
-    var xDist = attack.originX - this.x;
-    var yDist = attack.originY - this.y;
-    var totalDist = xDist + yDist;
-    var factor = totalDist / this.game.worldTileSize;
-    if (factor === 0) {
-        return;
-    }
-    var xOff = xDist / factor;
-    var yOff = yDist / factor;
+
+    var angle = Phaser.Math.angleBetween(attack.originX, attack.originY, this.x, this.y);
+    var pointX = this.x + ( attack.reach * Math.cos(angle));
+    var pointY = this.y + ( attack.reach * Math.sin(angle));
+
     this.game.add.tween(this).to(
         {
-            x: this.x + (xDist > 0 ? -xOff : xOff),
-            y: this.y + +(yDist > 0 ? -yOff : yOff)},
+            x: pointX,
+            y: pointY
+        },
         500,
         Phaser.Easing.Back.Out, true
     );

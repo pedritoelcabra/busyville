@@ -45,7 +45,7 @@ preloader.preload = function () {
     }
 
     this.game.stage.disableVisibilityChange = false;
-    this.game.collisionDebug = (typeof getVars.collision !== 'undefined');
+    this.game.collisionDebug = (typeof getVars.collision === 'undefined' ? false : getVars.collision);
 
     this.game.startingPawns = 5;
     this.game.startingAnimals = 2;
@@ -62,14 +62,6 @@ preloader.preload = function () {
     this.game.worldTileHeight = this.game.worldHeight / this.game.worldTileSize;
 
     this.game.easystar = new easystarjs.js();
-
-    this.game.activityWeights = {
-        "Wandering": 5,
-        "Idling": 5,
-        "Jogging": 1,
-        "Building": 5,
-        "Eating": 5
-    };
 
     this.game.stateManager = new StateManager(this.game);
 };

@@ -3,8 +3,6 @@
 var HitBox = require('./hitbox');
 
 var Attack = function (game, attacker, delay) {
-    this.originX = attacker.x;
-    this.originY = attacker.y;
     this.attacker = attacker;
     this.target = null;
     this.game = game;
@@ -18,11 +16,13 @@ Attack.prototype.executeAttack = function(){
     if (!this.weapon) {
         return;
     }
-    this.setUpAttackBox();
+    this.setUpAttack();
 
     if (this.checkHitEnemyUnit()) {
         return;
     }
+
+    return;
 
     if (this.checkHitFriendlyUnit()) {
         return;
@@ -44,16 +44,14 @@ Attack.prototype.checkHitFriendlyUnit = function() {
 };
 
 Attack.prototype.checkHitEnemyUnit = function() {
-    this.target = this.game.factionManager.checkUnitHitBoxCollision(this.attackBox, this.attacker);
-    if (!this.target) {
-        return false;
+    this.targets = this.game.factionManager.checkUnitHitBoxCollision(this);
+    for (var i = 0; i < this.targets.length; i++) {
+        this.targets[i].receiveAttack(this);
     }
-    this.target.receiveAttack(this);
-    return true;
 };
 
 Attack.prototype.checkHitFriendlyBuilding = function() {
-    this.target = this.game.buildingManager.checkBuildingHitBoxCollision(this.attackBox);
+    this.target = this.game.buildingManager.checkBuildingHitBoxCollision(this);
     if (!this.target) {
         return false;
     }
@@ -65,26 +63,28 @@ Attack.prototype.checkHitEnemyBuilding = function() {
     return false;
 };
 
-Attack.prototype.setUpAttackBox = function () {
-    this.attackBox = new HitBox(0, 0, 0, 0);
-    if (this.attacker.facingDirection() === 'up' || this.attacker.facingDirection() === 'down') {
-        this.attackBox.h = this.weapon.getAttackReach() * this.game.worldTileSize;
-        this.attackBox.w = this.weapon.getAttackWidth() * this.game.worldTileSize;
-        this.attackBox.x = this.attacker.x + (this.game.worldTileSize / 2) - (this.attackBox.w / 2);
-        if (this.attacker.facingDirection() === 'up') {
-            this.attackBox.y = this.attacker.y - this.attackBox.h;
-        } else {
-            this.attackBox.y = this.attacker.y + this.game.worldTileSize;
-        }
-    } else {
-        this.attackBox.w = this.weapon.getAttackReach() * this.game.worldTileSize;
-        this.attackBox.h = this.weapon.getAttackWidth() * this.game.worldTileSize;
-        this.attackBox.y = this.attacker.y + (this.game.worldTileSize / 2) - (this.attackBox.h / 2);
-        if (this.attacker.facingDirection() === 'left') {
-            this.attackBox.x = this.attacker.x - this.attackBox.w;
-        } else {
-            this.attackBox.x = this.attacker.x + this.game.worldTileSize;
-        }
+Attack.prototype.getAttackPoints = function() {
+    return this.points;
+};
+
+Attack.prototype.setUpAttack = function () {
+
+    this.originX = this.attacker.getHitBox().x;
+    this.originY = this.attacker.getHitBox().y;
+    this.direction = this.attacker.isFacing;
+    this.reach = this.attacker.getWeapon().getReach() * this.attacker.game.worldTileSize;
+
+    this.points = this.attacker.getWeapon().getAttackPoints(
+        this.originX + (this.attacker.getHitBox().w / 2),
+        this.originY + (this.attacker.getHitBox().h / 2),
+        this.direction,
+        this.reach
+    );
+
+    if(this.game.collisionDebug > 2){
+        var graphics = this.game.add.graphics(0,0);
+        graphics.lineStyle(2, 0x00FF00, 1);
+        graphics.drawPolygon(this.points);
     }
 };
 

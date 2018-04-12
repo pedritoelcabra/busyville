@@ -86,7 +86,7 @@ FactionManager.prototype.getClosestEnemyForUnit = function(unit) {
         if (!this.isHostileTowards(unit.getFaction(), this.units[i].getFaction())) {
             continue;
         }
-        this.thisDist = Math.max(Math.abs(unit.x - this.units[i].x), Math.abs(unit.y - this.units[i].y));
+        this.thisDist = this.distanceBetween(unit, this.units[i]);
         if (this.thisDist > unit.checkForEnemyRange) {
             continue;
         }
@@ -99,19 +99,24 @@ FactionManager.prototype.getClosestEnemyForUnit = function(unit) {
     return this.closestUnit;
 };
 
-FactionManager.prototype.checkUnitHitBoxCollision = function(hitBox, excludedUnit) {
+FactionManager.prototype.distanceBetween = function(actor1, actor2) {
+    return Phaser.Math.distance(actor1.x, actor1.y, actor2.x, actor2.y);
+};
+
+FactionManager.prototype.checkUnitHitBoxCollision = function(attack) {
+    var targets = [];
     for (var i = 0; i < this.units.length; i++) {
         if (!this.units[i].isAlive()) {
             continue;
         }
-        if (this.units[i] === excludedUnit) {
+        if (this.units[i] === attack.attacker) {
             continue;
         }
-        if (this.game.collisionMap.hitBoxesCollide(hitBox, this.units[i].getHitBox())) {
-            return this.units[i];
+        if (this.game.collisionMap.attackHitsTarget(attack.getAttackPoints(), this.units[i].getHitBox())) {
+            targets.push(this.units[i]);
         }
     }
-    return false;
+    return targets;
 };
 
 module.exports = FactionManager;

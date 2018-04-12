@@ -35,14 +35,7 @@ Player.prototype.init = function() {
 Player.prototype.update = function() {
     this.checkClicks();
     this.updateMovement();
-
-    if (this.launchAttack === true) {
-        this.setAnimation();
-    }
-
-    if (this.isAttacking && (this.game.microTime - this.lastAttacked) >= this.attackSpeed) {
-        this.stopAttack();
-    }
+    this.updateAttack();
 };
 
 Player.prototype.checkForEnemiesInRange = function () {
@@ -86,6 +79,12 @@ Player.prototype.checkClicks = function() {
     if (this.clicks) {
         this.clicks--;
         if (!this.clicks && this.game.cursorManager.checkClickHasNotBeenHandled()) {
+            this.isFacing = Phaser.Math.angleBetween(
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y,
+                this.game.input.x,
+                this.game.input.y
+            );
             this.startAttack();
         }
     }

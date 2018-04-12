@@ -139,6 +139,10 @@ CollisionMap.prototype.collidesPixel = function(x, y) {
     return this.collisionArea[this.tileFromPixel(y)][this.tileFromPixel(x)] > 0;
 };
 
+CollisionMap.prototype.collidesTile = function(x, y) {
+    return this.collisionArea[y][x] > 0;
+};
+
 CollisionMap.prototype.isRoadTile = function(x, y) {
     return this.roadTiles[x][y] > 0;
 };
@@ -206,6 +210,25 @@ CollisionMap.prototype.hitBoxesCollide = function(hba, hbb) {
         return false;
     }
     return true;
+};
+
+CollisionMap.prototype.attackHitsTarget = function(points, hitbox) {
+    for (var i = 0; i < points.length; i ++) {
+        if (points[i].x < hitbox.x) {
+            continue;
+        }
+        if (points[i].x > hitbox.x + hitbox.w) {
+            continue;
+        }
+        if (points[i].y < hitbox.y) {
+            continue;
+        }
+        if (points[i].y > hitbox.y + hitbox.h) {
+            continue;
+        }
+        return true;
+    }
+    return false;
 };
 
 

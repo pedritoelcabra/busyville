@@ -12,7 +12,7 @@ Movable.prototype = Object.create(Phaser.Sprite.prototype);
 Movable.prototype.constructor = Movable;
 
 Movable.prototype.update = function () {
-    this.checkForEnemiesInRange();
+    this.updateAttack();
     if (!this.activity.update()) {
         this.setActivity(this.activityBrain.chooseActivity());
     }

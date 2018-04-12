@@ -10,8 +10,8 @@ var Spear = function () {
     this.graphic = 'spear';
     this.animation = 'thrust';
     this.attackSpeed = 0.7;
-    this.attackBoxWidth = 1;
-    this.attackBoxLength = 2;
+    this.attackAngle = 0.5;
+    this.attackReach = 1.5;
 };
 
 Spear.prototype = Object.create(Item.prototype);
