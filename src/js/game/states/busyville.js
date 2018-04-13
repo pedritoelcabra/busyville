@@ -43,7 +43,7 @@ busyville.create = function () {
     this.game.player.init();
     this.game.player.loadEquipmentString(this.game.playerStartEquipment);
 
-    this.game.orc = new Orc(this.game, this.game.world.centerX - 100, this.game.world.centerY);
+    this.game.orc = new Orc(this.game, this.game.world.centerX - 500, this.game.world.centerY);
 
     this.game.gameMenu = new GameMenu(this.game);
     this.game.gameMenu.buildButtons();

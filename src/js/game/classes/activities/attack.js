@@ -23,7 +23,7 @@ Attack.prototype.executeActivity = function() {
 };
 
 Attack.prototype.isValid = function() {
-    return this.owner.checkForEnemiesInRange() !== false;
+    return this.owner.checkForEnemiesInRange();
 };
 
 Attack.prototype.executeEnd = function() {
@@ -66,7 +66,7 @@ Attack.prototype.onUpdate = function() {
         this.target = null;
     }
     if(!this.target){
-        this.target = this.owner.checkForEnemiesInRange();
+        this.target = this.owner.checkForEnemiesInRange(true);
         if(!this.target){
             this.noAvailableAttackings = true;
             return;
@@ -82,6 +82,11 @@ Attack.prototype.onUpdate = function() {
     if (this.targetIsInRange(facing)) {
         this.owner.isFacing = facing;
         this.owner.startAttack();
+        return;
+    }
+    var newTarget = this.owner.checkForEnemiesInRange(true);
+    if(newTarget !== this.target){
+        this.target = newTarget;
         return;
     }
     this.idealX = this.owner.game.collisionMap.tileFromPixel(this.owner.x);

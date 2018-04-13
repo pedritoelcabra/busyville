@@ -147,7 +147,7 @@ BuildingManager.prototype.getUnfinishedBuilding = function() {
 BuildingManager.prototype.checkBuildingHitBoxCollision = function(attack) {
     for (var i = 0; i < this.game.constructions.length; i++) {
         if (!this.game.constructions[i].isDestroyed()
-            && this.game.collisionMap.hitBoxesCollide(attack.getAttackPoints(), this.game.constructions[i].hitBox)) {
+            && this.game.collisionMap.attackHitsTarget(attack.getAttackPoints(), this.game.constructions[i].hitBox)) {
             return this.game.constructions[i];
         }
     }

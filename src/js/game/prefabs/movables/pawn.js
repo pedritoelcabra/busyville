@@ -130,10 +130,15 @@ Pawn.prototype.getCurrentlyEquipped = function (slot) {
     return this.equipment.hasSlotEquipped(slot).clothingType;
 };
 
-Pawn.prototype.checkForEnemiesInRange = function () {
-    if (this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
+Pawn.prototype.checkForEnemiesInRange = function (force) {
+    if (typeof force === 'undefined') {
+        force = false;
+    }
+    if (!force && this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
+        console.log('aborted checking for enemy');
         return false;
     }
+        console.log('checking for enemy');
     this.lastCheckedForEnemy = this.game.microTime;
     return this.game.factionManager.getClosestEnemyForUnit(this);
 };
@@ -247,7 +252,9 @@ Pawn.prototype.receiveAttack = function(attack){
 
 Pawn.prototype.knockBack = function(attack){
 
-    this.currentAttack.cancel();
+    if (this.currentAttack) {
+        this.currentAttack.cancel();
+    }
     this.stopAttack();
     this.stopMovement();
 
