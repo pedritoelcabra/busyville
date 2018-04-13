@@ -73,6 +73,7 @@ Inhabitant.prototype.addProgress = function(){
 Inhabitant.prototype.onFinishInhabitant = function(){
     this.inhabitantProgress = 0;
     this.movable = this.building.createInhabitant();
+    this.movable.setFaction(this.building.getFaction());
     this.game.add.existing(this.movable);
 };
 

@@ -84,9 +84,8 @@ Attack.prototype.onUpdate = function() {
         this.owner.startAttack();
         return;
     }
-    var newTarget = this.owner.checkForEnemiesInRange(true);
-    if(newTarget !== this.target){
-        this.target = newTarget;
+    if(this.owner.game.factionManager.distanceBetween(this.owner, this.target) > this.owner.checkForEnemyRange * 2){
+        this.target = null;
         return;
     }
     this.idealX = this.owner.game.collisionMap.tileFromPixel(this.owner.x);

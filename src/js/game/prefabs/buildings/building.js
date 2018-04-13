@@ -53,6 +53,10 @@ Building.prototype.update = function() {
 };
 
 Building.prototype.setFaction = function(faction) {
+    if (!isNaN(parseFloat(faction)) && isFinite(faction)) {
+        this.faction = faction;
+        return;
+    }
     this.faction = this.game.factionManager.getFaction(faction);
 };
 

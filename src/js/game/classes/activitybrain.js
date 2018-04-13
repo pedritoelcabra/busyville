@@ -17,8 +17,6 @@ ActivityBrain.prototype.chooseActivity = function(baseActivity){
     var thisScore = 0;
     for(var i = 0; i < this.activities.length ; i++){
         thisScore = this.activities[i].score();
-        console.log(this.activities[i]);
-        console.log(thisScore);
         if(thisScore > bestScore){
             bestScore = thisScore;
             bestActivity = i;
@@ -30,8 +28,6 @@ ActivityBrain.prototype.chooseActivity = function(baseActivity){
     for(var i = 0; i < this.idleActivities.length ; i++){
         thisScore = this.idleActivities[i].score();
         if(thisScore > bestScore){
-            console.log(this.idleActivities[i]);
-            console.log(thisScore);
             bestScore = thisScore;
             bestActivity = i;
         }
