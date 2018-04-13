@@ -183,7 +183,6 @@ Pawn.prototype.getWeapon = function() {
 Pawn.prototype.setAnimation = function(){
     this.weaponAnimationSpeed = 6;
     if (this.launchAttack) {
-        console.log('launch attacking');
         this.launchAttack = false;
         this.isMoving = false;
         if (this.equipment.getWeaponAnimation() === 'slash') {
@@ -195,7 +194,6 @@ Pawn.prototype.setAnimation = function(){
         if (this.equipment.getWeaponFrameCount()) {
             this.weaponAnimationSpeed = Math.ceil(this.equipment.getWeaponFrameCount() * (1000 / this.getAttackSpeed()));
         }
-        console.log(this.weaponAnimationSpeed);
     }
 
     if (this.isMoving) {

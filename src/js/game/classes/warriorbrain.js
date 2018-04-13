@@ -12,6 +12,10 @@ var WarriorBrain = function (owner) {
     ActivityBrain.call(this);
 
     this.activities = [
+        new Attack(this.owner)
+    ];
+
+    this.idleActivities = [
         new Wander(this.owner),
         new Idle(this.owner)
     ];

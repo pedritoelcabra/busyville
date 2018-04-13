@@ -109,40 +109,6 @@ Attack.prototype.onUpdate = function() {
             this.owner.stopMovement();
         }
     }
-    return;
-    if (!this.targetTile){
-        this.targetTile = this.target.getRandomAdyacentTile();
-        this.owner.pathToTile(
-            this.owner.game.collisionMap.tileFromPixel(target.x),
-            this.owner.game.collisionMap.tileFromPixel(target.y)
-        );
-        this.timeMoving = 0;
-    }
-    if( this.pathIsAvailable() ){
-        this.owner.walkPath();
-        return;
-    }
-    if( ! this.isAttacking){
-        if(Randomizer.chanceRoll(0.5)){
-            this.owner.isSlashing = true;
-        }else{
-            this.owner.isThrusting = true;
-        }
-        this.isAttacking = 1;
-        if(!this.owner.equipment.hasSlotEquipped("weapon")){
-            this.owner.equipment.replaceComponent("weapon", "woodwand");
-        }
-        this.owner.setAnimation();
-    }else{
-        this.isAttacking++;
-        if(this.isAttacking > this.owner.game.buildTickAmount){
-            this.isAttacking = 0;
-            this.target.addConstructionProgress(1);
-            if(this.target.isFinished()){
-                this.noAvailableAttackings = true;
-            }
-        }
-    }
 };
 
 Attack.prototype.checkIfEnded = function() {

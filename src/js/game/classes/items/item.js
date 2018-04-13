@@ -9,6 +9,7 @@ var Item = function () {
     this.attackAngle = 1;
     this.attackReach = 1;
     this.knockBackPower = 1;
+    this.build = false;
 };
 
 Item.prototype.constructor = Item;
@@ -43,6 +44,10 @@ Item.prototype.getReach = function() {
 
 Item.prototype.getKnockBackPower= function() {
     return this.knockBackPower;
+};
+
+Item.prototype.canBuild = function() {
+    return this.build;
 };
 
 Item.prototype.getAttackPoints= function(x, y, angle, reach) {

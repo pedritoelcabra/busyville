@@ -22,8 +22,6 @@ Attack.prototype.executeAttack = function(){
         return;
     }
 
-    return;
-
     if (this.checkHitFriendlyUnit()) {
         return;
     }
@@ -32,11 +30,9 @@ Attack.prototype.executeAttack = function(){
         return;
     }
 
-    if (this.checkHitFriendlyBuilding()) {
+    if (this.attacker.getWeapon().canBuild() && this.checkHitFriendlyBuilding()) {
         return;
     }
-
-    return;
 };
 
 Attack.prototype.checkHitFriendlyUnit = function() {
@@ -45,9 +41,13 @@ Attack.prototype.checkHitFriendlyUnit = function() {
 
 Attack.prototype.checkHitEnemyUnit = function() {
     this.targets = this.game.factionManager.checkUnitHitBoxCollision(this);
+    if (!this.targets.length) {
+        return false;
+    }
     for (var i = 0; i < this.targets.length; i++) {
         this.targets[i].receiveAttack(this);
     }
+    return true;
 };
 
 Attack.prototype.checkHitFriendlyBuilding = function() {

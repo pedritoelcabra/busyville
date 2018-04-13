@@ -17,6 +17,7 @@ var MeleeEnemyBrain = function (owner) {
     ];
 
     this.idleActivities = [
+        new Wander(this.owner),
         new Idle(this.owner)
     ];
 };
