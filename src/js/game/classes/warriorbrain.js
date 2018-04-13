@@ -2,6 +2,7 @@
 
 var Idle = require('../classes/activities/idle');
 var Wander = require('../classes/activities/wander');
+var Attack = require('../classes/activities/attack');
 
 var ActivityBrain = require('../classes/activitybrain');
 

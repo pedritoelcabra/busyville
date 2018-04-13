@@ -150,7 +150,12 @@ Pawn.prototype.isAlive = function () {
 
 Pawn.prototype.clicked = function() {
 
+    if (!this.game.input.activePointer.rightButton.isDown) {
+        return;
+    }
+
     this.game.cursorManager.updateLastHandledClick();
+
     var window = new InfoWindow(this.game, this);
     this.game.add.existing(window);
     this.game.menus.push(window);
@@ -241,7 +246,14 @@ Pawn.prototype.receiveAttack = function(attack){
 };
 
 Pawn.prototype.knockBack = function(attack){
+
+    this.currentAttack.cancel();
+    this.stopAttack();
     this.stopMovement();
+
+    if (this.game.collisionMap.collidesPixel(this.x, this.y)) {
+        return;
+    }
 
     var angle = Phaser.Math.angleBetween(attack.originX, attack.originY, this.x, this.y);
     var pointX = this.x + ( attack.reach * Math.cos(angle));

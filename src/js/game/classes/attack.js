@@ -9,9 +9,13 @@ var Attack = function (game, attacker, delay) {
     this.timer = this.game.time.create(false);
     this.timer.add(parseInt(delay), this.executeAttack, this);
     this.timer.start();
+    this.isCancelled = false;
 };
 
 Attack.prototype.executeAttack = function(){
+    if (this.isCancelled) {
+        return;
+    }
     this.weapon = this.attacker.getWeapon();
     if (!this.weapon) {
         return;
@@ -30,9 +34,11 @@ Attack.prototype.executeAttack = function(){
         return;
     }
 
-    if (this.attacker.getWeapon().canBuild() && this.checkHitFriendlyBuilding()) {
-        return;
-    }
+    this.checkHitFriendlyBuilding();
+};
+
+Attack.prototype.cancel = function() {
+    this.isCancelled = true;
 };
 
 Attack.prototype.checkHitFriendlyUnit = function() {
@@ -51,6 +57,9 @@ Attack.prototype.checkHitEnemyUnit = function() {
 };
 
 Attack.prototype.checkHitFriendlyBuilding = function() {
+    if (!this.attacker.getWeapon().canBuild()) {
+        return false;
+    }
     this.target = this.game.buildingManager.checkBuildingHitBoxCollision(this);
     if (!this.target) {
         return false;

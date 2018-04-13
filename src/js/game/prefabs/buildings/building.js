@@ -108,11 +108,11 @@ Building.prototype.init = function() {
 
 Building.prototype.clicked = function() {
 
-    this.game.cursorManager.updateLastHandledClick();
-
-    if (!this.game.input.activePointer.leftButton.isDown) {
+    if (!this.game.input.activePointer.rightButton.isDown) {
         return;
     }
+
+    this.game.cursorManager.updateLastHandledClick();
 
     if (this.game.demolishingBuildings) {
 
