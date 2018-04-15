@@ -15,7 +15,7 @@
 - [x] Building structures
 - [x] Enemies
 - [x] Attacks
-- [ ] Health and stats
+- [x] Health and stats
 - [ ] Trees
 - [ ] Rocks
 - [ ] Gathering resources
