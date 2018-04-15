@@ -135,10 +135,8 @@ Pawn.prototype.checkForEnemiesInRange = function (force) {
         force = false;
     }
     if (!force && this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
-        console.log('aborted checking for enemy');
         return false;
     }
-        console.log('checking for enemy');
     this.lastCheckedForEnemy = this.game.microTime;
     return this.game.factionManager.getClosestEnemyForUnit(this);
 };
@@ -248,6 +246,7 @@ Pawn.prototype.loadEquipmentString = function(string){
 
 Pawn.prototype.receiveAttack = function(attack){
     this.knockBack(attack);
+    this.stats.damageStat('health', attack.damage);
 };
 
 Pawn.prototype.knockBack = function(attack){

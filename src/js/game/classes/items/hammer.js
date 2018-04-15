@@ -13,6 +13,7 @@ var Hammer = function () {
     this.attackAngle = 1;
     this.attackReach = 1;
     this.build = true;
+    this.damage = 10;
 };
 
 Hammer.prototype = Object.create(Item.prototype);

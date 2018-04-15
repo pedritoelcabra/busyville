@@ -1,3 +1,7 @@
+
+var Stats = require('../../classes/stats');
+var HealthBar = require('../../prefabs/healthbar');
+
 var Movable = function (game, x, y, sprite) {
 
     Phaser.Sprite.call(this, game, x, y, sprite);
@@ -6,6 +10,13 @@ var Movable = function (game, x, y, sprite) {
     this.pathFinding = false;
     this.pathProgress = 0;
     this.faction = 0;
+
+    this.baseStats = {
+        'health' : 100
+    };
+
+    this.stats = new Stats(this);
+    this.healthBar = new HealthBar(this);
 };
 
 Movable.prototype = Object.create(Phaser.Sprite.prototype);

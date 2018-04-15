@@ -12,6 +12,7 @@ preloader.preload = function () {
     this.load.image('closebutton', 'images/closebutton.png');
     this.load.image('pawnIconEmpty', 'images/lpc/misc/pawnIconEmpty.png');
     this.load.image('pawnIconFull', 'images/lpc/misc/pawnIconFull.png');
+    this.load.image('health', 'images/health.png');
 
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);

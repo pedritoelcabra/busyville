@@ -12,6 +12,7 @@ var Spear = function () {
     this.attackSpeed = 0.7;
     this.attackAngle = 0.5;
     this.attackReach = 1.5;
+    this.damage = 20;
 };
 
 Spear.prototype = Object.create(Item.prototype);

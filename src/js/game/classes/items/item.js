@@ -9,6 +9,7 @@ var Item = function () {
     this.attackAngle = 1;
     this.attackReach = 1;
     this.knockBackPower = 1;
+    this.damage = 1;
     this.build = false;
 };
 
@@ -44,6 +45,10 @@ Item.prototype.getReach = function() {
 
 Item.prototype.getKnockBackPower= function() {
     return this.knockBackPower;
+};
+
+Item.prototype.getDamage= function() {
+    return this.damage;
 };
 
 Item.prototype.canBuild = function() {

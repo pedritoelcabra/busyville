@@ -20,7 +20,9 @@ Attack.prototype.executeAttack = function(){
     if (!this.weapon) {
         return;
     }
+
     this.setUpAttack();
+    this.calculateDamage();
 
     if (this.checkHitEnemyUnit()) {
         return;
@@ -95,6 +97,11 @@ Attack.prototype.setUpAttack = function () {
         graphics.lineStyle(2, 0x00FF00, 1);
         graphics.drawPolygon(this.points);
     }
+};
+
+Attack.prototype.calculateDamage = function () {
+
+    this.damage = this.attacker.getWeapon().getDamage();
 };
 
 Attack.prototype.constructor = Attack;
