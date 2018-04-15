@@ -9,16 +9,17 @@
 #### v 0.1
 - [x] Player character
 - [x] Menus
-- [x] Workers & warriors
+- [x] Workers and warriors
 - [x] Character creation screen
 - [x] Melee weapons
 - [x] Building structures
 - [x] Enemies
-- [ ] Attacks
+- [x] Attacks
+- [ ] Health and stats
 - [ ] Trees
 - [ ] Rocks
-- [ ] Water
 - [ ] Gathering resources
+- [ ] Water
 
 #### v 0.2
 - [ ] Saving the map

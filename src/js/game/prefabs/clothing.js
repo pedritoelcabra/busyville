@@ -31,6 +31,8 @@ var Clothing = function (game, pawn, type) {
     this.addAnimation('slashright', 15, 6);
     this.addAnimation('thrustright', 7, 8);
 
+    this.addAnimation('die', 20, 6);
+
     this.animations.play('stilldown', 4, false);
 };
 

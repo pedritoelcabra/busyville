@@ -20,14 +20,6 @@ var Pawn = function (game, x, y) {
     this.body.collideWorldBounds = false;
     this.body.allowRotation = false;
 
-    this.isDead = false;
-    this.isMoving = false;
-    this.isSlashing = false;
-    this.isThrusting = false;
-    this.isAttacking = false;
-    this.launchAttack = false;
-    this.isFacing = 1.57;
-
     this.hitBox = new HitBox(x, y, this.game.worldTileSize, this.game.worldTileSize);
 
     this.baseSpeed = 100;
@@ -72,6 +64,11 @@ Pawn.prototype = Object.create(Movable.prototype);
 Pawn.prototype.constructor = Pawn;
 
 Pawn.prototype.updateAttack = function() {
+
+    if (this.isDead) {
+        return;
+    }
+
     if (this.launchAttack === true) {
         this.setAnimation();
     }
@@ -189,6 +186,13 @@ Pawn.prototype.getWeapon = function() {
 };
 
 Pawn.prototype.setAnimation = function(){
+    if (this.isDead) {
+        if (!this.playedDeathAnimation) {
+            this.playAnimation('die', 6, false);
+            this.playedDeathAnimation = true;
+        }
+        return;
+    }
     this.weaponAnimationSpeed = 6;
     if (this.launchAttack) {
         this.launchAttack = false;
@@ -247,6 +251,9 @@ Pawn.prototype.loadEquipmentString = function(string){
 Pawn.prototype.receiveAttack = function(attack){
     this.knockBack(attack);
     this.stats.damageStat('health', attack.damage);
+    if (this.stats.get('health') <= 0) {
+        this.killingBlow(attack);
+    }
 };
 
 Pawn.prototype.knockBack = function(attack){

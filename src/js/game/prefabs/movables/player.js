@@ -33,6 +33,11 @@ Player.prototype.init = function() {
 };
 
 Player.prototype.update = function() {
+
+    if (this.isDead) {
+        return;
+    }
+
     this.checkClicks();
     this.updateMovement();
     this.updateAttack();
@@ -57,6 +62,10 @@ Player.prototype.getValidEquipment = function(type) {
 };
 
 Player.prototype.leftButtonClicked = function() {
+
+    if (this.isDead) {
+        return;
+    }
     if (this.game.buildingManager.cursorBuilding) {
         this.game.cursorManager.updateLastHandledClick();
         return;

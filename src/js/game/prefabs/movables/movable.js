@@ -11,6 +11,15 @@ var Movable = function (game, x, y, sprite) {
     this.pathProgress = 0;
     this.faction = 0;
 
+    this.isDead = false;
+    this.playedDeathAnimation = false;
+    this.isMoving = false;
+    this.isSlashing = false;
+    this.isThrusting = false;
+    this.isAttacking = false;
+    this.launchAttack = false;
+    this.isFacing = 1.57;
+
     this.baseStats = {
         'health' : 100
     };
@@ -23,6 +32,11 @@ Movable.prototype = Object.create(Phaser.Sprite.prototype);
 Movable.prototype.constructor = Movable;
 
 Movable.prototype.update = function () {
+
+    if (this.isDead) {
+        return;
+    }
+
     this.updateAttack();
     if (!this.activity.update()) {
         this.setActivity(this.activityBrain.chooseActivity());
@@ -134,6 +148,12 @@ Movable.prototype.moveToRandomPosition = function () {
         y -= y - this.game.worldHeight + 1;
     }
     this.pathToPosition(x, y);
+};
+
+Movable.prototype.killingBlow = function () {
+    this.stopMovement();
+    this.isDead = true;
+    this.setAnimation();
 };
 
 module.exports = Movable;
