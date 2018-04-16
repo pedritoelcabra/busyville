@@ -34,8 +34,7 @@ var Pawn = function (game, x, y) {
     this.checkForEnemyRange = 500;
 
     this.equipment = new Equipment(this);
-
-    this.equipInitialGear();
+    this.equipment.equipInitialGear();
 
     if(this.game.collisionDebug){
 
@@ -93,22 +92,12 @@ Pawn.prototype.getHitBox = function() {
 
 Pawn.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'body': return [ItemFactory.getNew('HumanBody')];
-        case 'pants': return [ItemFactory.getNew('ClothPants')];
-        case 'shirt': return [ItemFactory.getNew('ClothShirt')];
-        case 'hair': return [ItemFactory.getNew('HumanHair')];
+        case 'body': return 'HumanBody';
+        case 'pants': return 'ClothPants';
+        case 'shirt': return 'ClothShirt';
+        case 'hair': return 'HumanHair';
     }
-    return [];
-};
-
-Pawn.prototype.equipInitialGear = function() {
-    this.equipment.replaceComponent("body", Randomizer.arrayRand(this.getValidEquipment('body')));
-    this.equipment.replaceComponent("pants", Randomizer.arrayRand(this.getValidEquipment('pants')));
-    this.equipment.replaceComponent("shirt", Randomizer.arrayRand(this.getValidEquipment('shirt')));
-    this.equipment.replaceComponent("hair", Randomizer.arrayRand(this.getValidEquipment('hair')));
-    this.equipment.replaceComponent("head", Randomizer.arrayRand(this.getValidEquipment('head')));
-    this.equipment.replaceComponent("feet", Randomizer.arrayRand(this.getValidEquipment('feet')));
-    this.equipment.replaceComponent("weapon", Randomizer.arrayRand(this.getValidEquipment('weapon')));
+    return '';
 };
 
 Pawn.prototype.getCurrentlyEquipped = function (slot) {

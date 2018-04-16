@@ -1,6 +1,7 @@
 'use strict';
 
 var Clothing = require('../prefabs/clothing');
+var ItemFactory = require('./items/itemfactory');
 
 var Equipment = function (owner) {
 
@@ -41,16 +42,21 @@ var Equipment = function (owner) {
     };
 };
 
-Equipment.prototype.replaceComponent = function (slot, name) {
-    if (typeof name === 'object') {
-        this.equipItem(name);
+Equipment.prototype.equipInitialGear = function () {
+    this.replaceComponent(this.owner.getValidEquipment('body'));
+    this.replaceComponent(this.owner.getValidEquipment('pants'));
+    this.replaceComponent(this.owner.getValidEquipment('shirt'));
+    this.replaceComponent(this.owner.getValidEquipment('hair'));
+    this.replaceComponent(this.owner.getValidEquipment('head'));
+    this.replaceComponent(this.owner.getValidEquipment('feet'));
+    this.replaceComponent(this.owner.getValidEquipment('weapon'));
+};
+
+Equipment.prototype.replaceComponent = function (name) {
+    if (name === '') {
         return;
     }
-    if (typeof slot === 'object') {
-        this.equipItem(slot);
-        return;
-    }
-    this.equipSlot(slot, name);
+    this.equipItem(ItemFactory.getNew(name));
 };
 
 
@@ -164,9 +170,13 @@ Equipment.prototype.stopAnimation = function () {
 
 Equipment.prototype.getEquipmentString = function () {
     var stringObj = {};
-    for (var key in this.slots) {
-        if (this.slots.hasOwnProperty(key) && this.slots[key]) {
-            stringObj[key] = this.slots[key].clothingType;
+    for (var key in this.items) {
+        if (this.items.hasOwnProperty(key) && this.items[key]) {
+            var itemObj = {
+                'item' : this.items[key].constructor.name,
+                'graphic' : this.items[key].graphic
+            };
+            stringObj[key] = itemObj;
         }
     }
     return JSON.stringify(stringObj);
@@ -176,7 +186,9 @@ Equipment.prototype.loadEquipmentString = function (string) {
     var stringObj = JSON.parse(string);
     for (var key in stringObj) {
         if (stringObj.hasOwnProperty(key) && stringObj[key]) {
-            this.replaceComponent(key, stringObj[key]);
+            var item = ItemFactory.getNew(stringObj[key].item);
+            item.setGraphic(stringObj[key].graphic);
+            this.equipItem(item);
         }
     }
 };

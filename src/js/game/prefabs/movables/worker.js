@@ -13,10 +13,7 @@ Worker.prototype.constructor = Worker;
 
 Worker.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'weapon':
-            return [ItemFactory.getNew('Hammer')];
-        case 'head':
-            return [];
+        case 'weapon': return 'Hammer';
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
 };

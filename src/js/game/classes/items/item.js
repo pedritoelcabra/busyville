@@ -20,4 +20,8 @@ Item.prototype.getGraphic = function() {
     return this.graphic;
 };
 
+Item.prototype.setGraphic = function(graphic) {
+    this.graphic = graphic;
+};
+
 module.exports = Item;

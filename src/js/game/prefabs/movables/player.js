@@ -55,8 +55,7 @@ Player.prototype.setBrain = function() {
 
 Player.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'weapon':
-            return [ItemFactory.getNew('Hammer')];
+        case 'weapon': return 'Hammer';
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
 };
