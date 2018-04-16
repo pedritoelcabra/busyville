@@ -14,16 +14,11 @@ Warrior.prototype.constructor = Warrior;
 
 Warrior.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'shirt':
-            return ['leather'];
-        case 'weapon':
-            return [ItemFactory.getNew('Spear')];
-        case 'head':
-            return ['chainhat'];
-        case 'feet':
-            return ['black_shoes'];
-        case 'hair':
-            return [];
+        case 'shirt': return [ItemFactory.getNew('LeatherArmor')];
+        case 'weapon': return [ItemFactory.getNew('Spear')];
+        case 'head': return [ItemFactory.getNew('ChainHat')];
+        case 'feet': return [ItemFactory.getNew('BlackShoes')];
+        case 'hair': return [];
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
 };

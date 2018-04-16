@@ -7,6 +7,9 @@ var OrcBody = require('./orcbody');
 var ClothPants = require('./clothpants');
 var ClothShirt = require('./clothshirt');
 var HumanHair = require('./humanhair');
+var LeatherArmor = require('./leatherarmor');
+var ChainHat = require('./chainhat');
+var BlackShoes = require('./blackshoes');
 
 var ItemFactory = function () {
 };
