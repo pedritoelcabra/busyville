@@ -3,6 +3,9 @@
 var Item = require('./item');
 
 var Weapon = function () {
+    Item.call(this);
+
+    this.slot = 'weapon';
     this.animation = '';
     this.attackSpeed = 1;
     this.attackAngle = 1;
