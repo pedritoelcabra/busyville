@@ -1,9 +1,9 @@
 'use strict';
 
-var Item = require('./item');
+var Weapon = require('./weapon');
 
 var Hammer = function () {
-    Item.call(this);
+    Weapon.call(this);
 
     this.name = 'Hammer';
     this.slot = 'weapon';
@@ -16,7 +16,7 @@ var Hammer = function () {
     this.damage = 10;
 };
 
-Hammer.prototype = Object.create(Item.prototype);
+Hammer.prototype = Object.create(Weapon.prototype);
 Hammer.prototype.constructor = Hammer;
 
 module.exports = Hammer;
