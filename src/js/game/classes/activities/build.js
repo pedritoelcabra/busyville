@@ -30,7 +30,6 @@ Build.prototype.executeEnd = function() {
     this.targetTile = false;
     this.isBuilding = false;
     this.owner.clearPath();
-    this.owner.equipment.clearSlot("weapon");
     this.owner.stopMovement();
 };
 

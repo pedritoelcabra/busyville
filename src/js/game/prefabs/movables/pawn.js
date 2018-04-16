@@ -261,6 +261,7 @@ Pawn.prototype.setHome = function(inhabitantHome){
 Pawn.prototype.receiveAttack = function(attack){
     this.knockBack(attack);
     this.stats.damageStat('health', attack.damage);
+    this.activityBrain.triggerAttacked();
     if (this.stats.get('health') <= 0) {
         this.killingBlow(attack);
     }

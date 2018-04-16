@@ -12,8 +12,10 @@ var MeleeEnemyBrain = function (owner) {
 
     ActivityBrain.call(this);
 
+    this.attackResponse = new Attack(this.owner);
+
     this.activities = [
-        new Attack(this.owner)
+        this.attackResponse
     ];
 
     this.idleActivities = [

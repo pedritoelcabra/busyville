@@ -13,13 +13,14 @@ var WorkerBrain = function (owner) {
 
     ActivityBrain.call(this);
 
+    this.attackResponse = new Attack(this.owner);
+
     this.activities = [
         new Build(this.owner)
     ];
 
     this.idleActivities = [
         new Wander(this.owner),
-        new Attack(this.owner),
         new Idle(this.owner)
     ];
 };

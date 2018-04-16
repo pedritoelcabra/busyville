@@ -3,6 +3,7 @@
 var ActivityBrain = function (owner) {
     this.activities = [];
     this.idleActivities = [];
+    this.attackResponse = false;
 };
 
 ActivityBrain.prototype.chooseActivity = function(baseActivity){
@@ -42,6 +43,12 @@ ActivityBrain.prototype.chooseActivity = function(baseActivity){
         return this.idleActivities[0];
     }
     return false;
+};
+
+ActivityBrain.prototype.triggerAttacked = function() {
+    if (this.attackResponse) {
+        this.owner.setActivity(this.attackResponse);
+    }
 };
 
 ActivityBrain.prototype.constructor = ActivityBrain;

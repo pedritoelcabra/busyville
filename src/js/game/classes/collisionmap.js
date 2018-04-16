@@ -60,6 +60,9 @@ CollisionMap.prototype.setSpriteCollision = function(sprite, value) {
 };
 
 CollisionMap.prototype.freeSpaceAtLocation = function(x, y, w, h) {
+    if (y < 0 || x < 0 || y >= this.freeSpaceMap.length ||  x >= this.freeSpaceMap[0].length) {
+        return false;
+    }
     for(var i = x; i < x + w; i++){
         if(this.freeSpaceMap[y][i].y < h){
             return false;

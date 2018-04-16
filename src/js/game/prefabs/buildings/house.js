@@ -23,7 +23,7 @@ var House = function (game, x, y) {
     this.doorTile = {'x' : 1, 'y' : 5};
 
     this.housing = 1;
-    this.inhabitantCost = 20;
+    this.inhabitantCost = 2;
 
     this.buildingType = 'House';
     this.inputEnabled = true;
