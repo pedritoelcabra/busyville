@@ -94,17 +94,9 @@ Pawn.prototype.getHitBox = function() {
 Pawn.prototype.getValidEquipment = function(type) {
     switch (type) {
         case 'body': return [ItemFactory.getNew('HumanBody')];
-        case 'pants':
-            return pantFiles;
-        case 'shirt':
-            return [
-                'brown_longsleeve',
-                'maroon_longsleeve',
-                'teal_longsleeve',
-                'white_longsleeve'
-            ];
-        case 'hair':
-            return hairFiles;
+        case 'pants': return [ItemFactory.getNew('ClothPants')];
+        case 'shirt': return [ItemFactory.getNew('ClothShirt')];
+        case 'hair': return [ItemFactory.getNew('HumanHair')];
     }
     return [];
 };

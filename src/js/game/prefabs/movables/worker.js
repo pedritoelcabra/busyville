@@ -16,6 +16,7 @@ Worker.prototype.getValidEquipment = function(type) {
         case 'weapon':
             return [ItemFactory.getNew('Hammer')];
         case 'head':
+            return [];
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
 };

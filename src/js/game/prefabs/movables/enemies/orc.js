@@ -16,22 +16,12 @@ Orc.prototype.constructor = Orc;
 
 Orc.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'shirt':
-            return [];
         case 'weapon':
             return [ItemFactory.getNew('Spear')];
-        case 'head':
-            return [];
-        case 'pants':
-            return [];
-        case 'feet':
-            return [];
-        case 'hair':
-            return [];
         case 'body':
             return [ItemFactory.getNew('OrcBody')];
     }
-    return Pawn.prototype.getValidEquipment.call(this, type);
+    return [];
 };
 
 Orc.prototype.setBrain = function() {
