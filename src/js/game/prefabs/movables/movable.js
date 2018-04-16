@@ -20,6 +20,8 @@ var Movable = function (game, x, y, sprite) {
     this.launchAttack = false;
     this.isFacing = 1.57;
 
+    this.inhabitantHome = false;
+
     this.baseStats = {
         'health' : 100
     };
@@ -118,6 +120,10 @@ Movable.prototype.pathToPosition = function (x, y) {
     this.game.collisionMap.findPath(this.x, this.y, x, y, this);
 };
 
+Movable.prototype.pathToTarget = function (movable) {
+    this.pathToPosition(movable.getHitBox().mx, movable.getHitBox().my);
+};
+
 Movable.prototype.setPath = function (path) {
     if (!this.pendingPath) {
         this.pendingPath = [];
@@ -153,6 +159,9 @@ Movable.prototype.moveToRandomPosition = function () {
 Movable.prototype.killingBlow = function () {
     this.stopMovement();
     this.isDead = true;
+    if (this.inhabitantHome) {
+        this.inhabitantHome.inhabitantDied();
+    }
     this.setAnimation();
 };
 

@@ -12,6 +12,8 @@ var Attack = function (owner) {
     this.noAvailableAttackings = false;
     this.minimumPreference = 0;
     this.timeMoving = 0;
+    this.lastPathed = 0;
+    this.pathingFrequency = 1000;
     Activity.call(this, owner);
 };
 
@@ -24,6 +26,10 @@ Attack.prototype.executeActivity = function() {
 
 Attack.prototype.isValid = function() {
     return this.owner.checkForEnemiesInRange();
+};
+
+Attack.prototype.recentlyPathed = function () {
+    return (this.lastPathed + this.pathingFrequency > this.owner.game.microTime);
 };
 
 Attack.prototype.executeEnd = function() {
@@ -65,7 +71,7 @@ Attack.prototype.onUpdate = function() {
     if(this.target && !this.target.isAlive()) {
         this.target = null;
     }
-    if(!this.target){
+    if(!this.target || !this.target.isAlive()){
         this.target = this.owner.checkForEnemiesInRange(true);
         if(!this.target){
             this.noAvailableAttackings = true;
@@ -86,6 +92,17 @@ Attack.prototype.onUpdate = function() {
     }
     if(this.owner.game.factionManager.distanceBetween(this.owner, this.target) > this.owner.checkForEnemyRange * 2){
         this.target = null;
+        return;
+    }
+    if (!this.owner.recentlyCheckedForEnemies()){
+        var closestTarget = this.owner.checkForEnemiesInRange();
+        if (closestTarget !== this.target) {
+            this.target = closestTarget;
+            return;
+        }
+    }
+    if (this.pathIsAvailable()) {
+        this.owner.walkPath();
         return;
     }
     this.idealX = this.owner.game.collisionMap.tileFromPixel(this.owner.x);
@@ -113,13 +130,15 @@ Attack.prototype.onUpdate = function() {
             this.owner.stopMovement();
         }
     }
+    if (this.recentlyPathed()) {
+        return;
+    }
+    this.lastPathed = this.owner.game.microtime;
+    this.owner.pathToTarget(this.target);
 };
 
 Attack.prototype.checkIfEnded = function() {
-    if(this.noAvailableAttackings){
-        return true;
-    }
-    return false;
+    return this.noAvailableAttackings;
 };
 
 module.exports = Attack;

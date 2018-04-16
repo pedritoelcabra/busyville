@@ -1,4 +1,5 @@
 
+var Randomizer = require('../classes/randomizer');
 var Orc = require('../prefabs/movables/enemies/orc');
 var Player = require('../prefabs/movables/player');
 var CollisionMap = require('../classes/collisionmap');
@@ -43,7 +44,8 @@ busyville.create = function () {
     this.game.player.init();
     this.game.player.loadEquipmentString(this.game.playerStartEquipment);
 
-    this.game.orc = new Orc(this.game, this.game.world.centerX - 500, this.game.world.centerY);
+    var orc = new Orc(this.game, this.game.world.centerX - 500, this.game.world.centerY);
+    this.orcCount = 3;
 
     this.game.gameMenu = new GameMenu(this.game);
     this.game.gameMenu.buildButtons();
@@ -85,6 +87,20 @@ busyville.update = function () {
      || this.game.input.keyboard.isDown(Phaser.Keyboard.D);
 
     this.game.buildingManager.update();
+
+    var currentOrcCount = this.game.factionManager.aliveUnitCount('orc');
+    var tries = 0;
+    while (tries < 10 && currentOrcCount < this.orcCount) {
+        tries ++;
+        var randomX = Randomizer.getRandomInt(this.game.worldTileWidth - 2) + 1;
+        var randomY = Randomizer.getRandomInt(this.game.worldTileHeight - 2) + 1;
+
+        if (!this.game.collisionMap.collidesTile(randomX, randomY)) {
+            var orc = new Orc(this.game, randomX * this.game.worldTileSize, randomY * this.game.worldTileSize);
+            currentOrcCount++;
+        }
+
+    }
 };
 
 busyville.deleteMenus = function () {

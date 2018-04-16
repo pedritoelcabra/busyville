@@ -31,6 +31,10 @@ Inhabitant.prototype.inhabitant = function(){
     return this.movable;
 };
 
+Inhabitant.prototype.inhabitantDied = function(){
+    this.movable = null;
+};
+
 Inhabitant.prototype.hasInhabitant = function(){
     return this.movable !== null;
 };
@@ -74,6 +78,7 @@ Inhabitant.prototype.onFinishInhabitant = function(){
     this.inhabitantProgress = 0;
     this.movable = this.building.createInhabitant();
     this.movable.setFaction(this.building.getFaction());
+    this.movable.setHome(this);
     this.game.add.existing(this.movable);
 };
 

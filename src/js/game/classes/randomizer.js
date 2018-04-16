@@ -46,4 +46,8 @@ Randomizer.chanceRoll = function(chance) {
     return Math.random() < chance;
 };
 
+Randomizer.getRandomInt = function(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+};
+
 module.exports = Randomizer;

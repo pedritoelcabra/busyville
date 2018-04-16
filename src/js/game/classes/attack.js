@@ -53,7 +53,9 @@ Attack.prototype.checkHitEnemyUnit = function() {
         return false;
     }
     for (var i = 0; i < this.targets.length; i++) {
-        this.targets[i].receiveAttack(this);
+        if (this.targets[i].getFaction() !== this.attacker.getFaction()){
+            this.targets[i].receiveAttack(this);
+        }
     }
     return true;
 };

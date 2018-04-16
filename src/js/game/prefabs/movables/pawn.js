@@ -30,7 +30,7 @@ var Pawn = function (game, x, y) {
     this.checkForEnemyFrequency = 1000;
 
     this.lastCheckedForEnemy = 0;
-    this.checkForEnemyRange = 200;
+    this.checkForEnemyRange = 500;
 
     this.equipment = new Equipment(this);
 
@@ -85,6 +85,8 @@ Pawn.prototype.setBrain = function() {
 Pawn.prototype.getHitBox = function() {
     this.hitBox.x = this.x;
     this.hitBox.y = this.y;
+    this.hitBox.mx = this.x + (this.hitBox.w / 2);
+    this.hitBox.my = this.y + (this.hitBox.h / 2);
     return this.hitBox;
 };
 
@@ -131,11 +133,15 @@ Pawn.prototype.checkForEnemiesInRange = function (force) {
     if (typeof force === 'undefined') {
         force = false;
     }
-    if (!force && this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime) {
+    if (!force && this.recentlyCheckedForEnemies()) {
         return false;
     }
     this.lastCheckedForEnemy = this.game.microTime;
     return this.game.factionManager.getClosestEnemyForUnit(this);
+};
+
+Pawn.prototype.recentlyCheckedForEnemies = function () {
+    return (this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime);
 };
 
 Pawn.prototype.equip = function (slot, name) {
@@ -246,6 +252,10 @@ Pawn.prototype.getEquipmentString = function(){
 
 Pawn.prototype.loadEquipmentString = function(string){
     this.equipment.loadEquipmentString(string);
+};
+
+Pawn.prototype.setHome = function(inhabitantHome){
+    this.inhabitantHome = inhabitantHome;
 };
 
 Pawn.prototype.receiveAttack = function(attack){

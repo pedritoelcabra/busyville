@@ -73,6 +73,25 @@ FactionManager.prototype.addUnit = function(unit) {
     this.units.push(unit);
 };
 
+FactionManager.prototype.aliveUnitCount = function(faction) {
+    if (typeof faction === 'undefined') {
+        faction = false;
+    }
+    else {
+        faction = this.getFaction(faction);
+    }
+    var count = 0;
+    for (var i = 0; i < this.units.length; i++) {
+        if (!this.units[i].isAlive()) {
+            continue;
+        }
+        if (!faction || this.units[i].getFaction() === faction) {
+            count++;
+        }
+    }
+    return count;
+};
+
 FactionManager.prototype.getClosestEnemyForUnit = function(unit) {
     this.closestDist = 999999;
     this.closestUnit = 0;
