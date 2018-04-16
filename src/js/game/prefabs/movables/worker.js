@@ -1,6 +1,7 @@
 'use strict';
 
 var Pawn = require('./pawn');
+var ItemFactory = require('../../classes/items/itemfactory');
 
 var Worker = function (game, x, y) {
 
@@ -10,6 +11,13 @@ var Worker = function (game, x, y) {
 Worker.prototype = Object.create(Pawn.prototype);
 Worker.prototype.constructor = Worker;
 
+Worker.prototype.getValidEquipment = function(type) {
+    switch (type) {
+        case 'weapon':
+            return [ItemFactory.getNew('Hammer')];
+        case 'head':
+    }
+    return Pawn.prototype.getValidEquipment.call(this, type);
+};
+
 module.exports = Worker;
-
-
