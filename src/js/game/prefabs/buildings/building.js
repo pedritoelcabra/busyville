@@ -203,6 +203,7 @@ Building.prototype.onFinishedConstruction = function() {
 };
 
 Building.prototype.maskProgress = function() {
+    var progress = this.constructionProgress * (this.height / this.constructionCost);
     if(this.isFinished()){
         if(this.mask){
             this.mask.destroy();
@@ -213,8 +214,8 @@ Building.prototype.maskProgress = function() {
     mask.beginFill(0xffffff);
     mask.moveTo(0, this.height);
     mask.lineTo(this.width, this.height);
-    mask.lineTo(this.width, this.height - this.constructionProgress);
-    mask.lineTo(0, this.height - this.constructionProgress);
+    mask.lineTo(this.width, this.height - progress);
+    mask.lineTo(0, this.height - progress);
     mask.lineTo(0, this.height);
     mask.endFill();
     if(this.mask){

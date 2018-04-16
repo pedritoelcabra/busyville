@@ -18,6 +18,8 @@ var WatchTower = function (game, x, y) {
 
     Building.call( this, game, x, y, this.firstName);
 
+    this.constructionCost = 100;
+
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
 
