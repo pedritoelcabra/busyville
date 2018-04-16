@@ -2,6 +2,8 @@
 
 var Hammer = require('./hammer');
 var Spear = require('./spear');
+var HumanBody = require('./humanbody');
+var OrcBody = require('./orcbody');
 
 var ItemFactory = function () {
 };

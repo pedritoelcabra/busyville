@@ -7,6 +7,7 @@ var WorkerBrain = require('../../classes/workerbrain');
 var Equipment = require('../../classes/equipment');
 var Attack = require('../../classes/attack');
 var HitBox = require('../../classes/hitbox');
+var ItemFactory = require('../../classes/items/itemfactory');
 
 var Pawn = function (game, x, y) {
 
@@ -92,14 +93,7 @@ Pawn.prototype.getHitBox = function() {
 
 Pawn.prototype.getValidEquipment = function(type) {
     switch (type) {
-        case 'body':
-            return [
-                'dark2',
-                'dark',
-                'light',
-                'tanned2',
-                'tanned'
-            ];
+        case 'body': return [ItemFactory.getNew('HumanBody')];
         case 'pants':
             return pantFiles;
         case 'shirt':

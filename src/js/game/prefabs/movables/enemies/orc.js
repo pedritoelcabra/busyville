@@ -29,7 +29,7 @@ Orc.prototype.getValidEquipment = function(type) {
         case 'hair':
             return [];
         case 'body':
-            return ['orc'];
+            return [ItemFactory.getNew('OrcBody')];
     }
     return Pawn.prototype.getValidEquipment.call(this, type);
 };
