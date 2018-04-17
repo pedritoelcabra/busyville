@@ -35,6 +35,36 @@ Randomizer.lastName = function() {
     return this.lastNames[rand];
 };
 
+Randomizer.warriorEphitet = function() {
+    this.warriorEphitets = [
+        "the Strong",
+        "the Valiant",
+        "the Brave"
+    ];
+    var rand = Math.floor((Math.random() * this.warriorEphitets.length));
+    return this.warriorEphitets[rand];
+};
+
+Randomizer.orcEphitet = function() {
+    this.warriorEphitets = [
+        "the Merciless",
+        "the Smelly",
+        "the Brawler"
+    ];
+    var rand = Math.floor((Math.random() * this.warriorEphitets.length));
+    return this.warriorEphitets[rand];
+};
+
+Randomizer.orcName = function() {
+    this.orcNames = [
+        "Grug Ta",
+        "Hrugg",
+        "Kn Dur"
+    ];
+    var rand = Math.floor((Math.random() * this.orcNames.length));
+    return this.orcNames[rand];
+};
+
 Randomizer.arrayRand = function(array) {
     if (!array.length) {
         return 0;

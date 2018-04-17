@@ -48,9 +48,6 @@ var Pawn = function (game, x, y) {
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
 
-    this.firstName = this.sex ? Randomizer.firstMaleName() : Randomizer.firstFemaleName();
-    this.lastName = Randomizer.lastName();
-
     this.setBrain();
     this.setActivity(this.activityBrain.chooseActivity(true));
 

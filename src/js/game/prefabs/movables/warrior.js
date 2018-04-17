@@ -1,12 +1,15 @@
 'use strict';
 
 var Pawn = require('./pawn');
-var ItemFactory = require('../../classes/items/itemfactory');
 var WarriorBrain = require('../../classes/warriorbrain');
+var Randomizer = require('../../classes/randomizer');
 
 var Warrior = function (game, x, y) {
 
     Pawn.call( this, game, x, y);
+
+    this.firstName = this.sex ? Randomizer.firstMaleName() : Randomizer.firstFemaleName();
+    this.lastName = Randomizer.warriorEphitet();
 };
 
 Warrior.prototype = Object.create(Pawn.prototype);

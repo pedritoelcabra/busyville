@@ -12,7 +12,6 @@ var InfoWindow = function (game, pawn) {
 
     this.fixedToCamera = true;
 
-
     this.inputEnabled = true;
     this.input.enableDrag();
     this.events.onDragStart.add(this.startDrag, this);
@@ -31,10 +30,42 @@ var InfoWindow = function (game, pawn) {
 
     this.descriptions = [];
     this.lineCount = 0;
+
     if(pawn.activityBrain){
-        for(var i = 0; i < pawn.activityBrain.activities.length ; i++){
-            this.addLine(pawn.activityBrain.activities[i].preferenceString());
+        if (pawn.activityBrain.activities.length) {
+            this.addLine('Main activities:');
         }
+        for(var i = 0; i < pawn.activityBrain.activities.length ; i++){
+            this.addLine(' - ' + pawn.activityBrain.activities[i].preferenceString());
+        }
+        if (pawn.activityBrain.idleActivities.length) {
+            this.addLine('Secondary activities:');
+        }
+        for(var i = 0; i < pawn.activityBrain.idleActivities.length ; i++){
+            this.addLine(' - ' + pawn.activityBrain.idleActivities[i].preferenceString());
+        }
+        if (pawn.activityBrain.attackResponse) {
+            this.addLine('Response to being attacked:');
+            this.addLine(' - ' + pawn.activityBrain.attackResponse.nameString);
+        }
+        if (this.lineCount) {
+            this.addLine('');
+        }
+    }
+    var itemCount = 0;
+    this.addLine('Equipment:');
+    for (var key in pawn.equipment.items) {
+        if (!pawn.equipment.items.hasOwnProperty(key)) {
+            continue;
+        }
+        if (!pawn.equipment.items[key]) {
+            continue;
+        }
+        itemCount++;
+        this.addLine(' - ' + pawn.equipment.items[key].getName());
+    }
+    if (!itemCount) {
+        this.addLine('Naked as a sheep after shearing!');
     }
 
 };

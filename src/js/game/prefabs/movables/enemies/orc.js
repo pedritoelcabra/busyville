@@ -2,10 +2,14 @@
 
 var Pawn = require('./../pawn');
 var MeleeEnemyBrain = require('../../../classes/meleeenemybrain');
+var Randomizer = require('../../../classes/randomizer');
 
 var Orc = function (game, x, y) {
 
     Pawn.call( this, game, x, y);
+
+    this.firstName = Randomizer.orcName();
+    this.lastName = Randomizer.orcEphitet();
 
     this.setFaction('orc');
 };
