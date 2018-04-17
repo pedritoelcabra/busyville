@@ -1,5 +1,6 @@
 
 var DummyCharacter = require('../prefabs/movables/dummycharacter');
+var ItemFactory = require('../classes/items/itemfactory');
 var MenuButton = require('../classes/menus/menubutton');
 
 var charcreation = {};
@@ -30,17 +31,27 @@ charcreation.create = function () {
     var leftButtonX = this.game.width / 2;
     var rightButtonX = (this.game.width / 4) + (this.game.width / 2);
 
-    this.slots = [
-        'hair',
-        'shirt',
-        'body',
-        'pants'
-    ];
+    this.slots = {
+        'hair': 'HumanHair',
+        'body': 'HumanBody',
+        'shirt': 'ClothShirt',
+        'pants': 'ClothPants'
+    };
 
-    for (var i = 0; i < this.slots.length; i++) {
-        var leftButton = new MenuButton(this.slots[i], this.game, this, leftButtonX, buttonY, 'left');
+    this.validEquipment = {
+        'hair': ItemFactory.getNew('HumanHair').getGraphics(),
+        'pants': ItemFactory.getNew('ClothPants').getGraphics(),
+        'shirt': ItemFactory.getNew('ClothShirt').getGraphics(),
+        'body': ItemFactory.getNew('HumanBody').getGraphics()
+    };
+
+    for (var key in this.validEquipment) {
+        if (!this.validEquipment.hasOwnProperty(key)) {
+            continue;
+        }
+        var leftButton = new MenuButton(key, this.game, this, leftButtonX, buttonY, 'left');
         this.game.add.existing(leftButton);
-        var rightButton = new MenuButton(this.slots[i], this.game, this, rightButtonX, buttonY, 'right');
+        var rightButton = new MenuButton(key, this.game, this, rightButtonX, buttonY, 'right');
         this.game.add.existing(rightButton);
         buttonY += 50;
     }
@@ -83,26 +94,27 @@ charcreation.pressedButton = function (button) {
     }
     this.equipSlotItem(
         button.buttonType,
-        this.playerPawn.getValidEquipment(button.buttonType),
         button.spriteName === 'right'
     );
 };
 
-charcreation.equipSlotItem = function (slot, options, isNext) {
-    var index = options.indexOf(this.playerPawn.getCurrentlyEquipped(slot));
+charcreation.equipSlotItem = function (slot, isNext) {
+    var index = this.validEquipment[slot].indexOf(this.playerPawn.equipment.slots[slot].clothingType);
     if (isNext) {
         index++;
-        if (index === options.length) {
+        if (index === this.validEquipment[slot].length) {
             index = 0;
         }
     }
     else {
         index--;
         if (index < 0) {
-            index = options.length - 1;
+            index = this.validEquipment[slot].length - 1;
         }
     }
-    this.playerPawn.equip(slot, options[index]);
+    var item = ItemFactory.getNew(this.slots[slot]);
+    item.setGraphic(this.validEquipment[slot][index]);
+    this.playerPawn.equip(item);
 };
 
 module.exports = charcreation;

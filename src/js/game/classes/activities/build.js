@@ -65,9 +65,6 @@ Build.prototype.onUpdate = function() {
             this.owner.isThrusting = true;
         }
         this.isBuilding = 1;
-        if(!this.owner.equipment.hasSlotEquipped("weapon")){
-            this.owner.equipment.replaceComponent("weapon", "woodwand");
-        }
         this.owner.setAnimation();
     }else{
         this.isBuilding++;

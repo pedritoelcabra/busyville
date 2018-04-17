@@ -43,22 +43,10 @@ var Equipment = function (owner) {
 };
 
 Equipment.prototype.equipInitialGear = function () {
-    this.replaceComponent(this.owner.getValidEquipment('body'));
-    this.replaceComponent(this.owner.getValidEquipment('pants'));
-    this.replaceComponent(this.owner.getValidEquipment('shirt'));
-    this.replaceComponent(this.owner.getValidEquipment('hair'));
-    this.replaceComponent(this.owner.getValidEquipment('head'));
-    this.replaceComponent(this.owner.getValidEquipment('feet'));
-    this.replaceComponent(this.owner.getValidEquipment('weapon'));
-};
-
-Equipment.prototype.replaceComponent = function (name) {
-    if (name === '') {
-        return;
+    for (var key in this.items) {
+        this.replaceComponent(this.owner.getValidEquipment(key));
     }
-    this.equipItem(ItemFactory.getNew(name));
 };
-
 
 Equipment.prototype.equipSlot = function (slot, name) {
 
@@ -82,6 +70,13 @@ Equipment.prototype.equipSlot = function (slot, name) {
     this.slots[slot] = component;
 };
 
+Equipment.prototype.replaceComponent = function (name) {
+    if (name === '') {
+        return;
+    }
+    this.equipItem(ItemFactory.getNew(name));
+};
+
 Equipment.prototype.equipItem = function (item) {
 
     this.items[item.getSlot()] = item;
@@ -98,19 +93,6 @@ Equipment.prototype.equipItem = function (item) {
     this.game.add.existing(component);
     this.owner.addChild(component);
     this.slots[item.getSlot()] = component;
-};
-
-Equipment.prototype.saveDefaults = function () {
-    for (var key in this.slots) {
-        if (this.slots[key]) {
-            this.defaults[key] = this.slots[key];
-        }
-    }
-    for (var key in this.items) {
-        if (this.items[key]) {
-            this.defaults[key] = this.items[key];
-        }
-    }
 };
 
 Equipment.prototype.getWeaponFrameCount = function () {
@@ -143,13 +125,6 @@ Equipment.prototype.getWeapon = function () {
 
 Equipment.prototype.hasSlotEquipped = function (slot) {
     return this.slots[slot];
-};
-
-Equipment.prototype.clearSlot = function (slot) {
-    if (this.slots[slot]) {
-        this.slots[slot].destroy();
-        this.slots[slot] = null;
-    }
 };
 
 Equipment.prototype.playAnimation = function (animation, framerate, repeat) {

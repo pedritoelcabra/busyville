@@ -1,13 +1,15 @@
 'use strict';
 
 var Hair = require('./hair');
-var Randomizer = require('../randomizer');
 
 var HumanHair = function () {
     Hair.call(this);
 
     this.name = 'Hair';
-    this.graphic = Randomizer.arrayRand(hairFiles);
+
+    this.graphicFlavors = hairFiles;
+
+    this.setRandomFlavorGraphic();
 };
 
 HumanHair.prototype = Object.create(Hair.prototype);

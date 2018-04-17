@@ -119,8 +119,8 @@ Pawn.prototype.recentlyCheckedForEnemies = function () {
     return (this.lastCheckedForEnemy + this.checkForEnemyFrequency > this.game.microTime);
 };
 
-Pawn.prototype.equip = function (slot, name) {
-    this.equipment.replaceComponent(slot, name);
+Pawn.prototype.equip = function (item) {
+    this.equipment.equipItem(item);
     this.stopAnimation();
     this.setAnimation();
 };

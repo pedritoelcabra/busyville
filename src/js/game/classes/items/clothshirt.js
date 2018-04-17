@@ -7,12 +7,15 @@ var ClothShirt = function () {
     Shirt.call(this);
 
     this.name = 'Cloth Shirt';
-    this.graphic = Randomizer.arrayRand([
+
+    this.graphicFlavors = [
         'brown_longsleeve',
         'maroon_longsleeve',
         'teal_longsleeve',
         'white_longsleeve'
-    ]);
+    ];
+
+    this.setRandomFlavorGraphic();
 };
 
 ClothShirt.prototype = Object.create(Shirt.prototype);

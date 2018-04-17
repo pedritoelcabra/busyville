@@ -7,7 +7,10 @@ var ClothPants = function () {
     Pants.call(this);
 
     this.name = 'Cloth Pants';
-    this.graphic = Randomizer.arrayRand(pantFiles);
+
+    this.graphicFlavors = pantFiles;
+
+    this.setRandomFlavorGraphic();
 };
 
 ClothPants.prototype = Object.create(Pants.prototype);
