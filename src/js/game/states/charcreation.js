@@ -40,9 +40,9 @@ charcreation.create = function () {
 
     this.validEquipment = {
         'hair': ItemFactory.getNew('HumanHair').getGraphics(),
-        'pants': ItemFactory.getNew('ClothPants').getGraphics(),
+        'body': ItemFactory.getNew('HumanBody').getGraphics(),
         'shirt': ItemFactory.getNew('ClothShirt').getGraphics(),
-        'body': ItemFactory.getNew('HumanBody').getGraphics()
+        'pants': ItemFactory.getNew('ClothPants').getGraphics(),
     };
 
     for (var key in this.validEquipment) {

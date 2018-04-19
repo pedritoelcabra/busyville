@@ -77,9 +77,17 @@ Menu.prototype.buildButtons = function () {
     var xoff = this.xoff;
     var yoff = this.yoff;
     for (var i = 0; i < buttons.length; i++) {
-        var newButton = new MenuButton(buttons[i], this.game, this, xoff, yoff);
-        newButton.width = this.buttonWidth;
-        newButton.height = this.buttonHeight;
+        var newButton = new MenuButton(
+            buttons[i],
+            this.game,
+            this,
+            xoff,
+            yoff,
+            buttons[i],
+            this.buttonWidth,
+            this.buttonWidth,
+            'grey_button'
+        );
         xoff += newButton.width + this.buttonSeparation;
         this.game.add.existing(newButton);
         this.game.menus.push(newButton);
