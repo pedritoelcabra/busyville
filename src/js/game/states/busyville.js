@@ -1,6 +1,7 @@
 
 var Randomizer = require('../classes/randomizer');
 var Orc = require('../prefabs/movables/enemies/orc');
+var Tree = require('../prefabs/tree');
 var Player = require('../prefabs/movables/player');
 var CollisionMap = require('../classes/collisionmap');
 var BuildingManager = require('../classes/buildingmanager');
@@ -43,6 +44,8 @@ busyville.create = function () {
     this.game.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
     this.game.player.init();
     this.game.player.loadEquipmentString(this.game.playerStartEquipment);
+
+    this.tree = new Tree(this.game, this.game.world.centerX - 100, this.game.world.centerY, 'tree1');
 
     this.orcCount = 1;
 

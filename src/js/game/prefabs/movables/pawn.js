@@ -36,13 +36,8 @@ var Pawn = function (game, x, y) {
     this.equipment = new Equipment(this);
     this.equipment.equipInitialGear();
 
-    if(this.game.collisionDebug){
-
-        var graphics = this.game.add.graphics(0,0);
-        graphics.lineStyle(2, 0x00FF00, 1);
-        graphics.drawRect( 0,0,
-            this.game.worldTileSize, this.game.worldTileSize ) ;
-        this.addChild(graphics);
+    if(this.game.collisionDebug > 0){
+        this.addChild(this.hitBox.drawHitBox(this));
     }
 
     this.inputEnabled = true;

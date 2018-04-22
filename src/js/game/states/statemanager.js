@@ -12,12 +12,16 @@ StateManager.prototype.addGroups = function () {
     this.game.world.bringToTop(this.game.plots);
     this.game.roads = this.game.add.group();
     this.game.world.bringToTop(this.game.roads);
+    this.game.decorBases = this.game.add.group();
+    this.game.world.bringToTop(this.game.decorBases);
     this.game.buildings = this.game.add.group();
     this.game.world.bringToTop(this.game.buildings);
     this.game.objects = this.game.add.group();
     this.game.world.bringToTop(this.game.objects);
     this.game.units = this.game.add.group();
     this.game.world.bringToTop(this.game.units);
+    this.game.decorFloats = this.game.add.group();
+    this.game.world.bringToTop(this.game.decorFloats);
 };
 
 module.exports = StateManager;

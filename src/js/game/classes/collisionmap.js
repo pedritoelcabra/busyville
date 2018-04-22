@@ -59,6 +59,16 @@ CollisionMap.prototype.setSpriteCollision = function(sprite, value) {
     this.updateSpaceMap();
 };
 
+CollisionMap.prototype.setTileCollision = function(x, y, value) {
+
+    this.collisionArea[y][x] = value;
+    if(this.game.collisionDebug){
+        this.drawCollisionSquare(x, y, value);
+    }
+
+    this.updateSpaceMap();
+};
+
 CollisionMap.prototype.freeSpaceAtLocation = function(x, y, w, h) {
     if (y < 0 || x < 0 || y >= this.freeSpaceMap.length ||  x >= this.freeSpaceMap[0].length) {
         return false;

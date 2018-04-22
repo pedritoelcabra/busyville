@@ -17,6 +17,9 @@ preloader.preload = function () {
     this.load.spritesheet('pawn1', 'images/pawn.png', 72, 96);
     this.load.spritesheet('pawn', 'images/pawn1.png', 64, 64);
 
+    for (var i = 0; i < decorFiles.length; i++) {
+        this.load.image(decorFiles[i], 'images/lpc/decor/' + decorFiles[i] + '.png');
+    }
     for (var i = 0; i < buttonFiles.length; i++) {
         this.load.image(buttonFiles[i], 'images/buttons/' + buttonFiles[i] + '.png');
     }
