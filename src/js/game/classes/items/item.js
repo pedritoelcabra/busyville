@@ -15,6 +15,10 @@ Item.prototype.getName = function() {
     return this.name;
 };
 
+Item.prototype.getItemClassName = function() {
+    return this.className;
+};
+
 Item.prototype.getSlot = function() {
     return this.slot;
 };

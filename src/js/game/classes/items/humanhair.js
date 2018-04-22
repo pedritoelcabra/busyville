@@ -6,6 +6,7 @@ var HumanHair = function () {
     Hair.call(this);
 
     this.name = 'Hair';
+    this.className = 'HumanHair';
 
     this.graphicFlavors = hairFiles;
 

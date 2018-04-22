@@ -49,7 +49,7 @@ busyville.create = function () {
     this.game.decorManager = new DecorManager(this.game);
     this.game.decorManager.addRandomTrees(50);
 
-    this.orcCount = 1;
+    this.orcCount = 3;
 
     this.game.gameMenu = new GameMenu(this.game);
     this.game.gameMenu.buildButtons();

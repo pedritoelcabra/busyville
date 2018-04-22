@@ -6,6 +6,7 @@ var Hammer = function () {
     Weapon.call(this);
 
     this.name = 'Hammer';
+    this.className = 'Hammer';
     this.graphic = 'woodwand';
     this.animation = 'slash';
     this.attackSpeed = 1.3;

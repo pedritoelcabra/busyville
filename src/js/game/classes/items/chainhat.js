@@ -7,6 +7,7 @@ var ChainHat = function () {
     Head.call(this);
 
     this.name = 'Chain Hat';
+    this.className = 'ChainHat';
     this.graphic = 'chainhat';
 };
 

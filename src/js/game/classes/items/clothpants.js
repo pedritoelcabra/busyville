@@ -7,6 +7,7 @@ var ClothPants = function () {
     Pants.call(this);
 
     this.name = 'Cloth Pants';
+    this.className = 'ClothPants';
 
     this.graphicFlavors = pantFiles;
 

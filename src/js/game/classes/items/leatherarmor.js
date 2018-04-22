@@ -7,6 +7,7 @@ var LeatherArmor = function () {
     Shirt.call(this);
 
     this.name = 'Leather Armor';
+    this.className = 'LeatherArmor';
     this.graphic = 'leather';
 };
 

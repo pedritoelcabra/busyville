@@ -8,6 +8,7 @@ var HumanBody = function () {
     Body.call(this);
 
     this.name = 'Human Body';
+    this.className = 'HumanBody';
 
     this.graphicFlavors = [
         'dark2',

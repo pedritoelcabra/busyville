@@ -7,6 +7,7 @@ var OrcBody = function () {
     Body.call(this);
 
     this.name = 'Orc Body';
+    this.className = 'OrcBody';
     this.graphic = Randomizer.arrayRand([
         'orc',
         'red_orc'

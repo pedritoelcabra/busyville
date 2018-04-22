@@ -7,6 +7,7 @@ var ClothShirt = function () {
     Shirt.call(this);
 
     this.name = 'Cloth Shirt';
+    this.className = 'ClothShirt';
 
     this.graphicFlavors = [
         'brown_longsleeve',

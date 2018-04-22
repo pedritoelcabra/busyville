@@ -7,6 +7,7 @@ var BlackShoes = function () {
     Feet.call(this);
 
     this.name = 'Black Shoes';
+    this.className = 'BlackShoes';
     this.graphic = 'black_shoes';
 };
 

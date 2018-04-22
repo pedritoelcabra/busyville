@@ -148,7 +148,7 @@ Equipment.prototype.getEquipmentString = function () {
     for (var key in this.items) {
         if (this.items.hasOwnProperty(key) && this.items[key]) {
             var itemObj = {
-                'item' : this.items[key].constructor.name,
+                'item' : this.items[key].getItemClassName(),
                 'graphic' : this.items[key].graphic
             };
             stringObj[key] = itemObj;
@@ -159,6 +159,7 @@ Equipment.prototype.getEquipmentString = function () {
 
 Equipment.prototype.loadEquipmentString = function (string) {
     var stringObj = JSON.parse(string);
+    console.log(stringObj);
     for (var key in stringObj) {
         if (stringObj.hasOwnProperty(key) && stringObj[key]) {
             var item = ItemFactory.getNew(stringObj[key].item);

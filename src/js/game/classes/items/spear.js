@@ -6,6 +6,7 @@ var Spear = function () {
     Weapon.call(this);
 
     this.name = 'Spear';
+    this.className = 'Spear';
     this.graphic = 'spear';
     this.animation = 'thrust';
     this.attackSpeed = 0.7;
