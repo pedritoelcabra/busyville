@@ -26,6 +26,7 @@ var Player = function (game, x, y) {
 
     this.tileSize = this.game.worldTileSize;
     this.halfTile = this.game.worldTileSize / 2;
+    this.collisionMargin = 5;
 };
 
 Player.prototype = Object.create(Pawn.prototype);
@@ -111,10 +112,18 @@ Player.prototype.updateMovement = function() {
     this.oldFacing = this.isFacing;
     this.isMoving = false;
 
-    this.blockedLeft = this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.halfTile);
-    this.blockedRight = this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y  + this.halfTile);
-    this.blockedUp = this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y - 1);
-    this.blockedDown = this.game.collisionMap.collidesPixel(this.body.x + this.halfTile, this.body.y + this.tileSize + 1);
+    this.blockedLeft =
+        this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.collisionMargin) ||
+        this.game.collisionMap.collidesPixel(this.body.x - 1, this.body.y + this.tileSize - this.collisionMargin);
+    this.blockedRight =
+        this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y + this.collisionMargin) ||
+        this.game.collisionMap.collidesPixel(this.body.x + this.tileSize + 1, this.body.y  + this.tileSize - this.collisionMargin);
+    this.blockedUp =
+        this.game.collisionMap.collidesPixel(this.body.x + this.collisionMargin, this.body.y - 1) ||
+        this.game.collisionMap.collidesPixel(this.body.x + this.tileSize - this.collisionMargin, this.body.y - 1);
+    this.blockedDown =
+        this.game.collisionMap.collidesPixel(this.body.x + this.collisionMargin, this.body.y + this.tileSize + 1) ||
+        this.game.collisionMap.collidesPixel(this.body.x + this.tileSize - this.collisionMargin, this.body.y + this.tileSize + 1);
 
     if (this.movingUp && this.movingLeft && !this.blockedLeft && !this.blockedUp) {
         this.isFacing = 3;

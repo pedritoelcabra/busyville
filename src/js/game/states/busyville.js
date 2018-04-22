@@ -8,6 +8,7 @@ var BuildingManager = require('../classes/buildingmanager');
 var FactionManager = require('../classes/factionmanager');
 var GameMenu = require('../classes/menus/gamemenu');
 var CursorManager = require('../prefabs/cursormanager');
+var DecorManager = require('../classes/decormanager');
 
 var busyville = {};
 
@@ -45,7 +46,8 @@ busyville.create = function () {
     this.game.player.init();
     this.game.player.loadEquipmentString(this.game.playerStartEquipment);
 
-    this.tree = new Tree(this.game, this.game.world.centerX - 100, this.game.world.centerY, 'tree1');
+    this.game.decorManager = new DecorManager(this.game);
+    this.game.decorManager.addRandomTrees(50);
 
     this.orcCount = 1;
 
